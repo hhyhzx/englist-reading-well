@@ -10,84 +10,49 @@
 <style>
 :root{--bg:#faf9f6;--card:#fff;--text:#1a1a1a;--sub:#888;--accent:#003366;--red:#c62828;--blue:#1565c0;--green:#2e7d32;--orange:#e65100;--border:#e0dcd5;--shadow:0 1px 3px rgba(0,0,0,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;line-height:1.5;-webkit-tap-highlight-color:transparent;user-select:none}
-
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;line-height:1.5}
 .header{background:var(--accent);color:#fff;padding:10px 14px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
 .header h1{font-size:17px}
 .header span{font-size:11px;opacity:.8}
-
 .tabs{display:flex;position:sticky;top:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
 .tab{flex:1;text-align:center;padding:9px 0;font-size:13px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.main{padding:10px 12px 30px}
 
-.main{padding:10px 12px 70px}
-.section-title{font-size:14px;font-weight:700;color:var(--accent);margin:12px 0 6px;padding:6px 10px;background:var(--card);border-radius:8px;box-shadow:var(--shadow)}
-.section-title .count{font-size:11px;color:var(--sub);font-weight:400}
+.mode-tabs{display:flex;gap:6px;margin:6px 0}
+.mode-tab{flex:1;text-align:center;padding:6px;border-radius:8px;background:var(--bg);font-size:12px;cursor:pointer;border:1px solid var(--border)}
+.mode-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-/* Flashcard */
-.flashcard{background:var(--card);border-radius:10px;padding:14px;margin:8px 0;box-shadow:var(--shadow);cursor:pointer;transition:all .2s;border:1px solid var(--border)}
-.flashcard:active{transform:scale(.98)}
-.flashcard .front{text-align:center}
-.flashcard .front .en{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:4px}
-.flashcard .front .ipa{font-size:14px;color:var(--green);margin-bottom:2px}
-.flashcard .back{display:none;text-align:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)}
-.flashcard .back .cn{font-size:18px;font-weight:600;color:var(--text)}
-.flashcard .back .pos{font-size:12px;color:var(--sub);margin-top:2px}
-.flashcard .back .note{font-size:11px;color:var(--orange);margin-top:4px}
-.flashcard.show .back{display:block}
+.card{background:var(--card);border-radius:10px;padding:16px;margin:8px 0;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.card .en{font-size:22px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.card .ipa{font-size:15px;color:var(--green);margin-bottom:8px}
+.card .pos{font-size:12px;color:var(--sub)}
+.card .cn{font-size:20px;font-weight:600;color:var(--text);margin-top:8px}
+.card .divider{border:none;border-top:1px dashed var(--border);margin:10px 0}
+.card .tag-row{margin-top:6px}
 
-.tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;color:#fff;margin-left:4px;vertical-align:middle}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff}
 .tag-core{background:var(--red)}
 .tag-adv{background:var(--blue)}
 .tag-rec{background:var(--green)}
 .tag-phr{background:var(--orange)}
 
-/* Progress */
-.progress{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s}
-.dot.seen{background:var(--accent)}
-.dot.mastered{background:var(--green)}
+.pattern-card{background:var(--card);border-radius:10px;padding:16px;margin:8px 0;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.pattern-card .pname{font-size:18px;font-weight:700;color:var(--red);font-family:monospace;margin-bottom:8px}
+.pattern-card .eg{font-size:14px;color:var(--accent);margin:6px 0}
+.pattern-card .pcn{font-size:13px;color:var(--sub)}
 
-/* Bottom */
-.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--border);display:flex;padding:6px 10px env(safe-area-inset-bottom,6px);gap:8px;z-index:99}
-.bottom-bar button{flex:1;padding:8px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
-.btn-flip{background:var(--accent);color:#fff}
-.btn-known{background:#e8f5e9;color:var(--green)}
-.btn-unknown{background:#fce4ec;color:var(--red)}
-.btn-reset{background:var(--bg);color:var(--sub);flex:.5;font-size:11px}
+.page-info{text-align:center;font-size:12px;color:var(--sub);margin:8px 0}
 
-/* Stats bar */
-.stats-bar{display:flex;gap:8px;margin:8px 0;font-size:11px;color:var(--sub)}
-.stats-bar span{background:var(--card);padding:3px 8px;border-radius:10px;box-shadow:var(--shadow)}
-
-/* Highlight animation */
-@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
-.pop{animation:pop .3s ease}
-
-/* Filter */
-.filter-row{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}
-.filter-pill{font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid var(--border);cursor:pointer;background:var(--bg)}
-.filter-pill.on.core{background:var(--red);color:#fff;border-color:var(--red)}
-.filter-pill.on.adv{background:var(--blue);color:#fff;border-color:var(--blue)}
-.filter-pill.on.rec{background:var(--green);color:#fff;border-color:var(--green)}
-.filter-pill.on.phr{background:var(--orange);color:#fff;border-color:var(--orange)}
-
-/* Mode tabs */
-.mode-tabs{display:flex;gap:6px;margin:6px 0}
-.mode-tab{flex:1;text-align:center;padding:6px;border-radius:8px;background:var(--bg);font-size:12px;cursor:pointer;border:1px solid var(--border)}
-.mode-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* Sentence pattern card */
-.pattern-card{background:var(--card);border-radius:8px;padding:12px;margin:8px 0;box-shadow:var(--shadow)}
-.pattern-card .pattern{font-size:16px;color:var(--red);font-weight:600;margin-bottom:4px;font-family:monospace}
-.pattern-card .eg{font-size:13px;color:var(--accent);margin:4px 0}
-.pattern-card .cn{font-size:12px;color:var(--sub)}
+.nav-row{display:flex;gap:8px;margin:8px 0}
+.nav-row button{flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--card);font-size:14px;cursor:pointer}
+.nav-row button:active{background:var(--bg)}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div><h1>📖 精读词汇记忆</h1><span id="statsText">Day 1 · 已看 0 · 已掌握 0</span></div>
+  <div><h1>📖 精读词汇记忆</h1><span id="headerInfo">Day 1 · 词汇</span></div>
 </div>
 
 <div class="tabs" id="tabs">
@@ -98,17 +63,9 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 
 <div class="main" id="main"></div>
 
-<div class="bottom-bar">
-  <button class="btn-reset" onclick="resetDay()">🔄</button>
-  <button class="btn-unknown" onclick="markUnknown()">✗ 不认识</button>
-  <button class="btn-known" onclick="markKnown()">✓ 认识了</button>
-</div>
-
 <script>
-// ==================== DATA ====================
 const DAYS = [{
-  title:'万筷崖咖啡 · Wanjiao Cliff Coffee',
-  core:[
+  title:'万筷崖咖啡', core:[
     ['imagine','/ɪˈmædʒɪn/','v.','想象'],
     ['experience','/ɪkˈspɪəriəns/','n./v.','经历；体验'],
     ['located','/ləʊˈkeɪtɪd/','adj.','位于'],
@@ -157,8 +114,7 @@ const DAYS = [{
     ['online','/ˌɒnˈlaɪn/','adj./adv.','在线的'],
     ['social','/ˈsəʊʃl/','adj.','社会的'],
     ['law','/lɔː/','n.','法律'],
-  ],
-  advanced:[
+  ], advanced:[
     ['extreme','/ɪkˈstriːm/','adj.','极端的'],
     ['trail','/treɪl/','n.','小路；小径'],
     ['instructor','/ɪnˈstrʌktə/','n.','教练'],
@@ -171,12 +127,10 @@ const DAYS = [{
     ['ensure','/ɪnˈʃʊə/','v.','确保'],
     ['lower','/ˈləʊə/','v.','降低；放下'],
     ['lover','/ˈlʌvə/','n.','爱好者'],
-  ],
-  recognition:[
+  ], recognition:[
     ['roaring','/ˈrɔːrɪŋ/','adj.','咆哮的'],
     ['once-in-a-lifetime','/wʌns ɪn ə ˈlaɪftaɪm/','adj.','一生一次的'],
-  ],
-  phrases:[
+  ], phrases:[
     ['act as','充当；作为'],
     ['be made up of','由……组成'],
     ['with the help of','在……帮助下'],
@@ -186,20 +140,17 @@ const DAYS = [{
     ['safety comes first','安全第一'],
     ['be described as','被描述为'],
     ['continue to do','继续做某事'],
-  ],
-  patterns:[
+  ], patterns:[
     ['make + n. + adj.','A cliff cafe makes such an experience possible.','使某事/某人处于某种状态'],
     ['Although…, …','Although the cafe has been open since 2024, it recently became famous online.','虽然……但是……（不与but连用）'],
     ['…, which …','This process is called "abseiling", which requires both courage and careful safety checks.','逗号+which 指代整件事'],
-    ['not only … but also …','(implied in text)','不仅……而且……'],
-    ['once …, …','Once you get to the platforms, you can stay as long as you like.','一旦……就……'],
-    ['动名词作主语 + 单数谓语','reaching this cafe is not easy','动名词作主语时，谓语用单数'],
+    ['动名词作主语 + 单数谓语','reaching this cafe is not easy','动名词作主语，谓语用单数'],
     ['while + doing 省略','while overlooking roaring waves below','while后省略主语和be动词'],
     ['…, showing …','Many videos were shared on social media, showing the breathtaking views.','逗号+doing 作伴随状语'],
+    ['once …, …','Once you get to the platforms, you can stay as long as you like.','一旦……就……'],
   ]
 },{
-  title:'冰川漂浮小屋 · Glacier Floating Hut',
-  core:[
+  title:'冰川漂浮小屋', core:[
     ['comfortable','/ˈkʌmftəbl/','adj.','舒适的'],
     ['double','/ˈdʌbl/','adj.','双人的'],
     ['kitchen','/ˈkɪtʃɪn/','n.','厨房'],
@@ -210,7 +161,6 @@ const DAYS = [{
     ['directly','/dɪˈrektli/','adv.','直接地'],
     ['company','/ˈkʌmpəni/','n.','公司'],
     ['offer','/ˈɒfə/','v.','提供'],
-    ['experience','/ɪkˈspɪəriəns/','n.','经历'],
     ['cave','/keɪv/','n.','洞穴'],
     ['available','/əˈveɪləbl/','adj.','可获得的'],
     ['guest','/ɡest/','n.','客人'],
@@ -226,8 +176,7 @@ const DAYS = [{
     ['town','/taʊn/','n.','城镇'],
     ['northern','/ˈnɔːðən/','adj.','北方的'],
     ['run','/rʌn/','v.','经营'],
-  ],
-  advanced:[
+  ], advanced:[
     ['isolated','/ˈaɪsəleɪtɪd/','adj.','与世隔绝的'],
     ['breathtaking','/ˈbreθˌteɪkɪŋ/','adj.','令人惊叹的'],
     ['landscape','/ˈlændskeɪp/','n.','风景'],
@@ -235,13 +184,11 @@ const DAYS = [{
     ['glacier','/ˈɡlæsiə/','n.','冰川'],
     ['guided','/ˈɡaɪdɪd/','adj.','有指导的'],
     ['solo','/ˈsəʊləʊ/','adj.','独自的'],
-  ],
-  recognition:[
+  ], recognition:[
     ['barbecue','/ˈbɑːbɪkjuː/','n.','烧烤'],
     ['deck','/dek/','n.','甲板'],
     ['fjord','/fjɔːd/','n.','峡湾'],
-  ],
-  phrases:[
+  ], phrases:[
     ['get away from','逃离；抛开'],
     ['be located on','位于'],
     ['come with','附带；伴随'],
@@ -249,19 +196,17 @@ const DAYS = [{
     ['pick up','接（人）；捡起'],
     ['How about + doing','做……怎么样？'],
     ['What\'s more','此外；更重要的是'],
-  ],
-  patterns:[
+  ], patterns:[
     ['How about + doing?','How about travelling to far East Greenland?','做……怎么样？（提建议）'],
-    ['现在完成时被动: has been + p.p.','It has been called "the most isolated floating hut".','已被称作……'],
+    ['has been + p.p.','It has been called "the most isolated floating hut".','现在完成时被动语态'],
     ['…, making it + adj. …','…making it perfect for either a solo trip or a romantic dinner.','逗号+doing 作结果状语'],
     ['…, which …','It costs around $3,170, which includes transportation by boat.','which 指代整件事'],
-    ['while 表对比','Kulusuk has its own international airport, while Tasiilaq is the largest town.','而/然而（对比，非时间）'],
+    ['while 表对比','…while Tasiilaq is the largest town in East Greenland.','而/然而（对比，非时间）'],
     ['either A or B','either a solo trip or a romantic dinner','要么A要么B（就近原则）'],
-    ['Since …, …','Since the hut is surrounded by panoramic windows, you can have a perfect view.','因为/既然（原因状语从句）'],
+    ['Since …, …','Since the hut is surrounded by panoramic windows, you can have a perfect view.','因为/既然'],
   ]
 },{
-  title:'飞行员火车着陆 · Dario Costa\'s Train Landing',
-  core:[
+  title:'飞行员火车着陆', core:[
     ['land','/lænd/','v.','着陆'],
     ['imagine','/ɪˈmædʒɪn/','v.','想象'],
     ['condition','/kənˈdɪʃn/','n.','条件'],
@@ -290,8 +235,7 @@ const DAYS = [{
     ['handle','/ˈhændl/','v.','处理'],
     ['practise','/ˈpræktɪs/','v.','练习'],
     ['greatest','/ˈɡreɪtɪst/','adj.','最大的'],
-  ],
-  advanced:[
+  ], advanced:[
     ['challenging','/ˈtʃælɪndʒɪŋ/','adj.','有挑战性的'],
     ['runway','/ˈrʌnweɪ/','n.','跑道'],
     ['aircraft','/ˈeəkrɑːft/','n.','飞机'],
@@ -299,13 +243,11 @@ const DAYS = [{
     ['align','/əˈlaɪn/','v.','对齐'],
     ['precision','/prɪˈsɪʒn/','n.','精度'],
     ['instinct','/ˈɪnstɪŋkt/','n.','直觉'],
-  ],
-  recognition:[
+  ], recognition:[
     ['manoeuvre','/məˈnuːvə/','n.','操作；动作'],
     ['airflow','/ˈeəfləʊ/','n.','气流'],
     ['take-off','/ˈteɪkɒf/','n.','起飞'],
-  ],
-  phrases:[
+  ], phrases:[
     ['depend on','依靠；取决于'],
     ['pull off','完成（困难的事）'],
     ['touch down','着陆；降落'],
@@ -314,246 +256,126 @@ const DAYS = [{
     ['not only... but also...','不仅……而且……'],
     ['one of the most + 复数','最……之一'],
     ['as if','好像；似乎'],
-  ],
-  patterns:[
-    ['make + n. + adj.','These difficult conditions make what Dario Costa\'s achievement exactly so impressive.','使……处于某种状态'],
+  ], patterns:[
+    ['make + n. + adj.','These difficult conditions make the achievement so impressive.','使……处于某种状态'],
     ['动名词主语 + 单数谓语','Pulling off such a dangerous manoeuvre required not only courage but also years of planning.','动名词作主语→谓语用单数'],
-    ['not only A but also B','required not only courage and quick reactions, but also years of planning and training.','不仅A而且B'],
+    ['not only A but also B','required not only courage and quick reactions, but also years of planning.','不仅A而且B'],
     ['To become …, …','To become the first pilot to land on a moving train, Dario had to achieve a blind landing.','不定式作目的状语'],
-    ['As if …, …','As if the moving train and short runway weren\'t enough, he also had to deal with strong airflow.','好像/似乎（虚拟语气）'],
+    ['As if …, …','As if the moving train weren\'t enough, he had to deal with strong airflow.','好像/似乎（虚拟语气）'],
     ['one of the + 最高级 + 复数','one of the most challenging projects of my career','最……之一'],
     ['manage to do','he managed to handle everything perfectly','设法做成（困难的事）'],
   ]
 }];
 
-// ==================== STATE ====================
-const KEY = 'vocab_mem_v1';
 let currentDay = 0;
+let currentMode = 'vocab';
 let currentIdx = 0;
-let currentMode = 'vocab'; // vocab | phrase | pattern
-let state = loadState();
 
-function defaultState(){
-  const s = {};
-  for(let d=0;d<3;d++){
-    s['d'+d] = {};
-    // Track each vocab item: 0=unseen, 1=seen, 2=mastered
-    ['core','advanced','recognition'].forEach(cat=>{
-      DAYS[d][cat].forEach((_,i)=>{ s['d'+d][cat+'_'+i] = 0; });
-    });
-    DAYS[d].phrases.forEach((_,i)=>{ s['d'+d]['phrase_'+i] = 0; });
-    DAYS[d].patterns.forEach((_,i)=>{ s['d'+d]['pattern_'+i] = 0; });
-  }
-  return s;
-}
-
-function loadState(){
-  try{
-    const raw = localStorage.getItem(KEY);
-    if(raw) return JSON.parse(raw);
-  }catch(e){}
-  return defaultState();
-}
-
-function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
-
-// ==================== RENDER ====================
 function render(){
   const day = DAYS[currentDay];
-  const ds = state['d'+currentDay];
+  document.getElementById('headerInfo').textContent =
+    'Day '+(currentDay+1)+' · '+(currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句型'));
 
-  // Count stats
-  let total=0, seen=0, mastered=0;
-  ['core','advanced','recognition'].forEach(cat=>{
-    day[cat].forEach((_,i)=>{
-      total++;
-      if(ds[cat+'_'+i] >= 1) seen++;
-      if(ds[cat+'_'+i] >= 2) mastered++;
-    });
-  });
-  document.getElementById('statsText').textContent =
-    'Day '+(currentDay+1)+' · 已看 '+seen+' · 已掌握 '+mastered+' · 共 '+total+'词';
-
-  // Mode tabs
   let html = '<div class="mode-tabs">';
-  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇 ('+total+')</div>';
+  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇</div>';
   html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
   html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
   html += '</div>';
 
-  // Progress dots
-  html += '<div class="progress">';
-  const itemCount = getItemCount();
-  for(let i=0;i<itemCount;i++){
-    const s = getItemState(i);
-    html += '<div class="dot'+(s>=2?' mastered':(s>=1?' seen':''))+'" onclick="goTo('+i+')"></div>';
-    if((i+1)%15===0) html += '<br>';
-  }
-  html += '</div>';
+  const items = getItems();
+  if(currentIdx >= items.length) currentIdx = 0;
 
-  // Stats bar
-  html += '<div class="stats-bar">';
-  html += '<span>🟢 掌握: '+countByState(2)+'</span>';
-  html += '<span>🔵 见过: '+countByState(1)+'</span>';
-  html += '<span>⬜ 新词: '+countByState(0)+'</span>';
-  html += '</div>';
-
-  // Current card
-  if(itemCount > 0){
-    currentIdx = Math.min(currentIdx, itemCount-1);
-    html += renderCard(currentIdx);
+  if(currentMode === 'vocab'){
+    // Group by category with section headers
+    const cats = [
+      {name:'🔴 核心词汇', data:day.core, cls:'tag-core', tag:'核心'},
+      {name:'🔵 提高词汇', data:day.advanced, cls:'tag-adv', tag:'提高'},
+      {name:'🟢 识记词汇', data:day.recognition, cls:'tag-rec', tag:'识记'},
+    ];
+    let globalIdx = 0;
+    cats.forEach(cat=>{
+      html += '<div style="font-size:13px;font-weight:700;color:var(--accent);margin:10px 0 4px">'+cat.name+' ('+cat.data.length+'个)</div>';
+      cat.data.forEach((v,i)=>{
+        const show = (globalIdx === currentIdx);
+        html += '<div class="card" onclick="this.classList.toggle(\'show\')'+(show?'':'')+'" id="item_'+globalIdx+'">';
+        html += '<div class="en">'+v[0]+'</div>';
+        html += '<div class="ipa">'+v[1]+'</div>';
+        html += '<hr class="divider">';
+        html += '<div class="cn">'+v[3]+'</div>';
+        html += '<div class="pos">'+v[2]+'</div>';
+        html += '<div class="tag-row"><span class="tag '+cat.cls+'">'+cat.tag+'</span></div>';
+        html += '</div>';
+        globalIdx++;
+      });
+    });
+    currentIdx = Math.min(currentIdx, globalIdx-1);
+    html += '<div class="page-info">'+(currentIdx+1)+' / '+globalIdx+'</div>';
+  } else if(currentMode === 'phrase'){
+    day.phrases.forEach((v,i)=>{
+      html += '<div class="card" onclick="this.classList.toggle(\'show\')" id="item_'+i+'">';
+      html += '<div class="en" style="font-size:18px">'+v[0]+'</div>';
+      html += '<hr class="divider">';
+      html += '<div class="cn">'+v[1]+'</div>';
+      html += '<div class="tag-row"><span class="tag tag-phr">核心短语</span></div>';
+      html += '</div>';
+    });
+    currentIdx = Math.min(currentIdx, day.phrases.length-1);
+    html += '<div class="page-info">'+(currentIdx+1)+' / '+day.phrases.length+'</div>';
+  } else {
+    day.patterns.forEach((v,i)=>{
+      html += '<div class="pattern-card" id="item_'+i+'">';
+      html += '<div class="pname">'+v[0]+'</div>';
+      html += '<div class="eg">'+v[1]+'</div>';
+      html += '<div class="pcn">'+v[2]+'</div>';
+      html += '</div>';
+    });
+    currentIdx = Math.min(currentIdx, day.patterns.length-1);
+    html += '<div class="page-info">'+(currentIdx+1)+' / '+day.patterns.length+'</div>';
   }
+
+  // Nav buttons
+  html += '<div class="nav-row">';
+  html += '<button onclick="prevItem()">◀ 上一个</button>';
+  html += '<button onclick="nextItem()">下一个 ▶</button>';
+  html += '</div>';
 
   document.getElementById('main').innerHTML = html;
 
-  // Update tabs
+  // Scroll to current item
+  if(currentMode==='vocab'){
+    setTimeout(()=>{
+      const el = document.getElementById('item_'+currentIdx);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+    },100);
+  }
+
   document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
 }
 
-function getItemCount(){
+function getItems(){
   const day = DAYS[currentDay];
-  if(currentMode === 'vocab') return day.core.length + day.advanced.length + day.recognition.length;
-  if(currentMode === 'phrase') return day.phrases.length;
-  return day.patterns.length;
+  if(currentMode==='vocab') return day.core.concat(day.advanced).concat(day.recognition);
+  if(currentMode==='phrase') return day.phrases;
+  return day.patterns;
 }
 
-function getItemState(idx){
-  const day = DAYS[currentDay];
-  const ds = state['d'+currentDay];
-  if(currentMode === 'vocab'){
-    if(idx < day.core.length) return ds['core_'+idx]||0;
-    idx -= day.core.length;
-    if(idx < day.advanced.length) return ds['advanced_'+idx]||0;
-    idx -= day.advanced.length;
-    return ds['recognition_'+idx]||0;
-  }
-  if(currentMode === 'phrase') return ds['phrase_'+idx]||0;
-  return ds['pattern_'+idx]||0;
-}
-
-function setItemState(idx, val){
-  const day = DAYS[currentDay];
-  const ds = state['d'+currentDay];
-  if(currentMode === 'vocab'){
-    if(idx < day.core.length){ ds['core_'+idx]=val; return; }
-    idx -= day.core.length;
-    if(idx < day.advanced.length){ ds['advanced_'+idx]=val; return; }
-    idx -= day.advanced.length;
-    ds['recognition_'+idx]=val;
-    return;
-  }
-  if(currentMode === 'phrase'){ ds['phrase_'+idx]=val; return; }
-  ds['pattern_'+idx]=val;
-}
-
-function countByState(val){
-  let count=0;
-  for(let i=0;i<getItemCount();i++){
-    if(getItemState(i)===val) count++;
-  }
-  return count;
-}
-
-function getItemData(idx){
-  const day = DAYS[currentDay];
-  if(currentMode === 'vocab'){
-    if(idx < day.core.length) return {data:day.core[idx], type:'core'};
-    idx -= day.core.length;
-    if(idx < day.advanced.length) return {data:day.advanced[idx], type:'advanced'};
-    idx -= day.advanced.length;
-    return {data:day.recognition[idx], type:'recognition'};
-  }
-  if(currentMode === 'phrase') return {data:day.phrases[idx], type:'phrase'};
-  return {data:day.patterns[idx], type:'pattern'};
-}
-
-function renderCard(idx){
-  const {data, type} = getItemData(idx);
-  const s = getItemState(idx);
-  let html = '<div class="flashcard show" id="card">';
-
-  if(type === 'pattern'){
-    // Pattern: [name, example, meaning]
-    html += '<div class="front"><div class="en" style="font-family:monospace;font-size:17px;color:#c62828">'+data[0]+'</div></div>';
-    html += '<div class="back"><div class="eg">'+data[1]+'</div><div class="cn">'+data[2]+'</div></div>';
-  } else if(type === 'phrase'){
-    html += '<div class="front"><div class="en" style="font-size:17px">'+data[0]+'</div></div>';
-    html += '<div class="back"><div class="cn">'+data[1]+'</div><span class="tag tag-phr">核心短语</span></div>';
-  } else {
-    // Vocab: [word, ipa, pos, meaning]
-    const tagClass = type==='core'?'tag-core':type==='advanced'?'tag-adv':'tag-rec';
-    const tagText = type==='core'?'核心':type==='advanced'?'提高':'识记';
-    html += '<div class="front"><div class="en">'+data[0]+'</div><div class="ipa">'+data[1]+'</div></div>';
-    html += '<div class="back"><div class="cn">'+data[3]+'</div><div class="pos">'+data[2]+'</div><span class="tag '+tagClass+'">'+tagText+'</span></div>';
-  }
-
-  // State indicator
-  const stateText = s===2?'🟢 已掌握':(s===1?'🔵 见过':'⬜ 新词');
-  html += '<div style="text-align:center;margin-top:8px;font-size:11px;color:var(--sub)">'+stateText+' · '+(idx+1)+'/'+getItemCount()+'</div>';
-  html += '</div>';
-  return html;
-}
-
-// ==================== ACTIONS ====================
 function switchDay(d){ currentDay=d; currentIdx=0; render(); }
+function switchMode(m){ currentMode=m; currentIdx=0; render(); }
+function nextItem(){ currentIdx++; render(); }
+function prevItem(){ currentIdx--; if(currentIdx<0) currentIdx=getItems().length-1; render(); }
 
-function switchMode(m){
-  currentMode=m; currentIdx=0;
-  render();
-}
-
-function goTo(i){ currentIdx=i; render(); }
-
-function markKnown(){
-  const s = getItemState(currentIdx);
-  setItemState(currentIdx, s>=2 ? 0 : 2); // toggle: mastered -> unseen
-  save();
-  nextCard();
-}
-
-function markUnknown(){
-  const s = getItemState(currentIdx);
-  setItemState(currentIdx, s>=1 ? 0 : 1); // toggle: seen -> unseen
-  save();
-  nextCard();
-}
-
-function nextCard(){
-  currentIdx = (currentIdx + 1) % getItemCount();
-  render();
-  // Scroll card into view
-  setTimeout(()=>{
-    const card = document.getElementById('card');
-    if(card) card.classList.add('pop');
-  }, 50);
-}
-
-function resetDay(){
-  if(confirm('重置 Day '+(currentDay+1)+' 的学习进度？')){
-    const ds = state['d'+currentDay];
-    Object.keys(ds).forEach(k=>{ ds[k]=0; });
-    currentIdx=0;
-    save();
-    render();
-  }
-}
-
-// Swipe support
-let touchStartX = 0;
-document.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; });
-document.addEventListener('touchend', e=>{
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if(Math.abs(dx) > 60){
-    if(dx < -30) markUnknown();
-    else if(dx > 30) markKnown();
-  }
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft') prevItem();
+  if(e.key==='ArrowRight') nextItem();
 });
 
-// Keyboard support
-document.addEventListener('keydown', e=>{
-  if(e.key==='ArrowLeft') markUnknown();
-  if(e.key==='ArrowRight') markKnown();
-  if(e.key==='ArrowUp'||e.key==='ArrowDown'){ e.preventDefault(); nextCard(); }
+// Swipe
+let tx=0;
+document.addEventListener('touchstart',e=>{ tx=e.touches[0].clientX; });
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50){ if(dx<0) nextItem(); else prevItem(); }
 });
 
 if('serviceWorker' in navigator){
