@@ -96,6 +96,7 @@ function speak(text){
   document.querySelectorAll('.speaker').forEach(s=>s.classList.add('speaking'));
   u.onend = ()=>{ document.querySelectorAll('.speaker').forEach(s=>s.classList.remove('speaking')); };
   window.speechSynthesis.speak(u);
+      markListened();
 }
 
 // ==================== DATA ====================
@@ -304,6 +305,31 @@ const DAYS = [{
 
 // ==================== STATE ====================
 let currentDay = 0;
+const LKEY = 'listen_v1';
+let listened = {};
+try{ listened = JSON.parse(localStorage.getItem(LKEY)) || {}; }catch(e){}
+function saveListened(){ localStorage.setItem(LKEY, JSON.stringify(listened)); }
+function lid(){ return currentDay+'_'+currentMode+'_'+currentIdx; }
+function markListened(){ listened[lid()]=1; saveListened(); updateHeader(); }
+function isListened(){ return listened[lid()]||0; }
+function listenedCount(){
+  let c=0;
+  const day=DAYS[currentDay];
+  const all=[...day.core,...day.advanced,...day.recognition,...day.phrases];
+  if(day.complex) all.push(...day.complex);
+  for(let k in listened){
+    const parts=k.split('_');
+    if(parseInt(parts[0])===currentDay && listened[k]) c++;
+  }
+  return c;
+}
+function totalCount(){
+  const d=DAYS[currentDay];
+  return d.core.length+d.advanced.length+d.recognition.length+d.phrases.length+(d.complex?d.complex.length:0);
+}
+function updateHeader(){
+      updateHeader();
+}
 let currentMode = 'vocab';
 let currentIdx = 0;
 
@@ -338,7 +364,7 @@ function render(){
     html += '<div class="card" id="card" onclick="flipCard()">';
     html += '<div class="en">'+v[0]+'</div>';
     html += '<div class="ipa">'+v[1]+'</div>';
-    html += '<div class="speaker" onclick="event.stopPropagation();speak(\''+v[0].replace(/'/g,"\\'")+'\')">🔊</div>';
+    html += '<div class="speaker" onclick="event.stopPropagation();speak(\''+v[0].replace(/'/g,"\\'")+'\')">🔊</div>'+(isListened()?' ✅':'')+'';
     html += '<hr class="divider">';
     html += '<div class="cn" id="cardBack" style="display:none">'+v[3]+'</div>';
     html += '<div class="pos" id="cardPos" style="display:none">'+v[2]+'</div>';
@@ -349,7 +375,7 @@ function render(){
     const v = items[currentIdx];
     html += '<div class="card" id="card" onclick="flipCard()">';
     html += '<div class="en">'+v[0]+'</div>';
-    html += '<div class="speaker" onclick="event.stopPropagation();speak(\''+v[0].replace(/'/g,"\\'")+'\')">🔊</div>';
+    html += '<div class="speaker" onclick="event.stopPropagation();speak(\''+v[0].replace(/'/g,"\\'")+'\')">🔊</div>'+(isListened()?' ✅':'')+'';
     html += '<hr class="divider">';
     html += '<div class="cn" id="cardBack" style="display:none">'+v[1]+'</div>';
     html += '<div class="tag-row"><span class="tag tag-phr">核心短语</span></div>';
@@ -365,7 +391,7 @@ function render(){
     html += '<div class="note">'+v[3]+'</div>';
     // Speaker for the example sentence (strip tags)
     const cleanEg = v[1].replace(/<[^>]*>/g,'').replace(/"/g,'');
-    html += '<div class="speaker" onclick="speak(\''+cleanEg.replace(/'/g,"\\'")+'\')">🔊 朗读例句</div>';
+    html += '<div class="speaker" onclick="speak(\''+cleanEg.replace(/'/g,"\\'")+'\')">🔊 朗读例句</div>'+(isListened()?' ✅':'')+'';
     html += '</div>';
   }
 
