@@ -1,0 +1,6 @@
+*.docx
+*.jpg
+*.png
+*.py
+!start_app.py
+.git/
