@@ -271,86 +271,83 @@ let currentDay = 0;
 let currentMode = 'vocab';
 let currentIdx = 0;
 
+function getCategory(idx){
+      const day = DAYS[currentDay];
+      if(idx < day.core.length) return {name:'🔴 核心词汇', cls:'tag-core', tag:'核心'};
+      idx -= day.core.length;
+      if(idx < day.advanced.length) return {name:'🔵 提高词汇', cls:'tag-adv', tag:'提高'};
+      return {name:'🟢 识记词汇', cls:'tag-rec', tag:'识记'};
+    }
+
 function render(){
-  const day = DAYS[currentDay];
-  document.getElementById('headerInfo').textContent =
-    'Day '+(currentDay+1)+' · '+(currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句型'));
+      const day = DAYS[currentDay];
+      const modeLabel = currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句型');
+      document.getElementById('headerInfo').textContent =
+        'Day '+(currentDay+1)+' · '+modeLabel;
 
-  let html = '<div class="mode-tabs">';
-  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇</div>';
-  html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
-  html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
-  html += '</div>';
+      let html = '<div class="mode-tabs">';
+      html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇</div>';
+      html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
+      html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
+      html += '</div>';
 
-  const items = getItems();
-  if(currentIdx >= items.length) currentIdx = 0;
+      const items = getItems();
+      if(items.length === 0){ document.getElementById('main').innerHTML = html; return; }
+      if(currentIdx >= items.length) currentIdx = 0;
+      if(currentIdx < 0) currentIdx = items.length - 1;
 
-  if(currentMode === 'vocab'){
-    // Group by category with section headers
-    const cats = [
-      {name:'🔴 核心词汇', data:day.core, cls:'tag-core', tag:'核心'},
-      {name:'🔵 提高词汇', data:day.advanced, cls:'tag-adv', tag:'提高'},
-      {name:'🟢 识记词汇', data:day.recognition, cls:'tag-rec', tag:'识记'},
-    ];
-    let globalIdx = 0;
-    cats.forEach(cat=>{
-      html += '<div style="font-size:13px;font-weight:700;color:var(--accent);margin:10px 0 4px">'+cat.name+' ('+cat.data.length+'个)</div>';
-      cat.data.forEach((v,i)=>{
-        const show = (globalIdx === currentIdx);
-        html += '<div class="card" onclick="this.classList.toggle(\'show\')'+(show?'':'')+'" id="item_'+globalIdx+'">';
+      if(currentMode === 'vocab'){
+        const cat = getCategory(currentIdx);
+        const v = items[currentIdx];
+        html += '<div style="font-size:12px;color:var(--sub);text-align:center;margin-bottom:2px">'+cat.name+'</div>';
+        html += '<div class="card" id="card" onclick="flipCard()">';
         html += '<div class="en">'+v[0]+'</div>';
         html += '<div class="ipa">'+v[1]+'</div>';
         html += '<hr class="divider">';
-        html += '<div class="cn">'+v[3]+'</div>';
-        html += '<div class="pos">'+v[2]+'</div>';
+        html += '<div class="cn" id="cardBack" style="display:none">'+v[3]+'</div>';
+        html += '<div class="pos" id="cardPos" style="display:none">'+v[2]+'</div>';
         html += '<div class="tag-row"><span class="tag '+cat.cls+'">'+cat.tag+'</span></div>';
+        html += '<div style="font-size:10px;color:var(--sub);margin-top:6px">👆 点击卡片查看释义</div>';
         html += '</div>';
-        globalIdx++;
-      });
-    });
-    currentIdx = Math.min(currentIdx, globalIdx-1);
-    html += '<div class="page-info">'+(currentIdx+1)+' / '+globalIdx+'</div>';
-  } else if(currentMode === 'phrase'){
-    day.phrases.forEach((v,i)=>{
-      html += '<div class="card" onclick="this.classList.toggle(\'show\')" id="item_'+i+'">';
-      html += '<div class="en" style="font-size:18px">'+v[0]+'</div>';
-      html += '<hr class="divider">';
-      html += '<div class="cn">'+v[1]+'</div>';
-      html += '<div class="tag-row"><span class="tag tag-phr">核心短语</span></div>';
+        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
+      } else if(currentMode === 'phrase'){
+        const v = items[currentIdx];
+        html += '<div class="card" id="card" onclick="flipCard()">';
+        html += '<div class="en" style="font-size:18px">'+v[0]+'</div>';
+        html += '<hr class="divider">';
+        html += '<div class="cn" id="cardBack" style="display:none">'+v[1]+'</div>';
+        html += '<div class="tag-row"><span class="tag tag-phr">核心短语</span></div>';
+        html += '<div style="font-size:10px;color:var(--sub);margin-top:6px">👆 点击卡片查看释义</div>';
+        html += '</div>';
+        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
+      } else {
+        const v = items[currentIdx];
+        html += '<div class="pattern-card">';
+        html += '<div class="pname">'+v[0]+'</div>';
+        html += '<div class="eg">'+v[1]+'</div>';
+        html += '<div class="pcn">'+v[2]+'</div>';
+        html += '</div>';
+        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
+      }
+
+      html += '<div class="nav-row">';
+      html += '<button onclick="prevItem()">◀</button>';
+      html += '<button onclick="flipCard()" style="font-size:18px">👆 翻转</button>';
+      html += '<button onclick="nextItem()">▶</button>';
       html += '</div>';
-    });
-    currentIdx = Math.min(currentIdx, day.phrases.length-1);
-    html += '<div class="page-info">'+(currentIdx+1)+' / '+day.phrases.length+'</div>';
-  } else {
-    day.patterns.forEach((v,i)=>{
-      html += '<div class="pattern-card" id="item_'+i+'">';
-      html += '<div class="pname">'+v[0]+'</div>';
-      html += '<div class="eg">'+v[1]+'</div>';
-      html += '<div class="pcn">'+v[2]+'</div>';
-      html += '</div>';
-    });
-    currentIdx = Math.min(currentIdx, day.patterns.length-1);
-    html += '<div class="page-info">'+(currentIdx+1)+' / '+day.patterns.length+'</div>';
-  }
 
-  // Nav buttons
-  html += '<div class="nav-row">';
-  html += '<button onclick="prevItem()">◀ 上一个</button>';
-  html += '<button onclick="nextItem()">下一个 ▶</button>';
-  html += '</div>';
+      document.getElementById('main').innerHTML = html;
+      document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
+      window._flipped = false;
+    }
 
-  document.getElementById('main').innerHTML = html;
-
-  // Scroll to current item
-  if(currentMode==='vocab'){
-    setTimeout(()=>{
-      const el = document.getElementById('item_'+currentIdx);
-      if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
-    },100);
-  }
-
-  document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
-}
+function flipCard(){
+      window._flipped = !window._flipped;
+      const back = document.getElementById('cardBack');
+      const pos = document.getElementById('cardPos');
+      if(back) back.style.display = window._flipped ? 'block' : 'none';
+      if(pos) pos.style.display = window._flipped ? 'block' : 'none';
+    }
 
 function getItems(){
   const day = DAYS[currentDay];
@@ -361,7 +358,7 @@ function getItems(){
 
 function switchDay(d){ currentDay=d; currentIdx=0; render(); }
 function switchMode(m){ currentMode=m; currentIdx=0; render(); }
-function nextItem(){ currentIdx++; render(); }
+function nextItem(){ currentIdx++; if(currentIdx>=getItems().length) currentIdx=0; render(); }
 function prevItem(){ currentIdx--; if(currentIdx<0) currentIdx=getItems().length-1; render(); }
 
 // Keyboard
