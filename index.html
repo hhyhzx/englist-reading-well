@@ -8,12 +8,12 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<link rel="manifest" href="manifest.json?v=4">
+<link rel="manifest" href="manifest.json?v=5">
 <title>精读词汇 · Day1-3</title>
 <style>
-:root{--bg:#faf9f6;--card:#fff;--text:#1a1a1a;--sub:#888;--accent:#003366;--red:#c62828;--blue:#1565c0;--green:#2e7d32;--orange:#e65100;--border:#e0dcd5;--shadow:0 1px 3px rgba(0,0,0,.08)}
+:root{--bg:#faf9f6;--card:#fff;--text:#1a1a1a;--sub:#888;--accent:#003366;--red:#c62828;--blue:#1565c0;--green:#2e7d32;--orange:#e65100;--border:#e0dcd5;--shadow:0 2px 6px rgba(0,0,0,.1)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;line-height:1.5}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;line-height:1.4;-webkit-tap-highlight-color:transparent}
 .header{background:var(--accent);color:#fff;padding:10px 14px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
 .header h1{font-size:17px}
 .header span{font-size:11px;opacity:.8}
@@ -22,34 +22,48 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .main{padding:10px 12px 30px}
 
-.mode-tabs{display:flex;gap:6px;margin:6px 0}
-.mode-tab{flex:1;text-align:center;padding:6px;border-radius:8px;background:var(--bg);font-size:12px;cursor:pointer;border:1px solid var(--border)}
+.mode-tabs{display:flex;gap:6px;margin:4px 0 8px}
+.mode-tab{flex:1;text-align:center;padding:8px 0;border-radius:10px;background:var(--bg);font-size:13px;cursor:pointer;border:1px solid var(--border);font-weight:600}
 .mode-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-.card{background:var(--card);border-radius:10px;padding:16px;margin:8px 0;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
-.card .en{font-size:22px;font-weight:700;color:var(--accent);margin-bottom:6px}
-.card .ipa{font-size:15px;color:var(--green);margin-bottom:8px}
-.card .pos{font-size:12px;color:var(--sub)}
-.card .cn{font-size:20px;font-weight:600;color:var(--text);margin-top:8px}
-.card .divider{border:none;border-top:1px dashed var(--border);margin:10px 0}
+/* BIG card */
+.card{background:var(--card);border-radius:14px;padding:24px 18px 20px;margin:6px 0;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.card .en{font-size:30px;font-weight:700;color:var(--accent);margin-bottom:8px;letter-spacing:1px}
+.card .ipa{font-size:20px;color:var(--green);margin-bottom:10px}
+.card .divider{border:none;border-top:2px dashed var(--border);margin:14px 0}
+.card .cn{font-size:28px;font-weight:700;color:var(--text);margin-top:8px}
+.card .pos{font-size:14px;color:var(--sub);margin-top:4px}
+.card .speaker{display:inline-block;font-size:32px;cursor:pointer;margin-top:8px;padding:6px 14px;border-radius:20px;background:#f0f4ff;transition:all .15s}
+.card .speaker:active{background:#dde4ff;transform:scale(.92)}
+.card .hint{font-size:12px;color:var(--sub);margin-top:8px}
 .card .tag-row{margin-top:6px}
 
-.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:5px;color:#fff}
 .tag-core{background:var(--red)}
 .tag-adv{background:var(--blue)}
 .tag-rec{background:var(--green)}
 .tag-phr{background:var(--orange)}
 
-.pattern-card{background:var(--card);border-radius:10px;padding:16px;margin:8px 0;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
-.pattern-card .pname{font-size:18px;font-weight:700;color:var(--red);font-family:monospace;margin-bottom:8px}
-.pattern-card .eg{font-size:14px;color:var(--accent);margin:6px 0}
-.pattern-card .pcn{font-size:13px;color:var(--sub)}
+.cat-label{font-size:14px;font-weight:700;color:var(--sub);text-align:center;margin-bottom:4px}
 
-.page-info{text-align:center;font-size:12px;color:var(--sub);margin:8px 0}
+/* Pattern card - BIG */
+.pattern-card{background:var(--card);border-radius:14px;padding:20px 16px;margin:6px 0;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.pattern-card .pname{font-size:24px;font-weight:700;color:var(--red);margin-bottom:14px;font-family:monospace;line-height:1.3}
+.pattern-card .pname .hl{padding:2px 6px;border-radius:4px}
+.pattern-card .eg{font-size:16px;color:var(--accent);margin:10px 0;line-height:1.5;text-align:left;padding:10px;background:#f8f6f0;border-radius:8px}
+.pattern-card .eg .kw{font-weight:700;color:var(--red)}
+.pattern-card .eg .ph{color:var(--green);font-weight:600}
+.pattern-card .pcn{font-size:14px;color:var(--sub);margin-top:8px}
+.pattern-card .note{font-size:13px;color:var(--orange);margin-top:6px;font-weight:600}
 
-.nav-row{display:flex;gap:8px;margin:8px 0}
-.nav-row button{flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--card);font-size:14px;cursor:pointer}
-.nav-row button:active{background:var(--bg)}
+.page-info{text-align:center;font-size:13px;color:var(--sub);margin:8px 0;font-weight:600}
+
+.nav-row{display:flex;gap:8px;margin:10px 0}
+.nav-row button{flex:1;padding:14px 0;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:20px;cursor:pointer;font-weight:600;box-shadow:var(--shadow)}
+.nav-row button:active{background:#eee;transform:scale(.96)}
+
+@keyframes speak{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.speaking{animation:speak .4s ease 2}
 </style>
 </head>
 <body>
@@ -67,6 +81,24 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 <div class="main" id="main"></div>
 
 <script>
+// ==================== SPEECH ====================
+function speak(text){
+  if(!window.speechSynthesis){
+    alert('浏览器不支持语音');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  u.pitch = 1;
+  // Animate all speaker icons
+  document.querySelectorAll('.speaker').forEach(s=>s.classList.add('speaking'));
+  u.onend = ()=>{ document.querySelectorAll('.speaker').forEach(s=>s.classList.remove('speaking')); };
+  window.speechSynthesis.speak(u);
+}
+
+// ==================== DATA ====================
 const DAYS = [{
   title:'万筷崖咖啡', core:[
     ['imagine','/ɪˈmædʒɪn/','v.','想象'],
@@ -144,13 +176,13 @@ const DAYS = [{
     ['be described as','被描述为'],
     ['continue to do','继续做某事'],
   ], patterns:[
-    ['make + n. + adj.','A cliff cafe makes such an experience possible.','使某事/某人处于某种状态'],
-    ['Although…, …','Although the cafe has been open since 2024, it recently became famous online.','虽然……但是……（不与but连用）'],
-    ['…, which …','This process is called "abseiling", which requires both courage and careful safety checks.','逗号+which 指代整件事'],
-    ['动名词作主语 + 单数谓语','reaching this cafe is not easy','动名词作主语，谓语用单数'],
-    ['while + doing 省略','while overlooking roaring waves below','while后省略主语和be动词'],
-    ['…, showing …','Many videos were shared on social media, showing the breathtaking views.','逗号+doing 作伴随状语'],
-    ['once …, …','Once you get to the platforms, you can stay as long as you like.','一旦……就……'],
+    ['make + n. + adj.','A cliff cafe <kw>makes</kw> such an experience <kw>possible</kw>.','使某事/某人处于某种状态','make + 宾语 + 宾语补足语（adj.作宾补）'],
+    ['Although…, …','<kw>Although</kw> the cafe has been open since 2024, <kw>it</kw> recently became famous online.','虽然……但是……','⚠️ Although 不与 but 连用！中考改错必考'],
+    ['…, which …','This process is called "abseiling", <kw>, which</kw> requires both courage and careful safety checks.','逗号+which 指代整件事','which 不是指单个词，而是前面整件事'],
+    ['动名词作主语','<kw>Reaching</kw> this cafe <kw>is</kw> not easy.','动名词作主语时，谓语用单数','reaching = 动名词 → 谓语 is（不是 are）'],
+    ['while + doing（省略结构）','…while <kw>overlooking</kw> roaring waves below.','while后省略主语和be动词','= while (they are) overlooking'],
+    ['…, doing …（伴随状语）','Many videos were shared, <kw>showing</kw> the breathtaking views.','逗号+doing 作伴随状语','= and showed... 用分词更高级'],
+    ['the + 最高级','"the world\'s <kw>most extreme</kw> cafe"','最高级前面要加 the','中考常考 the most + adj. 结构'],
   ]
 },{
   title:'冰川漂浮小屋', core:[
@@ -200,13 +232,13 @@ const DAYS = [{
     ['How about + doing','做……怎么样？'],
     ['What\'s more','此外；更重要的是'],
   ], patterns:[
-    ['How about + doing?','How about travelling to far East Greenland?','做……怎么样？（提建议）'],
-    ['has been + p.p.','It has been called "the most isolated floating hut".','现在完成时被动语态'],
-    ['…, making it + adj. …','…making it perfect for either a solo trip or a romantic dinner.','逗号+doing 作结果状语'],
-    ['…, which …','It costs around $3,170, which includes transportation by boat.','which 指代整件事'],
-    ['while 表对比','…while Tasiilaq is the largest town in East Greenland.','而/然而（对比，非时间）'],
-    ['either A or B','either a solo trip or a romantic dinner','要么A要么B（就近原则）'],
-    ['Since …, …','Since the hut is surrounded by panoramic windows, you can have a perfect view.','因为/既然'],
+    ['How about + doing?','<kw>How about travelling</kw> to far East Greenland?','做……怎么样？（提建议）','⚠️ How about + 动名词，不接 to do'],
+    ['现在完成时被动','It <kw>has been called</kw> "the most isolated floating hut".','现在完成时被动语态','has/have been + 过去分词'],
+    ['…, doing …（结果状语）','…<kw>, making</kw> it perfect for either a solo trip or a romantic dinner.','逗号+doing 作结果状语','making = and this makes'],
+    ['…, which …','It costs around $3,170, <kw>, which</kw> includes transportation by boat.','which 指代整件事','which = $3,170这件事'],
+    ['while 表对比','Kulusuk has its own international airport, <kw>while</kw> Tasiilaq is the largest town.','而/然而（对比）','⚠️ while 此处不表时间，表对比'],
+    ['either A or B','<kw>either</kw> a solo trip <kw>or</kw> a romantic dinner','要么A要么B','⚠️ 就近原则：谓语与B保持一致'],
+    ['最高级 + 现在完成时','It <kw>has been</kw> called "the <kw>most</kw> isolated floating hut".','最……的','the most + adj. 最高级结构'],
   ]
 },{
   title:'飞行员火车着陆', core:[
@@ -260,97 +292,103 @@ const DAYS = [{
     ['one of the most + 复数','最……之一'],
     ['as if','好像；似乎'],
   ], patterns:[
-    ['make + n. + adj.','These difficult conditions make the achievement so impressive.','使……处于某种状态'],
-    ['动名词主语 + 单数谓语','Pulling off such a dangerous manoeuvre required not only courage but also years of planning.','动名词作主语→谓语用单数'],
-    ['not only A but also B','required not only courage and quick reactions, but also years of planning.','不仅A而且B'],
-    ['To become …, …','To become the first pilot to land on a moving train, Dario had to achieve a blind landing.','不定式作目的状语'],
-    ['As if …, …','As if the moving train weren\'t enough, he had to deal with strong airflow.','好像/似乎（虚拟语气）'],
-    ['one of the + 最高级 + 复数','one of the most challenging projects of my career','最……之一'],
-    ['manage to do','he managed to handle everything perfectly','设法做成（困难的事）'],
+    ['make + n. + adj.','These difficult conditions <kw>make</kw> the achievement so <kw>impressive</kw>.','使……处于某种状态','make + 宾语 + 宾补（形容词）'],
+    ['动名词作主语','<kw>Pulling off</kw> such a dangerous manoeuvre <kw>required</kw> not only courage...','动名词作主语→谓语用单数','⚠️ Pulling = 动名词 → required（单数）'],
+    ['not only A but also B','<kw>not only</kw> courage and quick reactions, <kw>but also</kw> years of planning.','不仅A而且B','⚠️ 就近原则：谓语与B保持一致'],
+    ['To do…（目的状语）','<kw>To become</kw> the first pilot to land on a moving train, Dario <kw>had to</kw> achieve a blind landing.','不定式作目的状语','= In order to become...'],
+    ['As if…（虚拟语气）','<kw>As if</kw> the moving train and short runway <kw>weren\'t</kw> enough...','好像/似乎','⚠️ As if 后用虚拟语气（过去式）'],
+    ['one of the + 最高级','<kw>one of the most challenging</kw> projects of my career','最……之一','⚠️ one of + the + 最高级 + 复数名词'],
+    ['manage to do','he <kw>managed to handle</kw> everything perfectly','设法做成（困难的事）','= succeeded in handling'],
   ]
 }];
 
+// ==================== STATE ====================
 let currentDay = 0;
 let currentMode = 'vocab';
 let currentIdx = 0;
 
 function getCategory(idx){
-      const day = DAYS[currentDay];
-      if(idx < day.core.length) return {name:'🔴 核心词汇', cls:'tag-core', tag:'核心'};
-      idx -= day.core.length;
-      if(idx < day.advanced.length) return {name:'🔵 提高词汇', cls:'tag-adv', tag:'提高'};
-      return {name:'🟢 识记词汇', cls:'tag-rec', tag:'识记'};
-    }
+  const day = DAYS[currentDay];
+  if(idx < day.core.length) return {name:'🔴 核心词汇', cls:'tag-core', tag:'核心'};
+  idx -= day.core.length;
+  if(idx < day.advanced.length) return {name:'🔵 提高词汇', cls:'tag-adv', tag:'提高'};
+  return {name:'🟢 识记词汇', cls:'tag-rec', tag:'识记'};
+}
 
 function render(){
-      const day = DAYS[currentDay];
-      const modeLabel = currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句型');
-      document.getElementById('headerInfo').textContent =
-        'Day '+(currentDay+1)+' · '+modeLabel;
+  const day = DAYS[currentDay];
+  const modeLabel = currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句型');
+  document.getElementById('headerInfo').textContent = 'Day '+(currentDay+1)+' · '+modeLabel;
 
-      let html = '<div class="mode-tabs">';
-      html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇</div>';
-      html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
-      html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
-      html += '</div>';
+  let html = '<div class="mode-tabs">';
+  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇</div>';
+  html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
+  html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
+  html += '</div>';
 
-      const items = getItems();
-      if(items.length === 0){ document.getElementById('main').innerHTML = html; return; }
-      if(currentIdx >= items.length) currentIdx = 0;
-      if(currentIdx < 0) currentIdx = items.length - 1;
+  const items = getItems();
+  if(items.length === 0){ document.getElementById('main').innerHTML = html; return; }
+  if(currentIdx >= items.length) currentIdx = 0;
+  if(currentIdx < 0) currentIdx = items.length - 1;
 
-      if(currentMode === 'vocab'){
-        const cat = getCategory(currentIdx);
-        const v = items[currentIdx];
-        html += '<div style="font-size:12px;color:var(--sub);text-align:center;margin-bottom:2px">'+cat.name+'</div>';
-        html += '<div class="card" id="card" onclick="flipCard()">';
-        html += '<div class="en">'+v[0]+'</div>';
-        html += '<div class="ipa">'+v[1]+'</div>';
-        html += '<hr class="divider">';
-        html += '<div class="cn" id="cardBack" style="display:none">'+v[3]+'</div>';
-        html += '<div class="pos" id="cardPos" style="display:none">'+v[2]+'</div>';
-        html += '<div class="tag-row"><span class="tag '+cat.cls+'">'+cat.tag+'</span></div>';
-        html += '<div style="font-size:10px;color:var(--sub);margin-top:6px">👆 点击卡片查看释义</div>';
-        html += '</div>';
-        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
-      } else if(currentMode === 'phrase'){
-        const v = items[currentIdx];
-        html += '<div class="card" id="card" onclick="flipCard()">';
-        html += '<div class="en" style="font-size:18px">'+v[0]+'</div>';
-        html += '<hr class="divider">';
-        html += '<div class="cn" id="cardBack" style="display:none">'+v[1]+'</div>';
-        html += '<div class="tag-row"><span class="tag tag-phr">核心短语</span></div>';
-        html += '<div style="font-size:10px;color:var(--sub);margin-top:6px">👆 点击卡片查看释义</div>';
-        html += '</div>';
-        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
-      } else {
-        const v = items[currentIdx];
-        html += '<div class="pattern-card">';
-        html += '<div class="pname">'+v[0]+'</div>';
-        html += '<div class="eg">'+v[1]+'</div>';
-        html += '<div class="pcn">'+v[2]+'</div>';
-        html += '</div>';
-        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
-      }
+  if(currentMode === 'vocab'){
+    const cat = getCategory(currentIdx);
+    const v = items[currentIdx];
+    html += '<div class="cat-label">'+cat.name+'</div>';
+    html += '<div class="card" id="card" onclick="flipCard()">';
+    html += '<div class="en">'+v[0]+'</div>';
+    html += '<div class="ipa">'+v[1]+'</div>';
+    html += '<div class="speaker" onclick="event.stopPropagation();speak(\''+v[0].replace(/'/g,"\\'")+'\')">🔊</div>';
+    html += '<hr class="divider">';
+    html += '<div class="cn" id="cardBack" style="display:none">'+v[3]+'</div>';
+    html += '<div class="pos" id="cardPos" style="display:none">'+v[2]+'</div>';
+    html += '<div class="tag-row"><span class="tag '+cat.cls+'">'+cat.tag+'</span></div>';
+    html += '<div class="hint">👆 点击卡片查看释义 ｜ 🔊 点喇叭听读音</div>';
+    html += '</div>';
+  } else if(currentMode === 'phrase'){
+    const v = items[currentIdx];
+    html += '<div class="card" id="card" onclick="flipCard()">';
+    html += '<div class="en">'+v[0]+'</div>';
+    html += '<div class="speaker" onclick="event.stopPropagation();speak(\''+v[0].replace(/'/g,"\\'")+'\')">🔊</div>';
+    html += '<hr class="divider">';
+    html += '<div class="cn" id="cardBack" style="display:none">'+v[1]+'</div>';
+    html += '<div class="tag-row"><span class="tag tag-phr">核心短语</span></div>';
+    html += '<div class="hint">👆 点击卡片查看释义 ｜ 🔊 点喇叭听读音</div>';
+    html += '</div>';
+  } else {
+    // Pattern: [formula, example, meaning, note]
+    const v = items[currentIdx];
+    html += '<div class="pattern-card">';
+    html += '<div class="pname">'+v[0]+'</div>';
+    html += '<div class="eg">'+v[1].replace(/<kw>/g,'<span class="kw">').replace(/<\/kw>/g,'</span>')+'</div>';
+    html += '<div class="pcn">💡 '+v[2]+'</div>';
+    html += '<div class="note">'+v[3]+'</div>';
+    // Speaker for the example sentence (strip tags)
+    const cleanEg = v[1].replace(/<[^>]*>/g,'').replace(/"/g,'');
+    html += '<div class="speaker" onclick="speak(\''+cleanEg.replace(/'/g,"\\'")+'\')">🔊 朗读例句</div>';
+    html += '</div>';
+  }
 
-      html += '<div class="nav-row">';
-      html += '<button onclick="prevItem()">◀</button>';
-      html += '<button onclick="flipCard()" style="font-size:18px">👆 翻转</button>';
-      html += '<button onclick="nextItem()">▶</button>';
-      html += '</div>';
+  html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
 
-      document.getElementById('main').innerHTML = html;
-      document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
-      window._flipped = false;
-    }
+  html += '<div class="nav-row">';
+  html += '<button onclick="prevItem()">◀</button>';
+  html += '<button onclick="flipCard()">👆 翻转</button>';
+  html += '<button onclick="nextItem()">▶</button>';
+  html += '</div>';
+
+  document.getElementById('main').innerHTML = html;
+  document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
+  window._flipped = false;
+}
 
 function flipCard(){
-      window._flipped = !window._flipped;
-      const back = document.getElementById('cardBack');
-      const pos = document.getElementById('cardPos');
-      if(back) back.style.display = window._flipped ? 'block' : 'none';
-      if(pos) pos.style.display = window._flipped ? 'block' : 'none';
-    }
+  window._flipped = !window._flipped;
+  const back = document.getElementById('cardBack');
+  const pos = document.getElementById('cardPos');
+  if(back) back.style.display = window._flipped ? 'block' : 'none';
+  if(pos) pos.style.display = window._flipped ? 'block' : 'none';
+}
 
 function getItems(){
   const day = DAYS[currentDay];
@@ -364,13 +402,12 @@ function switchMode(m){ currentMode=m; currentIdx=0; render(); }
 function nextItem(){ currentIdx++; if(currentIdx>=getItems().length) currentIdx=0; render(); }
 function prevItem(){ currentIdx--; if(currentIdx<0) currentIdx=getItems().length-1; render(); }
 
-// Keyboard
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft') prevItem();
   if(e.key==='ArrowRight') nextItem();
+  if(e.key===' '||e.key==='Space'){ e.preventDefault(); flipCard(); }
 });
 
-// Swipe
 let tx=0;
 document.addEventListener('touchstart',e=>{ tx=e.touches[0].clientX; });
 document.addEventListener('touchend',e=>{
@@ -379,7 +416,7 @@ document.addEventListener('touchend',e=>{
 });
 
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
+  navigator.serviceWorker.register('sw.js?v=5').catch(()=>{});
 }
 
 render();

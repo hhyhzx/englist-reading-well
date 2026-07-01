@@ -1,4 +1,4 @@
-// PWA Service Worker - v4
+// PWA Service Worker - v5
 // Always fetch fresh, no caching
 self.addEventListener('install', function(e){
   self.skipWaiting();
