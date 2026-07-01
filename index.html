@@ -4,722 +4,563 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#003366">
 <link rel="manifest" href="manifest.json">
-<title>精读笔记 · Day1-3</title>
+<title>精读词汇 · Day1-3</title>
 <style>
-:root{--bg:#faf9f6;--card:#fff;--text:#1a1a1a;--sub:#666;--accent:#003366;--red:#c62828;--blue:#1565c0;--green:#2e7d32;--orange:#e65100;--border:#e0dcd5;--tag-bg:#f5f0e8;--star:#f9a825;--link:#0d7a3e;--shadow:0 1px 3px rgba(0,0,0,.08)}
+:root{--bg:#faf9f6;--card:#fff;--text:#1a1a1a;--sub:#888;--accent:#003366;--red:#c62828;--blue:#1565c0;--green:#2e7d32;--orange:#e65100;--border:#e0dcd5;--shadow:0 1px 3px rgba(0,0,0,.08)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,'SF Pro Text','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;line-height:1.5;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;line-height:1.5;-webkit-tap-highlight-color:transparent;user-select:none}
 
-/* Header */
-.header{background:var(--accent);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
-.header h1{font-size:18px;font-weight:700}
-.header .stats{font-size:12px;opacity:.85}
-.progress-bar{height:3px;background:rgba(255,255,255,.2)}
-.progress-bar div{height:100%;background:#ffd54f;transition:width .3s}
+.header{background:var(--accent);color:#fff;padding:10px 14px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:17px}
+.header span{font-size:11px;opacity:.8}
 
-/* Tabs */
-.tabs{display:flex;position:sticky;top:48px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
-.tab{flex:1;text-align:center;padding:10px 0;font-size:14px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.tabs{display:flex;position:sticky;top:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
+.tab{flex:1;text-align:center;padding:9px 0;font-size:13px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.tab .badge{font-size:10px;background:var(--accent);color:#fff;border-radius:8px;padding:1px 6px;margin-left:4px}
 
-/* Main content */
-.main{padding:12px 14px 80px}
-.card{background:var(--card);border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow);border:1px solid var(--border)}
-.card h3{font-size:15px;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.card h4{font-size:13px;color:var(--accent);margin:8px 0 4px}
+.main{padding:10px 12px 70px}
+.section-title{font-size:14px;font-weight:700;color:var(--accent);margin:12px 0 6px;padding:6px 10px;background:var(--card);border-radius:8px;box-shadow:var(--shadow)}
+.section-title .count{font-size:11px;color:var(--sub);font-weight:400}
 
-/* Check-in */
-.check-row{display:flex;gap:10px;margin:6px 0;font-size:13px;align-items:center}
-.check-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
-.check-row input[type=date]{font-size:13px;border:1px solid var(--border);border-radius:6px;padding:4px 8px;background:var(--bg)}
-.score-stars{display:flex;gap:4px;margin:6px 0}
-.score-stars span{font-size:22px;cursor:pointer;filter:grayscale(1);transition:filter .15s}
-.score-stars span.on{filter:grayscale(0)}
+/* Flashcard */
+.flashcard{background:var(--card);border-radius:10px;padding:14px;margin:8px 0;box-shadow:var(--shadow);cursor:pointer;transition:all .2s;border:1px solid var(--border)}
+.flashcard:active{transform:scale(.98)}
+.flashcard .front{text-align:center}
+.flashcard .front .en{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.flashcard .front .ipa{font-size:14px;color:var(--green);margin-bottom:2px}
+.flashcard .back{display:none;text-align:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)}
+.flashcard .back .cn{font-size:18px;font-weight:600;color:var(--text)}
+.flashcard .back .pos{font-size:12px;color:var(--sub);margin-top:2px}
+.flashcard .back .note{font-size:11px;color:var(--orange);margin-top:4px}
+.flashcard.show .back{display:block}
 
-/* Review table */
-.review-table{width:100%;font-size:11px;border-collapse:collapse;margin:6px 0}
-.review-table th{background:#f0ede5;padding:5px 6px;text-align:left;font-weight:600}
-.review-table td{padding:4px 6px;border-bottom:1px solid var(--border)}
-.review-table input[type=checkbox]{width:15px;height:15px;accent-color:var(--green)}
-
-/* Sentence card */
-.sent-card{border-left:3px solid var(--accent);padding:8px 10px;margin:6px 0;background:#faf8f4;border-radius:0 8px 8px 0;font-size:13px}
-.sent-card .en{font-weight:500;margin-bottom:2px}
-.sent-card .ph{font-size:11px;color:var(--link)}
-.sent-card .cn{font-size:11px;color:var(--sub);margin-top:2px}
-.sent-card .num{font-size:10px;color:var(--red);font-weight:700}
-
-/* Vocab item */
-.vocab-item{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 6px;padding:4px 0;border-bottom:1px dotted var(--border);font-size:12px}
-.vocab-item .w{font-weight:700;font-size:13px}
-.vocab-item .ipa{color:var(--link);font-size:11px}
-.vocab-item .pos{color:var(--sub);font-size:10px}
-.vocab-item .cn{color:var(--text)}
-.tag{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;color:#fff;white-space:nowrap}
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;color:#fff;margin-left:4px;vertical-align:middle}
 .tag-core{background:var(--red)}
 .tag-adv{background:var(--blue)}
 .tag-rec{background:var(--green)}
 .tag-phr{background:var(--orange)}
 
-/* Complex sentence tree */
-.tree-card{background:#faf8f4;border-radius:8px;padding:10px;margin:6px 0;font-size:12px}
-.tree-card .sent{font-weight:500;margin-bottom:6px;color:var(--accent)}
-.tree-card .tree{font-family:'SF Mono','Consolas',monospace;font-size:11px;color:var(--sub);line-height:1.6}
-.tree-card .tip{font-size:11px;color:var(--orange);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border)}
+/* Progress */
+.progress{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s}
+.dot.seen{background:var(--accent)}
+.dot.mastered{background:var(--green)}
 
-/* Collapse */
-.collapse-header{cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center}
-.collapse-header::after{content:'▾';font-size:12px;transition:transform .2s;color:var(--sub)}
-.collapse-header.open::after{transform:rotate(180deg)}
-.collapse-body{display:none}
-.collapse-body.show{display:block}
+/* Bottom */
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--border);display:flex;padding:6px 10px env(safe-area-inset-bottom,6px);gap:8px;z-index:99}
+.bottom-bar button{flex:1;padding:8px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.btn-flip{background:var(--accent);color:#fff}
+.btn-known{background:#e8f5e9;color:var(--green)}
+.btn-unknown{background:#fce4ec;color:var(--red)}
+.btn-reset{background:var(--bg);color:var(--sub);flex:.5;font-size:11px}
 
-/* Self-test */
-.test-input{border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:13px;width:100%;margin:3px 0;background:var(--bg)}
-.test-input:focus{outline:none;border-color:var(--accent)}
+/* Stats bar */
+.stats-bar{display:flex;gap:8px;margin:8px 0;font-size:11px;color:var(--sub)}
+.stats-bar span{background:var(--card);padding:3px 8px;border-radius:10px;box-shadow:var(--shadow)}
 
-/* Bottom nav */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--border);display:flex;padding:6px 0 env(safe-area-inset-bottom,6px);z-index:99}
-.nav-item{flex:1;text-align:center;font-size:10px;color:var(--sub);cursor:pointer}
-.nav-item .icon{font-size:20px;display:block}
-.nav-item.active{color:var(--accent)}
+/* Highlight animation */
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.pop{animation:pop .3s ease}
 
-/* Toast */
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;z-index:200;opacity:0;transition:opacity .3s}
-.toast.show{opacity:1}
+/* Filter */
+.filter-row{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}
+.filter-pill{font-size:10px;padding:3px 10px;border-radius:12px;border:1px solid var(--border);cursor:pointer;background:var(--bg)}
+.filter-pill.on.core{background:var(--red);color:#fff;border-color:var(--red)}
+.filter-pill.on.adv{background:var(--blue);color:#fff;border-color:var(--blue)}
+.filter-pill.on.rec{background:var(--green);color:#fff;border-color:var(--green)}
+.filter-pill.on.phr{background:var(--orange);color:#fff;border-color:var(--orange)}
 
-/* Filter pills */
-.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-.filter-pill{font-size:11px;padding:4px 10px;border-radius:14px;border:1px solid var(--border);cursor:pointer;background:var(--bg);transition:all .15s}
-.filter-pill.on{color:#fff}
-.filter-pill.on.core{background:var(--red);border-color:var(--red)}
-.filter-pill.on.adv{background:var(--blue);border-color:var(--blue)}
-.filter-pill.on.rec{background:var(--green);border-color:var(--green)}
-.filter-pill.on.phr{background:var(--orange);border-color:var(--orange)}
+/* Mode tabs */
+.mode-tabs{display:flex;gap:6px;margin:6px 0}
+.mode-tab{flex:1;text-align:center;padding:6px;border-radius:8px;background:var(--bg);font-size:12px;cursor:pointer;border:1px solid var(--border)}
+.mode-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-/* Reading mode */
-.reading-mode .sent-card .ph{display:block}
-.hide-ph .sent-card .ph{display:none}
-
-/* Responsive */
-@media (max-width:360px){.header h1{font-size:16px}.tab{font-size:12px}.card{padding:10px}}
+/* Sentence pattern card */
+.pattern-card{background:var(--card);border-radius:8px;padding:12px;margin:8px 0;box-shadow:var(--shadow)}
+.pattern-card .pattern{font-size:16px;color:var(--red);font-weight:600;margin-bottom:4px;font-family:monospace}
+.pattern-card .eg{font-size:13px;color:var(--accent);margin:4px 0}
+.pattern-card .cn{font-size:12px;color:var(--sub)}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div><h1>📖 精读笔记</h1><div class="stats" id="headerStats">Day 1-3 · 打卡中</div></div>
-  <div style="font-size:24px;cursor:pointer" onclick="resetData()" title="重置">⚙</div>
+  <div><h1>📖 精读词汇记忆</h1><span id="statsText">Day 1 · 已看 0 · 已掌握 0</span></div>
 </div>
-<div class="progress-bar"><div id="progressFill" style="width:0%"></div></div>
 
 <div class="tabs" id="tabs">
-  <div class="tab active" onclick="switchDay(0)">Day 1<div class="badge">万筷崖</div></div>
-  <div class="tab" onclick="switchDay(1)">Day 2<div class="badge">漂浮小屋</div></div>
-  <div class="tab" onclick="switchDay(2)">Day 3<div class="badge">火车着陆</div></div>
+  <div class="tab active" onclick="switchDay(0)">Day 1</div>
+  <div class="tab" onclick="switchDay(1)">Day 2</div>
+  <div class="tab" onclick="switchDay(2)">Day 3</div>
 </div>
 
 <div class="main" id="main"></div>
 
-<div class="bottom-nav">
-  <div class="nav-item active" id="navHome" onclick="switchDay(currentDay)">
-    <span class="icon">📚</span>学习
-  </div>
-  <div class="nav-item" id="navReview" onclick="showReview()">
-    <span class="icon">🔄</span>复习
-  </div>
-  <div class="nav-item" id="navStats" onclick="showStats()">
-    <span class="icon">📊</span>统计
-  </div>
+<div class="bottom-bar">
+  <button class="btn-reset" onclick="resetDay()">🔄</button>
+  <button class="btn-unknown" onclick="markUnknown()">✗ 不认识</button>
+  <button class="btn-known" onclick="markKnown()">✓ 认识了</button>
 </div>
-<div class="toast" id="toast"></div>
 
 <script>
-// ===================== DATA =====================
-const DAYS = [
-  { // Day 1
-    title:'万筷崖咖啡', en:'Wanjiao Cliff Coffee',
-    prev:[],
-    core:[
-      ['imagine','/ɪˈmædʒɪn/','v.','想象'],
-      ['experience','/ɪkˈspɪəriəns/','n./v.','经历；体验'],
-      ['located','/ləʊˈkeɪtɪd/','adj.','位于'],
-      ['describe','/dɪˈskraɪb/','v.','描述'],
-      ['special','/ˈspeʃl/','adj.','特别的'],
-      ['platform','/ˈplætfɔːm/','n.','平台；站台'],
-      ['flat','/flæt/','adj.','平的'],
-      ['firmly','/ˈfɜːmli/','adv.','牢固地'],
-      ['fix','/fɪks/','v.','固定；修理'],
-      ['reach','/riːtʃ/','v.','到达；够到'],
-      ['dangerous','/ˈdeɪndʒərəs/','adj.','危险的'],
-      ['mountain','/ˈmaʊntən/','n.','山；山脉'],
-      ['rope','/rəʊp/','n.','绳子'],
-      ['process','/ˈprəʊses/','n.','过程'],
-      ['require','/rɪˈkwaɪə/','v.','需要；要求'],
-      ['courage','/ˈkʌrɪdʒ/','n.','勇气'],
-      ['safety','/ˈseɪfti/','n.','安全'],
-      ['check','/tʃek/','n./v.','检查'],
-      ['although','/ɔːlˈðəʊ/','conj.','虽然；尽管'],
-      ['recently','/ˈriːsntli/','adv.','最近'],
-      ['famous','/ˈfeɪməs/','adj.','著名的'],
-      ['online','/ˌɒnˈlaɪn/','adj./adv.','在线的'],
-      ['share','/ʃeə/','v.','分享'],
-      ['social','/ˈsəʊʃl/','adj.','社会的'],
-      ['view','/vjuː/','n.','景色；观点'],
-      ['exciting','/ɪkˈsaɪtɪŋ/','adj.','令人兴奋的'],
-      ['tourist','/ˈtʊərɪst/','n.','游客'],
-      ['advance','/ədˈvɑːns/','adj.','提前的'],
-      ['allow','/əˈlaʊ/','v.','允许'],
-      ['without','/wɪˈðaʊt/','prep.','没有'],
-      ['professional','/prəˈfeʃənl/','adj.','专业的'],
-      ['guidance','/ˈɡaɪdns/','n.','指导'],
-      ['cost','/kɒst/','v./n.','花费'],
-      ['expensive','/ɪkˈspensɪv/','adj.','昂贵的'],
-      ['however','/haʊˈevə/','adv.','然而'],
-      ['include','/ɪnˈkluːd/','v.','包括'],
-      ['insurance','/ɪnˈʃʊərəns/','n.','保险'],
-      ['law','/lɔː/','n.','法律'],
-      ['equipment','/ɪˈkwɪpmənt/','n.','设备'],
-      ['service','/ˈsɜːvɪs/','n.','服务'],
-      ['nightmare','/ˈnaɪtmeə/','n.','噩梦'],
-      ['fear','/fɪə/','v./n.','害怕；恐惧'],
-      ['height','/haɪt/','n.','高度；高处'],
-      ['continue','/kənˈtɪnjuː/','v.','继续'],
-      ['attract','/əˈtrækt/','v.','吸引'],
-      ['adventure','/ədˈventʃə/','n.','冒险'],
-      ['wave','/weɪv/','n.','波浪'],
-      ['below','/bɪˈləʊ/','adv./prep.','在下面'],
-      ['common','/ˈkɒmən/','adj.','普通的；常见的'],
-      ['comfortable','/ˈkʌmftəbl/','adj.','舒适的'],
-      ['attractive','/əˈtræktɪv/','adj.','有吸引力的'],
-    ],
-    advanced:[
-      ['extreme','/ɪkˈstriːm/','adj.','极端的；极限的'],
-      ['trail','/treɪl/','n.','小路；小径'],
-      ['instructor','/ɪnˈstrʌktə/','n.','教练；指导员'],
-      ['lower','/ˈləʊə/','v.','降低；放下'],
-      ['breathtaking','/ˈbreθˌteɪkɪŋ/','adj.','令人惊叹的'],
-      ['founder','/ˈfaʊndə/','n.','创立者'],
-      ['reservation','/ˌrezəˈveɪʃn/','n.','预约'],
-      ['mandatory','/ˈmændətəri/','adj.','强制的；必须的'],
-      ['rental','/ˈrentl/','n.','租赁'],
-      ['lover','/ˈlʌvə/','n.','爱好者'],
-      ['overlook','/ˌəʊvəˈlʊk/','v.','俯瞰；忽视'],
-      ['ensure','/ɪnˈʃʊə/','v.','确保'],
-    ],
-    recognition:[
-      ['roaring','/ˈrɔːrɪŋ/','adj.','咆哮的；轰鸣的'],
-      ['once-in-a-lifetime','/wʌns ɪn ə ˈlaɪftaɪm/','adj.','一生一次的'],
-    ],
-    phrases:[
-      ['act as','充当；作为'],
-      ['be made up of','由……组成'],
-      ['with the help of','在……帮助下'],
-      ['as a result','结果；因此'],
-      ['as long as','只要（引导条件状语从句）'],
-      ['no one is allowed to do','禁止……'],
-      ['safety comes first','安全第一'],
-      ['be described as','被描述为'],
-      ['continue to do','继续做某事'],
-    ],
-    reading:[
-      {n:1,en:'Have you ever imagined drinking coffee on the side of a cliff? A cliff cafe makes such an experience possible.',ph:'Have you 连读→/hævjuː/ | side of a 连读→/saɪdəvə/',cn:'想象过在悬崖边喝咖啡吗？'},
-      {n:2,en:'Located on a cliff, about 60 meters above sea level, Wanjiao Cliff Coffee is a special cafe in Fujian province. It describes itself as "the world\'s most extreme cafe".',ph:'located̶ d失爆破 | most extreme ★★双重重读',cn:'位于福建，海拔约60米悬崖上。自称为"世界上最极端的咖啡馆"。'},
-      {n:3,en:'The cafe is not built on flat ground. Instead, it is made up of some platforms that are firmly fixed to the cliff. These platforms act as seats where people can enjoy their drinks.',ph:'made up of 三词连读→/meɪdʌpəv/ | fixed̶ d失去爆破',cn:'非平地而建，由固定在悬崖上的平台组成，平台充当座位。'},
-      {n:4,en:'However, reaching this cafe is not easy. Tourists must first walk along a dangerous mountain trail for about 30 minutes.',ph:'reaching 动名词主语→谓语单数is',cn:'但到达这里不容易，先要沿危险的山路走约30分钟。'},
-      {n:5,en:'Then, with the help of an instructor, they are slowly lowered down to the platforms by rope. This process is called "abseiling", which requires both courage and careful safety checks.',ph:'abseiling /ˈæbseɪlɪŋ/ | 逗号+which 非限制性定语从句',cn:'在教练帮助下，用绳索缓慢下降到平台。这个过程叫"绳索下降"。'},
-      {n:8,en:'The founder says that advance reservations are required, and that no one is allowed to go down the cliff without professional guidance, because safety comes first.',ph:'★全文最复杂句：并列宾语从句+because原因状从 | says↗主句↘降调',cn:'创始人说：需提前预约，无人可在无专业指导下下崖——安全第一。'},
-      {n:9,en:'A cup of coffee here costs 398 yuan, which sounds expensive. However, the price includes the mandatory insurance, which means the insurance is required by law and you have to pay for it.',ph:'mandatory★/ˈmændətəri/ 答题关键！ | which指代整件事',cn:'一杯咖啡398元，听起来贵。但含强制保险、设备租赁和教练服务。'},
-      {n:13,en:'For them, enjoying a cup of coffee while overlooking roaring waves below is a once-in-a-lifetime experience.',ph:'★★★enjoying动名词主语→谓语is单数（不是are）| while overlooking省略主语',cn:'一边喝咖啡一边俯瞰下方咆哮的海浪——一生一次的体验。'},
-    ],
-    complex:[
-      {title:'① 并列宾语从句 + 原因状语从句（全文最复杂句）',
-       sent:'The founder says that advance reservations are required, and that no one is allowed to go down the cliff without professional guidance, because safety comes first.',
-       tree:'├─ 主句: The founder says\n├─ 宾语从句①: that advance reservations are required\n├─ 并列连接: and\n├─ 宾语从句②: that no one is allowed to...\n└─ 原因状语从句: because safety comes first',
-       tip:'💡 考点：并列宾语从句 + because原因状语从句。三层嵌套结构。'},
-      {title:'② which非限制性定语从句叠加宾语从句',
-       sent:'However, the price includes the mandatory insurance, which means the insurance is required by law and you have to pay for it.',
-       tree:'├─ 转折: However\n├─ 主句: the price includes the mandatory insurance\n└─ which引导定语从句: which means ... and ...\n    ├─ 宾语从句①: (that) the insurance is required by law\n    └─ 宾语从句②: (that) you have to pay for it',
-       tip:'💡 考点：which指代整件事，动词后that可省略。pay for = 为……付钱。'},
-      {title:'③ Once条件状语 + as long as比较状语从句',
-       sent:'Once you get to the platforms, you can stay as long as you like.',
-       tree:'├─ 条件状语从句: Once you get to the platforms (一旦)\n├─ 主句: you can stay\n└─ 比较状语从句: as long as you like (只要/长达……)',
-       tip:'💡 考点：Once = 一旦 + as long as = 只要。双重从句嵌套。'},
-      {title:'④ 动名词主语 + while省略结构',
-       sent:'For them, enjoying a cup of coffee while overlooking roaring waves below is a once-in-a-lifetime experience.',
-       tree:'├─ 状语: For them\n├─ 主语: enjoying a cup of coffee (动名词短语)\n├─ 时间状语: while overlooking... (省略主语+be)\n├─ 谓语: is (单数！动名词主语=单数)\n└─ 表语: a once-in-a-lifetime experience',
-       tip:'💡 考点：动名词主语→谓语单数。while+doing省略主语。中考语法填空高频！'},
-    ]
-  },
-  { // Day 2
-    title:'格陵兰冰川漂浮小屋', en:'Glacier Floating Hut',
-    prev:['Day1: 万筷崖咖啡 — 复习核心词汇'],
-    core:[
-      ['get away from','','phrase','逃离；抛开'],
-      ['comfortable','/ˈkʌmftəbl/','adj.','舒适的'],
-      ['double','/ˈdʌbl/','adj.','双人的；双倍的'],
-      ['kitchen','/ˈkɪtʃɪn/','n.','厨房'],
-      ['fishing','/ˈfɪʃɪŋ/','n.','钓鱼'],
-      ['without','/wɪˈðaʊt/','prep.','没有'],
-      ['surrounded','/səˈraʊndɪd/','adj.','被环绕的'],
-      ['northern','/ˈnɔːðən/','adj.','北方的'],
-      ['view','/vjuː/','n.','景色；观点'],
-      ['directly','/dɪˈrektli/','adv.','直接地'],
-      ['company','/ˈkʌmpəni/','n.','公司'],
-      ['run','/rʌn/','v.','经营；运营'],
-      ['offer','/ˈɒfə/','v.','提供'],
-      ['experience','/ɪkˈspɪəriəns/','n.','经历；体验'],
-      ['cave','/keɪv/','n.','洞穴'],
-      ['available','/əˈveɪləbl/','adj.','可获得的'],
-      ['guest','/ɡest/','n.','客人；宾客'],
-      ['perfect','/ˈpɜːfɪkt/','adj.','完美的'],
-      ['romantic','/rəʊˈmæntɪk/','adj.','浪漫的'],
-      ['cost','/kɒst/','v./n.','花费'],
-      ['include','/ɪnˈkluːd/','v.','包括'],
-      ['transportation','/ˌtrænspɔːˈteɪʃn/','n.','交通'],
-      ['however','/haʊˈevə/','adv.','然而'],
-      ['international','/ˌɪntəˈnæʃnəl/','adj.','国际的'],
-      ['airport','/ˈeəpɔːt/','n.','机场'],
-      ['while','/waɪl/','conj.','而（对比）'],
-      ['town','/taʊn/','n.','城镇'],
-    ],
-    advanced:[
-      ['isolated','/ˈaɪsəleɪtɪd/','adj.','与世隔绝的'],
-      ['breathtaking','/ˈbreθˌteɪkɪŋ/','adj.','令人惊叹的'],
-      ['landscape','/ˈlændskeɪp/','n.','风景；景色'],
-      ['panoramic','/ˌpænəˈræmɪk/','adj.','全景的'],
-      ['glacier','/ˈɡlæsiə/','n.','冰川'],
-      ['guided','/ˈɡaɪdɪd/','adj.','有指导的'],
-      ['solo','/ˈsəʊləʊ/','adj.','独自的'],
-    ],
-    recognition:[
-      ['barbecue','/ˈbɑːbɪkjuː/','n.','烧烤'],
-      ['deck','/dek/','n.','甲板'],
-      ['fjord','/fjɔːd/','n.','峡湾'],
-    ],
-    phrases:[
-      ['get away from','逃离；抛开'],
-      ['be located on','位于'],
-      ['come with','附带；伴随'],
-      ['be surrounded by','被……环绕'],
-      ['pick up','接（人）；捡起'],
-      ['How about + doing','做……怎么样？'],
-      ['What\'s more','此外；更重要的是'],
-    ],
-    reading:[
-      {n:1,en:'Have you ever wanted to get away from everything? How about travelling to far East Greenland?',ph:'get away from★短语 | How about + doing★提建议句型',cn:'你是否曾想过抛开一切？那去遥远的东格陵兰怎么样？'},
-      {n:2,en:'There is a place called the Glacier Floating Hut. It is located on a fjord, far from any other town.',ph:'located on★短语 | fjord★/fjɔːd/ 北欧常见地貌',cn:'有个地方叫冰川漂浮小屋，它坐落在峡湾上，远离任何城镇。'},
-      {n:3,en:'It has been called "the most isolated floating hut" in Greenland, and it comes with a breathtaking landscape with your morning coffee.',ph:'has been called★现在完成时被动 | the most isolated★最高级',cn:'它被称为格陵兰"最与世隔绝的漂浮小屋"。'},
-      {n:5,en:'Since the hut is surrounded by panoramic windows, you can have a perfect view of the glaciers, or the northern lights at night.',ph:'Since★原因状语从句 | panoramic★/ˌpænəˈræmɪk/',cn:'小屋被全景窗环绕，可观赏冰川或北极光。'},
-      {n:8,en:'What\'s more, this hut is only available for one or two guests, making it perfect for either a solo trip or a romantic dinner.',ph:'What\'s more★过渡词 | making★现在分词作结果状语 | either A or B★就近原则',cn:'更重要的是，小屋一次只接待一到两位客人。'},
-      {n:9,en:'It costs around $3,170, which includes transportation by boat. However, you must first find your own way to Kulusuk or Tasiilaq to be picked up.',ph:'costs★主语是物 | which指代$3,170整件事 | picked up★短语',cn:'费用约3170美元，包含船运交通。需自行到达Kulusuk或Tasiilaq。'},
-      {n:10,en:'Kulusuk has its own international airport, while Tasiilaq is the largest town in East Greenland.',ph:'while★表对比（而/然而），不是"当……时" | largest★最高级',cn:'Kulusuk有自己的国际机场，而Tasiilaq是东格陵兰最大的城镇。'},
-    ],
-    complex:[
-      {title:'① 现在完成时被动语态 + 最高级',
-       sent:'It has been called "the most isolated floating hut" in Greenland, and it comes with a breathtaking landscape.',
-       tree:'├─ 并列句①: It has been called... (现在完成时被动)\n├─ 并列句②: it comes with a breathtaking landscape\n└─ 最高级: the most isolated',
-       tip:'💡 考点：has been + 过去分词（现在完成时被动）。the most = 最高级。'},
-      {title:'② 现在分词作结果状语',
-       sent:'What\'s more, this hut is only available for one or two guests, making it perfect for either a solo trip or a romantic dinner.',
-       tree:'├─ 过渡: What\'s more\n├─ 主句: this hut is only available for one or two guests\n└─ 结果状语: making it perfect for... (现在分词)',
-       tip:'💡 考点：逗号+doing 作结果状语。either A or B 就近原则。'},
-      {title:'③ which非限制性定语从句',
-       sent:'It costs around $3,170, which includes transportation by boat.',
-       tree:'├─ 主句: It costs around $3,170\n└─ 引导词: which\n    └─ 定语从句: includes transportation by boat',
-       tip:'💡 考点：逗号+which 指代前文整件事。cost主语是物，spend主语是人。'},
-      {title:'④ while表对比的并列句',
-       sent:'Kulusuk has its own international airport, while Tasiilaq is the largest town in East Greenland.',
-       tree:'├─ 分句①: Kulusuk has its own international airport\n├─ 对比连词: while (而/然而)\n└─ 分句②: Tasiilaq is the largest town... (最高级)',
-       tip:'💡 考点：while 此处表对比，不是"当……时"。largest = 最高级。'},
-    ]
-  },
-  { // Day 3
-    title:'飞行员火车着陆壮举', en:'Dario Costa\'s Train Landing',
-    prev:['Day1: 万筷崖咖啡 — 复习核心词汇','Day2: 冰川漂浮小屋 — 复习核心词汇'],
-    core:[
-      ['land','/lænd/','v.','着陆；降落'],
-      ['imagine','/ɪˈmædʒɪn/','v.','想象'],
-      ['condition','/kənˈdɪʃn/','n.','条件；状况'],
-      ['achievement','/əˈtʃiːvmənt/','n.','成就'],
-      ['impressive','/ɪmˈpresɪv/','adj.','令人印象深刻的'],
-      ['successfully','/səkˈsesfəli/','adv.','成功地'],
-      ['career','/kəˈrɪə/','n.','职业；生涯'],
-      ['explain','/ɪkˈspleɪn/','v.','解释'],
-      ['consider','/kənˈsɪdə/','v.','考虑；认为'],
-      ['greatest','/ˈɡreɪtɪst/','adj.','最大的；最伟大的'],
-      ['blind','/blaɪnd/','adj.','盲目的；瞎的'],
-      ['ability','/əˈbɪləti/','n.','能力'],
-      ['skill','/skɪl/','n.','技能；技巧'],
-      ['dangerous','/ˈdeɪndʒərəs/','adj.','危险的'],
-      ['require','/rɪˈkwaɪə/','v.','需要；要求'],
-      ['courage','/ˈkʌrɪdʒ/','n.','勇气'],
-      ['reaction','/riˈækʃn/','n.','反应'],
-      ['planning','/ˈplænɪŋ/','n.','规划；计划'],
-      ['training','/ˈtreɪnɪŋ/','n.','训练'],
-      ['controlled','/kənˈtrəʊld/','adj.','受控的'],
-      ['practise','/ˈpræktɪs/','v.','练习'],
-      ['advanced','/ədˈvɑːnst/','adj.','先进的'],
-      ['technology','/tekˈnɒlədʒi/','n.','技术'],
-      ['success','/səkˈses/','n.','成功'],
-      ['achieve','/əˈtʃiːv/','v.','实现；达到'],
-      ['expert','/ˈekspɜːt/','n.','专家'],
-      ['entirely','/ɪnˈtaɪəli/','adv.','完全地'],
-      ['handle','/ˈhændl/','v.','处理；应对'],
-    ],
-    advanced:[
-      ['challenging','/ˈtʃælɪndʒɪŋ/','adj.','有挑战性的'],
-      ['runway','/ˈrʌnweɪ/','n.','跑道'],
-      ['aircraft','/ˈeəkrɑːft/','n.','飞机（单复数同形）'],
-      ['simulation','/ˌsɪmjuˈleɪʃn/','n.','模拟'],
-      ['align','/əˈlaɪn/','v.','对齐；使一致'],
-      ['precision','/prɪˈsɪʒn/','n.','精度；精确'],
-      ['instinct','/ˈɪnstɪŋkt/','n.','直觉；本能'],
-    ],
-    recognition:[
-      ['manoeuvre','/məˈnuːvə/','n.','操作；动作'],
-      ['airflow','/ˈeəfləʊ/','n.','气流'],
-      ['take-off','/ˈteɪkɒf/','n.','起飞'],
-    ],
-    phrases:[
-      ['depend on','依靠；取决于'],
-      ['pull off','完成（困难的事）'],
-      ['touch down','着陆；降落'],
-      ['deal with','应对；处理'],
-      ['manage to do','设法做成某事'],
-      ['not only... but also...','不仅……而且……'],
-      ['one of the most + 复数','最……之一'],
-      ['as if','好像；似乎'],
-    ],
-    reading:[
-      {n:1,en:'Landing a plane is always challenging, but imagine landing down on a small, moving runway that you can\'t even see from the plane!',ph:'Landing★动名词主语→is单数 | imagine+doing★固定搭配',cn:'飞机着陆总是充满挑战，但想象降落在一条看不到的移动小跑道上！'},
-      {n:4,en:'"Landing on a moving train was one of the most challenging projects of my career," Dario said.',ph:'Landing★动名词主语→was单数 | one of the most+复数★最……之一',cn:'"在行驶的火车上降落是我职业生涯中最具挑战性的项目之一。"'},
-      {n:7,en:'Pulling off such a dangerous manoeuvre required not only courage and quick reactions, but also years of planning and training.',ph:'Pulling off★动名词主语→required单数 | not only...but also★并列结构',cn:'完成如此危险的操作不仅需要勇气和快速反应，还需要多年的规划和训练。'},
-      {n:8,en:'Dario Costa and his team created computer simulations and ran controlled tests. Because practising on real moving trains was impossible, advanced simulation technologies were used.',ph:'practising★动名词主语→was | were used★被动语态',cn:'他们创建了计算机模拟并进行受控测试。因为真实练习不可能，所以使用先进模拟技术。'},
-      {n:10,en:'Filippo Barbero, the project\'s flight expert, said: "To become the first pilot to land on a moving train, Dario had to achieve a blind landing. Therefore, he depended entirely on his training and instincts to touch down safely."',ph:'To become★不定式目的状语 | Therefore★因果连接词 | touch down★短语',cn:'项目飞行专家说："要成为第一个在行驶火车上降落的飞行员，Dario必须完成盲目着陆。"'},
-      {n:11,en:'As if the moving train and short runway weren\'t enough, Dario also had to deal with strong airflow and changing air speeds.',ph:'As if★虚拟语气（weren\'t） | deal with★短语',cn:'似乎移动的火车和短跑道还不够，Dario还必须应对强烈的气流和不断变化的空速。'},
-    ],
-    complex:[
-      {title:'① make + 宾 + 宾补（what名词性从句作宾语）',
-       sent:'These difficult conditions make what Italian pilot Dario Costa\'s achievement exactly so impressive.',
-       tree:'├─ 主语: These difficult conditions\n├─ 谓语: make\n├─ 宾语: what Italian pilot Dario Costa\'s achievement\n└─ 宾补: so impressive',
-       tip:'💡 考点：make + n. + adj. 使……处于某种状态。what从句=名词。'},
-      {title:'② not only... but also... 并列 + 动名词主语',
-       sent:'Pulling off such a dangerous manoeuvre required not only courage and quick reactions, but also years of planning and training.',
-       tree:'├─ 主语: Pulling off such a dangerous manoeuvre (动名词短语)\n├─ 谓语: required (单数！)\n└─ 宾语: not only courage..., but also years...',
-       tip:'💡 考点：动名词主语→谓语单数。not only A but also B（就近原则）。'},
-      {title:'③ 直接引语 + 不定式目的状语 + Therefore',
-       sent:'"To become the first pilot to land on a moving train, Dario had to achieve a blind landing. Therefore, he depended entirely on his training and instincts to touch down safely."',
-       tree:'├─ 目的状语: To become the first pilot (不定式)\n├─ 主句: Dario had to achieve a blind landing\n├─ 因果连接: Therefore\n└─ 主句: he depended entirely on his training and instincts',
-       tip:'💡 考点：To become...不定式作目的状语。Therefore因果连接。touch down=着陆。'},
-      {title:'④ As if虚拟语气 + deal with',
-       sent:'As if the moving train and short runway weren\'t enough, Dario also had to deal with strong airflow and changing air speeds.',
-       tree:'├─ 引导词: As if (好像/似乎)\n├─ 方式状语从句: the...weren\'t enough (虚拟语气)\n└─ 主句: Dario also had to deal with strong airflow...',
-       tip:'💡 考点：As if+从句=好像/似乎（常用虚拟语气）。deal with=应对/处理。'},
-    ]
-  }
-];
+// ==================== DATA ====================
+const DAYS = [{
+  title:'万筷崖咖啡 · Wanjiao Cliff Coffee',
+  core:[
+    ['imagine','/ɪˈmædʒɪn/','v.','想象'],
+    ['experience','/ɪkˈspɪəriəns/','n./v.','经历；体验'],
+    ['located','/ləʊˈkeɪtɪd/','adj.','位于'],
+    ['describe','/dɪˈskraɪb/','v.','描述'],
+    ['platform','/ˈplætfɔːm/','n.','平台；站台'],
+    ['flat','/flæt/','adj.','平的'],
+    ['firmly','/ˈfɜːmli/','adv.','牢固地'],
+    ['dangerous','/ˈdeɪndʒərəs/','adj.','危险的'],
+    ['mountain','/ˈmaʊntən/','n.','山；山脉'],
+    ['rope','/rəʊp/','n.','绳子'],
+    ['process','/ˈprəʊses/','n.','过程'],
+    ['require','/rɪˈkwaɪə/','v.','需要；要求'],
+    ['courage','/ˈkʌrɪdʒ/','n.','勇气'],
+    ['safety','/ˈseɪfti/','n.','安全'],
+    ['although','/ɔːlˈðəʊ/','conj.','虽然；尽管'],
+    ['recently','/ˈriːsntli/','adv.','最近'],
+    ['famous','/ˈfeɪməs/','adj.','著名的'],
+    ['share','/ʃeə/','v.','分享'],
+    ['view','/vjuː/','n.','景色；观点'],
+    ['exciting','/ɪkˈsaɪtɪŋ/','adj.','令人兴奋的'],
+    ['tourist','/ˈtʊərɪst/','n.','游客'],
+    ['advance','/ədˈvɑːns/','adj.','提前的'],
+    ['allow','/əˈlaʊ/','v.','允许'],
+    ['without','/wɪˈðaʊt/','prep.','没有'],
+    ['professional','/prəˈfeʃənl/','adj.','专业的'],
+    ['guidance','/ˈɡaɪdns/','n.','指导'],
+    ['cost','/kɒst/','v./n.','花费'],
+    ['expensive','/ɪkˈspensɪv/','adj.','昂贵的'],
+    ['however','/haʊˈevə/','adv.','然而'],
+    ['include','/ɪnˈkluːd/','v.','包括'],
+    ['insurance','/ɪnˈʃʊərəns/','n.','保险'],
+    ['equipment','/ɪˈkwɪpmənt/','n.','设备'],
+    ['service','/ˈsɜːvɪs/','n.','服务'],
+    ['nightmare','/ˈnaɪtmeə/','n.','噩梦'],
+    ['fear','/fɪə/','v./n.','害怕；恐惧'],
+    ['height','/haɪt/','n.','高度；高处'],
+    ['continue','/kənˈtɪnjuː/','v.','继续'],
+    ['attract','/əˈtrækt/','v.','吸引'],
+    ['adventure','/ədˈventʃə/','n.','冒险'],
+    ['wave','/weɪv/','n.','波浪'],
+    ['below','/bɪˈləʊ/','adv./prep.','在下面'],
+    ['common','/ˈkɒmən/','adj.','普通的'],
+    ['comfortable','/ˈkʌmftəbl/','adj.','舒适的'],
+    ['attractive','/əˈtræktɪv/','adj.','有吸引力的'],
+    ['check','/tʃek/','n./v.','检查'],
+    ['online','/ˌɒnˈlaɪn/','adj./adv.','在线的'],
+    ['social','/ˈsəʊʃl/','adj.','社会的'],
+    ['law','/lɔː/','n.','法律'],
+  ],
+  advanced:[
+    ['extreme','/ɪkˈstriːm/','adj.','极端的'],
+    ['trail','/treɪl/','n.','小路；小径'],
+    ['instructor','/ɪnˈstrʌktə/','n.','教练'],
+    ['breathtaking','/ˈbreθˌteɪkɪŋ/','adj.','令人惊叹的'],
+    ['founder','/ˈfaʊndə/','n.','创立者'],
+    ['reservation','/ˌrezəˈveɪʃn/','n.','预约'],
+    ['mandatory','/ˈmændətəri/','adj.','强制的'],
+    ['rental','/ˈrentl/','n.','租赁'],
+    ['overlook','/ˌəʊvəˈlʊk/','v.','俯瞰；忽视'],
+    ['ensure','/ɪnˈʃʊə/','v.','确保'],
+    ['lower','/ˈləʊə/','v.','降低；放下'],
+    ['lover','/ˈlʌvə/','n.','爱好者'],
+  ],
+  recognition:[
+    ['roaring','/ˈrɔːrɪŋ/','adj.','咆哮的'],
+    ['once-in-a-lifetime','/wʌns ɪn ə ˈlaɪftaɪm/','adj.','一生一次的'],
+  ],
+  phrases:[
+    ['act as','充当；作为'],
+    ['be made up of','由……组成'],
+    ['with the help of','在……帮助下'],
+    ['as a result','结果；因此'],
+    ['as long as','只要'],
+    ['no one is allowed to','禁止……'],
+    ['safety comes first','安全第一'],
+    ['be described as','被描述为'],
+    ['continue to do','继续做某事'],
+  ],
+  patterns:[
+    ['make + n. + adj.','A cliff cafe makes such an experience possible.','使某事/某人处于某种状态'],
+    ['Although…, …','Although the cafe has been open since 2024, it recently became famous online.','虽然……但是……（不与but连用）'],
+    ['…, which …','This process is called "abseiling", which requires both courage and careful safety checks.','逗号+which 指代整件事'],
+    ['not only … but also …','(implied in text)','不仅……而且……'],
+    ['once …, …','Once you get to the platforms, you can stay as long as you like.','一旦……就……'],
+    ['动名词作主语 + 单数谓语','reaching this cafe is not easy','动名词作主语时，谓语用单数'],
+    ['while + doing 省略','while overlooking roaring waves below','while后省略主语和be动词'],
+    ['…, showing …','Many videos were shared on social media, showing the breathtaking views.','逗号+doing 作伴随状语'],
+  ]
+},{
+  title:'冰川漂浮小屋 · Glacier Floating Hut',
+  core:[
+    ['comfortable','/ˈkʌmftəbl/','adj.','舒适的'],
+    ['double','/ˈdʌbl/','adj.','双人的'],
+    ['kitchen','/ˈkɪtʃɪn/','n.','厨房'],
+    ['fishing','/ˈfɪʃɪŋ/','n.','钓鱼'],
+    ['without','/wɪˈðaʊt/','prep.','没有'],
+    ['surrounded','/səˈraʊndɪd/','adj.','被环绕的'],
+    ['view','/vjuː/','n.','景色'],
+    ['directly','/dɪˈrektli/','adv.','直接地'],
+    ['company','/ˈkʌmpəni/','n.','公司'],
+    ['offer','/ˈɒfə/','v.','提供'],
+    ['experience','/ɪkˈspɪəriəns/','n.','经历'],
+    ['cave','/keɪv/','n.','洞穴'],
+    ['available','/əˈveɪləbl/','adj.','可获得的'],
+    ['guest','/ɡest/','n.','客人'],
+    ['perfect','/ˈpɜːfɪkt/','adj.','完美的'],
+    ['romantic','/rəʊˈmæntɪk/','adj.','浪漫的'],
+    ['cost','/kɒst/','v./n.','花费'],
+    ['include','/ɪnˈkluːd/','v.','包括'],
+    ['transportation','/ˌtrænspɔːˈteɪʃn/','n.','交通'],
+    ['however','/haʊˈevə/','adv.','然而'],
+    ['international','/ˌɪntəˈnæʃnəl/','adj.','国际的'],
+    ['airport','/ˈeəpɔːt/','n.','机场'],
+    ['while','/waɪl/','conj.','而（对比）'],
+    ['town','/taʊn/','n.','城镇'],
+    ['northern','/ˈnɔːðən/','adj.','北方的'],
+    ['run','/rʌn/','v.','经营'],
+  ],
+  advanced:[
+    ['isolated','/ˈaɪsəleɪtɪd/','adj.','与世隔绝的'],
+    ['breathtaking','/ˈbreθˌteɪkɪŋ/','adj.','令人惊叹的'],
+    ['landscape','/ˈlændskeɪp/','n.','风景'],
+    ['panoramic','/ˌpænəˈræmɪk/','adj.','全景的'],
+    ['glacier','/ˈɡlæsiə/','n.','冰川'],
+    ['guided','/ˈɡaɪdɪd/','adj.','有指导的'],
+    ['solo','/ˈsəʊləʊ/','adj.','独自的'],
+  ],
+  recognition:[
+    ['barbecue','/ˈbɑːbɪkjuː/','n.','烧烤'],
+    ['deck','/dek/','n.','甲板'],
+    ['fjord','/fjɔːd/','n.','峡湾'],
+  ],
+  phrases:[
+    ['get away from','逃离；抛开'],
+    ['be located on','位于'],
+    ['come with','附带；伴随'],
+    ['be surrounded by','被……环绕'],
+    ['pick up','接（人）；捡起'],
+    ['How about + doing','做……怎么样？'],
+    ['What\'s more','此外；更重要的是'],
+  ],
+  patterns:[
+    ['How about + doing?','How about travelling to far East Greenland?','做……怎么样？（提建议）'],
+    ['现在完成时被动: has been + p.p.','It has been called "the most isolated floating hut".','已被称作……'],
+    ['…, making it + adj. …','…making it perfect for either a solo trip or a romantic dinner.','逗号+doing 作结果状语'],
+    ['…, which …','It costs around $3,170, which includes transportation by boat.','which 指代整件事'],
+    ['while 表对比','Kulusuk has its own international airport, while Tasiilaq is the largest town.','而/然而（对比，非时间）'],
+    ['either A or B','either a solo trip or a romantic dinner','要么A要么B（就近原则）'],
+    ['Since …, …','Since the hut is surrounded by panoramic windows, you can have a perfect view.','因为/既然（原因状语从句）'],
+  ]
+},{
+  title:'飞行员火车着陆 · Dario Costa\'s Train Landing',
+  core:[
+    ['land','/lænd/','v.','着陆'],
+    ['imagine','/ɪˈmædʒɪn/','v.','想象'],
+    ['condition','/kənˈdɪʃn/','n.','条件'],
+    ['achievement','/əˈtʃiːvmənt/','n.','成就'],
+    ['impressive','/ɪmˈpresɪv/','adj.','令人印象深刻的'],
+    ['successfully','/səkˈsesfəli/','adv.','成功地'],
+    ['career','/kəˈrɪə/','n.','职业'],
+    ['explain','/ɪkˈspleɪn/','v.','解释'],
+    ['consider','/kənˈsɪdə/','v.','考虑'],
+    ['blind','/blaɪnd/','adj.','盲目的'],
+    ['ability','/əˈbɪləti/','n.','能力'],
+    ['skill','/skɪl/','n.','技能'],
+    ['dangerous','/ˈdeɪndʒərəs/','adj.','危险的'],
+    ['require','/rɪˈkwaɪə/','v.','需要'],
+    ['courage','/ˈkʌrɪdʒ/','n.','勇气'],
+    ['reaction','/riˈækʃn/','n.','反应'],
+    ['planning','/ˈplænɪŋ/','n.','规划'],
+    ['training','/ˈtreɪnɪŋ/','n.','训练'],
+    ['controlled','/kənˈtrəʊld/','adj.','受控的'],
+    ['advanced','/ədˈvɑːnst/','adj.','先进的'],
+    ['technology','/tekˈnɒlədʒi/','n.','技术'],
+    ['success','/səkˈses/','n.','成功'],
+    ['achieve','/əˈtʃiːv/','v.','实现'],
+    ['expert','/ˈekspɜːt/','n.','专家'],
+    ['entirely','/ɪnˈtaɪəli/','adv.','完全地'],
+    ['handle','/ˈhændl/','v.','处理'],
+    ['practise','/ˈpræktɪs/','v.','练习'],
+    ['greatest','/ˈɡreɪtɪst/','adj.','最大的'],
+  ],
+  advanced:[
+    ['challenging','/ˈtʃælɪndʒɪŋ/','adj.','有挑战性的'],
+    ['runway','/ˈrʌnweɪ/','n.','跑道'],
+    ['aircraft','/ˈeəkrɑːft/','n.','飞机'],
+    ['simulation','/ˌsɪmjuˈleɪʃn/','n.','模拟'],
+    ['align','/əˈlaɪn/','v.','对齐'],
+    ['precision','/prɪˈsɪʒn/','n.','精度'],
+    ['instinct','/ˈɪnstɪŋkt/','n.','直觉'],
+  ],
+  recognition:[
+    ['manoeuvre','/məˈnuːvə/','n.','操作；动作'],
+    ['airflow','/ˈeəfləʊ/','n.','气流'],
+    ['take-off','/ˈteɪkɒf/','n.','起飞'],
+  ],
+  phrases:[
+    ['depend on','依靠；取决于'],
+    ['pull off','完成（困难的事）'],
+    ['touch down','着陆；降落'],
+    ['deal with','应对；处理'],
+    ['manage to do','设法做成'],
+    ['not only... but also...','不仅……而且……'],
+    ['one of the most + 复数','最……之一'],
+    ['as if','好像；似乎'],
+  ],
+  patterns:[
+    ['make + n. + adj.','These difficult conditions make what Dario Costa\'s achievement exactly so impressive.','使……处于某种状态'],
+    ['动名词主语 + 单数谓语','Pulling off such a dangerous manoeuvre required not only courage but also years of planning.','动名词作主语→谓语用单数'],
+    ['not only A but also B','required not only courage and quick reactions, but also years of planning and training.','不仅A而且B'],
+    ['To become …, …','To become the first pilot to land on a moving train, Dario had to achieve a blind landing.','不定式作目的状语'],
+    ['As if …, …','As if the moving train and short runway weren\'t enough, he also had to deal with strong airflow.','好像/似乎（虚拟语气）'],
+    ['one of the + 最高级 + 复数','one of the most challenging projects of my career','最……之一'],
+    ['manage to do','he managed to handle everything perfectly','设法做成（困难的事）'],
+  ]
+}];
 
-// ===================== STATE =====================
+// ==================== STATE ====================
+const KEY = 'vocab_mem_v1';
 let currentDay = 0;
-let currentView = 'home'; // home | review | stats
-const STORAGE_KEY = 'jingdu_data_v2';
+let currentIdx = 0;
+let currentMode = 'vocab'; // vocab | phrase | pattern
+let state = loadState();
 
 function defaultState(){
   const s = {};
   for(let d=0;d<3;d++){
-    s['d'+d] = {
-      morning:false, evening:false, date:'', score:0,
-      tasks:[false,false,false,false,false,false],
-      review:[false,false,false,false,false,false],
-      prevReview: DAYS[d].prev.map(()=>false)
-    };
+    s['d'+d] = {};
+    // Track each vocab item: 0=unseen, 1=seen, 2=mastered
+    ['core','advanced','recognition'].forEach(cat=>{
+      DAYS[d][cat].forEach((_,i)=>{ s['d'+d][cat+'_'+i] = 0; });
+    });
+    DAYS[d].phrases.forEach((_,i)=>{ s['d'+d]['phrase_'+i] = 0; });
+    DAYS[d].patterns.forEach((_,i)=>{ s['d'+d]['pattern_'+i] = 0; });
   }
   return s;
 }
 
 function loadState(){
   try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){ const s = JSON.parse(raw); if(s.d0!==undefined) return s; }
+    const raw = localStorage.getItem(KEY);
+    if(raw) return JSON.parse(raw);
   }catch(e){}
   return defaultState();
 }
 
-function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
 
-let state = loadState();
-
-// ===================== RENDER =====================
+// ==================== RENDER ====================
 function render(){
-  updateProgress();
-  if(currentView==='home') renderDay(currentDay);
-  else if(currentView==='review') renderReview();
-  else if(currentView==='stats') renderStats();
-}
+  const day = DAYS[currentDay];
+  const ds = state['d'+currentDay];
 
-function updateProgress(){
-  let total=0, done=0;
-  for(let d=0;d<3;d++){
-    const ds = state['d'+d];
-    total += 6 + DAYS[d].prev.length + 6; // tasks + prev + review
-    done += ds.tasks.filter(t=>t).length + ds.prevReview.filter(t=>t).length + ds.review.filter(t=>t).length;
-    if(ds.morning) done++;
-    if(ds.evening) done++;
-    if(ds.score>0) done++;
-  }
-  const pct = Math.round(done/total*100);
-  document.getElementById('progressFill').style.width = pct+'%';
-  document.getElementById('headerStats').textContent = 'Day 1-3 · 完成 '+pct+'%';
-}
-
-function renderDay(d){
-  const day = DAYS[d];
-  const ds = state['d'+d];
-  let html = '';
-
-  // Check-in card
-  html += '<div class="card"><h3>📅 今日打卡</h3>';
-  html += '<div class="check-row"><span>☀ 早课日期：</span><input type="date" value="'+ds.date+'" onchange="setDate('+d+',this.value)"></div>';
-  html += '<div class="check-row"><label><input type="checkbox" '+(ds.morning?'checked':'')+' onchange="toggleCheck('+d+',\'morning\')"> ☀ 早课已完成</label></div>';
-  html += '<div class="check-row"><label><input type="checkbox" '+(ds.evening?'checked':'')+' onchange="toggleCheck('+d+',\'evening\')"> 🌙 晚习已完成</label></div>';
-  html += '<div style="font-size:13px;margin-top:4px">⭐ 今日得分：<span class="score-stars">';
-  for(let i=1;i<=10;i++){
-    html += '<span class="'+(i<=ds.score?'on':'')+'" onclick="setScore('+d+','+i+')">★</span>';
-  }
-  html += '</span> <small>'+ds.score+'/10</small></div></div>';
-
-  // Task checklist
-  html += '<div class="card"><h3>📋 今日任务清单</h3>';
-  const taskNames = ['朗读拼读训练（跟读全文+音标拼读）','核心词汇记忆（按音标朗读×3遍）','提高词汇+识记词汇记忆','核心短语背诵','复杂句子拆解','遮住中文自测词汇'];
-  taskNames.forEach((t,i)=>{
-    html += '<div class="check-row"><label><input type="checkbox" '+(ds.tasks[i]?'checked':'')+' onchange="toggleTask('+d+','+i+')"> '+t+'</label></div>';
-  });
-  html += '</div>';
-
-  // Ebbinghaus review
-  html += '<div class="card"><h3>🔄 艾宾浩斯复习提醒</h3>';
-  html += '<table class="review-table"><tr><th>复习时间</th><th>内容</th><th>✔</th></tr>';
-  const reviewTimes = ['当天','+1天','+2天','+4天','+7天','+15天'];
-  reviewTimes.forEach((t,i)=>{
-    html += '<tr><td>'+t+'</td><td>'+(i===0?'新学内容':(i<=2?'快速过一遍':(i<=4?'朗读+拆句':'全量自测')))+'</td>';
-    html += '<td><input type="checkbox" '+(ds.review[i]?'checked':'')+' onchange="toggleReview('+d+','+i+')"></td></tr>';
-  });
-  html += '</table>';
-
-  // Previous day review
-  if(day.prev.length){
-    html += '<div style="margin-top:6px;font-size:12px;color:#e65100;font-weight:600">📢 今日同时复习：</div>';
-    day.prev.forEach((p,i)=>{
-      html += '<div class="check-row"><label><input type="checkbox" '+(ds.prevReview[i]?'checked':'')+' onchange="togglePrevReview('+d+','+i+')"> '+p+'</label></div>';
+  // Count stats
+  let total=0, seen=0, mastered=0;
+  ['core','advanced','recognition'].forEach(cat=>{
+    day[cat].forEach((_,i)=>{
+      total++;
+      if(ds[cat+'_'+i] >= 1) seen++;
+      if(ds[cat+'_'+i] >= 2) mastered++;
     });
+  });
+  document.getElementById('statsText').textContent =
+    'Day '+(currentDay+1)+' · 已看 '+seen+' · 已掌握 '+mastered+' · 共 '+total+'词';
+
+  // Mode tabs
+  let html = '<div class="mode-tabs">';
+  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇 ('+total+')</div>';
+  html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
+  html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
+  html += '</div>';
+
+  // Progress dots
+  html += '<div class="progress">';
+  const itemCount = getItemCount();
+  for(let i=0;i<itemCount;i++){
+    const s = getItemState(i);
+    html += '<div class="dot'+(s>=2?' mastered':(s>=1?' seen':''))+'" onclick="goTo('+i+')"></div>';
+    if((i+1)%15===0) html += '<br>';
   }
   html += '</div>';
 
-  // Reading script (collapsible)
-  html += '<div class="card"><div class="collapse-header open" onclick="toggleCollapse(this)"><h3 style="margin:0">🎙 朗读拼读训练</h3></div>';
-  html += '<div class="collapse-body show"><div style="font-size:10px;color:#888;margin-bottom:6px">★重读 ⌐连读 ↗↘语调 ̶失爆破 | 每句跟读×3遍</div>';
-  day.reading.forEach(s=>{
-    html += '<div class="sent-card"><span class="num">('+s.n+')</span> <span class="en">'+s.en+'</span>';
-    html += '<div class="ph">🎙 '+s.ph+'</div>';
-    html += '<div class="cn">🇨🇳 '+s.cn+'</div></div>';
-  });
-  html += '</div></div>';
-
-  // Vocabulary
-  html += '<div class="card"><h3>📊 词汇表</h3>';
-  html += '<div class="filter-row">';
-  html += '<span class="filter-pill on core" onclick="filterVocab(this,\'core\')">🔴 核心('+day.core.length+')</span>';
-  html += '<span class="filter-pill on adv" onclick="filterVocab(this,\'adv\')">🔵 提高('+day.advanced.length+')</span>';
-  html += '<span class="filter-pill on rec" onclick="filterVocab(this,\'rec\')">🟢 识记('+day.recognition.length+')</span>';
-  html += '<span class="filter-pill on phr" onclick="filterVocab(this,\'phr\')">🟠 短语('+day.phrases.length+')</span>';
+  // Stats bar
+  html += '<div class="stats-bar">';
+  html += '<span>🟢 掌握: '+countByState(2)+'</span>';
+  html += '<span>🔵 见过: '+countByState(1)+'</span>';
+  html += '<span>⬜ 新词: '+countByState(0)+'</span>';
   html += '</div>';
 
-  html += '<div class="vocab-group" data-type="core">';
-  html += '<h4>🔴 核心词汇（'+day.core.length+'个）— 中考必须掌握的课标词</h4>';
-  day.core.forEach(v=>{ html += vocabItem(v,'core'); });
-  html += '</div>';
-
-  html += '<div class="vocab-group" data-type="adv">';
-  html += '<h4>🔵 提高词汇（'+day.advanced.length+'个）— 中考阅读高频出现</h4>';
-  day.advanced.forEach(v=>{ html += vocabItem(v,'adv'); });
-  html += '</div>';
-
-  html += '<div class="vocab-group" data-type="rec">';
-  html += '<h4>🟢 识记词汇（'+day.recognition.length+'个）— 课外拓展</h4>';
-  day.recognition.forEach(v=>{ html += vocabItem(v,'rec'); });
-  html += '</div>';
-
-  html += '<div class="vocab-group" data-type="phr">';
-  html += '<h4>🟠 核心短语（'+day.phrases.length+'个）— 中考常考搭配</h4>';
-  day.phrases.forEach(v=>{ html += phraseItem(v); });
-  html += '</div>';
-  html += '</div>';
-
-  // Complex sentences
-  html += '<div class="card"><h3>🧩 复杂句子拆解（'+day.complex.length+'句）</h3>';
-  day.complex.forEach(c=>{
-    html += '<div class="tree-card"><div class="collapse-header" onclick="toggleCollapse(this)"><strong>'+c.title+'</strong></div>';
-    html += '<div class="collapse-body"><div class="sent">'+c.sent+'</div>';
-    html += '<div class="tree">'+c.tree.replace(/\n/g,'<br>')+'</div>';
-    html += '<div class="tip">'+c.tip+'</div></div></div>';
-  });
-  html += '</div>';
-
-  // Self test
-  html += '<div class="card"><h3>✍ 今日自测</h3>';
-  html += '<div style="font-size:11px;color:#888;margin-bottom:4px">遮住上面，默写英文单词：</div>';
-  const testWords = day.core.slice(0,8);
-  testWords.forEach((v,i)=>{
-    html += '<div style="font-size:12px;margin:4px 0">'+(i+1)+'. '+v[3]+' <input class="test-input" placeholder="输入英文..." id="test_'+d+'_'+i+'"></div>';
-  });
-  html += '<button style="margin-top:6px;padding:6px 16px;background:#003366;color:#fff;border:none;border-radius:6px;font-size:13px;cursor:pointer" onclick="checkTest('+d+')">检查答案</button>';
-  html += '<div id="testResult_'+d+'" style="margin-top:6px;font-size:12px"></div>';
-  html += '</div>';
-
-  document.getElementById('main').innerHTML = html;
-  // Update tab active state
-  document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===d));
-  document.querySelectorAll('.nav-item').forEach(n=> n.classList.remove('active'));
-  document.getElementById('navHome').classList.add('active');
-}
-
-function vocabItem(v,type){
-  const tagClass = type==='core'?'tag-core':type==='adv'?'tag-adv':'tag-rec';
-  const tagText = type==='core'?'核心':type==='adv'?'提高':'识记';
-  return '<div class="vocab-item"><span class="w">'+v[0]+'</span><span class="ipa">'+v[1]+'</span><span class="pos">'+v[2]+'</span><span class="cn">'+v[3]+'</span><span class="tag '+tagClass+'">'+tagText+'</span></div>';
-}
-
-function phraseItem(v){
-  return '<div class="vocab-item"><span class="w">'+v[0]+'</span><span class="cn">'+v[1]+'</span><span class="tag tag-phr">核心短语</span></div>';
-}
-
-function renderReview(){
-  let html = '<div class="card"><h3>🔄 复习总览</h3>';
-  html += '<div style="font-size:12px;color:#888">勾选的复习项，按日期坚持复习</div></div>';
-  for(let d=0;d<3;d++){
-    const day = DAYS[d];
-    const ds = state['d'+d];
-    html += '<div class="card"><h3>Day '+(d+1)+' · '+day.title+'</h3>';
-    html += '<table class="review-table"><tr><th>复习轮次</th><th>状态</th></tr>';
-    const names = ['当天学习','+1天快速过','+2天遮中文自测','+4天朗读+拆句','+7天全量自测','+15天巩固'];
-    names.forEach((n,i)=>{
-      html += '<tr><td>'+n+'</td><td>'+(ds.review[i]?'✅ 已完成':'⬜ 待复习')+'</td></tr>';
-    });
-    html += '</table></div>';
+  // Current card
+  if(itemCount > 0){
+    currentIdx = Math.min(currentIdx, itemCount-1);
+    html += renderCard(currentIdx);
   }
+
   document.getElementById('main').innerHTML = html;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('navReview').classList.add('active');
+
+  // Update tabs
+  document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
 }
 
-function renderStats(){
-  let html = '<div class="card"><h3>📊 学习统计</h3>';
-  for(let d=0;d<3;d++){
-    const day = DAYS[d];
-    const ds = state['d'+d];
-    const tasksDone = ds.tasks.filter(t=>t).length;
-    const reviewDone = ds.review.filter(t=>t).length;
-    html += '<div style="margin:8px 0"><strong>Day '+(d+1)+' · '+day.title+'</strong><br>';
-    html += '<small>打卡：'+(ds.morning?'☀已签':'⬜')+' '+(ds.evening?'🌙已签':'⬜')+' | 得分：'+ds.score+'/10<br>';
-    html += '任务：'+tasksDone+'/6 | 复习：'+reviewDone+'/6</small></div>';
+function getItemCount(){
+  const day = DAYS[currentDay];
+  if(currentMode === 'vocab') return day.core.length + day.advanced.length + day.recognition.length;
+  if(currentMode === 'phrase') return day.phrases.length;
+  return day.patterns.length;
+}
+
+function getItemState(idx){
+  const day = DAYS[currentDay];
+  const ds = state['d'+currentDay];
+  if(currentMode === 'vocab'){
+    if(idx < day.core.length) return ds['core_'+idx]||0;
+    idx -= day.core.length;
+    if(idx < day.advanced.length) return ds['advanced_'+idx]||0;
+    idx -= day.advanced.length;
+    return ds['recognition_'+idx]||0;
   }
-  const total = document.getElementById('progressFill').style.width;
-  html += '<div style="margin-top:8px;font-weight:700">📈 总体完成度：'+total+'</div>';
-  html += '</div>';
-  document.getElementById('main').innerHTML = html;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('navStats').classList.add('active');
+  if(currentMode === 'phrase') return ds['phrase_'+idx]||0;
+  return ds['pattern_'+idx]||0;
 }
 
-// ===================== ACTIONS =====================
-function switchDay(d){
-  currentDay = d;
-  currentView = 'home';
+function setItemState(idx, val){
+  const day = DAYS[currentDay];
+  const ds = state['d'+currentDay];
+  if(currentMode === 'vocab'){
+    if(idx < day.core.length){ ds['core_'+idx]=val; return; }
+    idx -= day.core.length;
+    if(idx < day.advanced.length){ ds['advanced_'+idx]=val; return; }
+    idx -= day.advanced.length;
+    ds['recognition_'+idx]=val;
+    return;
+  }
+  if(currentMode === 'phrase'){ ds['phrase_'+idx]=val; return; }
+  ds['pattern_'+idx]=val;
+}
+
+function countByState(val){
+  let count=0;
+  for(let i=0;i<getItemCount();i++){
+    if(getItemState(i)===val) count++;
+  }
+  return count;
+}
+
+function getItemData(idx){
+  const day = DAYS[currentDay];
+  if(currentMode === 'vocab'){
+    if(idx < day.core.length) return {data:day.core[idx], type:'core'};
+    idx -= day.core.length;
+    if(idx < day.advanced.length) return {data:day.advanced[idx], type:'advanced'};
+    idx -= day.advanced.length;
+    return {data:day.recognition[idx], type:'recognition'};
+  }
+  if(currentMode === 'phrase') return {data:day.phrases[idx], type:'phrase'};
+  return {data:day.patterns[idx], type:'pattern'};
+}
+
+function renderCard(idx){
+  const {data, type} = getItemData(idx);
+  const s = getItemState(idx);
+  let html = '<div class="flashcard show" id="card">';
+
+  if(type === 'pattern'){
+    // Pattern: [name, example, meaning]
+    html += '<div class="front"><div class="en" style="font-family:monospace;font-size:17px;color:#c62828">'+data[0]+'</div></div>';
+    html += '<div class="back"><div class="eg">'+data[1]+'</div><div class="cn">'+data[2]+'</div></div>';
+  } else if(type === 'phrase'){
+    html += '<div class="front"><div class="en" style="font-size:17px">'+data[0]+'</div></div>';
+    html += '<div class="back"><div class="cn">'+data[1]+'</div><span class="tag tag-phr">核心短语</span></div>';
+  } else {
+    // Vocab: [word, ipa, pos, meaning]
+    const tagClass = type==='core'?'tag-core':type==='advanced'?'tag-adv':'tag-rec';
+    const tagText = type==='core'?'核心':type==='advanced'?'提高':'识记';
+    html += '<div class="front"><div class="en">'+data[0]+'</div><div class="ipa">'+data[1]+'</div></div>';
+    html += '<div class="back"><div class="cn">'+data[3]+'</div><div class="pos">'+data[2]+'</div><span class="tag '+tagClass+'">'+tagText+'</span></div>';
+  }
+
+  // State indicator
+  const stateText = s===2?'🟢 已掌握':(s===1?'🔵 见过':'⬜ 新词');
+  html += '<div style="text-align:center;margin-top:8px;font-size:11px;color:var(--sub)">'+stateText+' · '+(idx+1)+'/'+getItemCount()+'</div>';
+  html += '</div>';
+  return html;
+}
+
+// ==================== ACTIONS ====================
+function switchDay(d){ currentDay=d; currentIdx=0; render(); }
+
+function switchMode(m){
+  currentMode=m; currentIdx=0;
   render();
 }
 
-function showReview(){ currentView='review'; render(); }
-function showStats(){ currentView='stats'; render(); }
+function goTo(i){ currentIdx=i; render(); }
 
-function save(){ saveState(state); updateProgress(); }
-
-function setDate(d,v){ state['d'+d].date=v; save(); }
-function setScore(d,v){ state['d'+d].score=v; save(); render(); }
-function toggleCheck(d,key){ state['d'+d][key]=!state['d'+d][key]; save(); }
-function toggleTask(d,i){ state['d'+d].tasks[i]=!state['d'+d].tasks[i]; save(); toast('✅ 任务'+(i+1)+'已'+(state['d'+d].tasks[i]?'完成':'取消')); }
-function toggleReview(d,i){ state['d'+d].review[i]=!state['d'+d].review[i]; save(); }
-function togglePrevReview(d,i){ state['d'+d].prevReview[i]=!state['d'+d].prevReview[i]; save(); }
-
-function toggleCollapse(el){
-  el.classList.toggle('open');
-  el.nextElementSibling.classList.toggle('show');
+function markKnown(){
+  const s = getItemState(currentIdx);
+  setItemState(currentIdx, s>=2 ? 0 : 2); // toggle: mastered -> unseen
+  save();
+  nextCard();
 }
 
-function filterVocab(el,type){
-  el.classList.toggle('on');
-  const groups = document.querySelectorAll('.vocab-group[data-type="'+type+'"]');
-  groups.forEach(g=> g.style.display = el.classList.contains('on')?'block':'none');
+function markUnknown(){
+  const s = getItemState(currentIdx);
+  setItemState(currentIdx, s>=1 ? 0 : 1); // toggle: seen -> unseen
+  save();
+  nextCard();
 }
 
-function checkTest(d){
-  const words = DAYS[d].core.slice(0,8);
-  let correct=0, html='';
-  words.forEach((v,i)=>{
-    const input = document.getElementById('test_'+d+'_'+i);
-    if(!input) return;
-    const ans = input.value.trim().toLowerCase();
-    const expected = v[0].toLowerCase();
-    if(ans === expected){
-      correct++;
-      html += '<div style="color:#2e7d32">✅ '+(i+1)+'. '+v[3]+' → '+v[0]+'</div>';
-    } else {
-      html += '<div style="color:#c62828">❌ '+(i+1)+'. '+v[3]+' → 正确答案：<b>'+v[0]+'</b> '+(ans?'(你写的：'+ans+')':'')+'</div>';
-    }
-  });
-  html += '<div style="margin-top:4px;font-weight:700">得分：'+correct+'/'+words.length+'</div>';
-  document.getElementById('testResult_'+d).innerHTML = html;
-  if(correct===words.length) toast('🎉 全部正确！太棒了！');
+function nextCard(){
+  currentIdx = (currentIdx + 1) % getItemCount();
+  render();
+  // Scroll card into view
+  setTimeout(()=>{
+    const card = document.getElementById('card');
+    if(card) card.classList.add('pop');
+  }, 50);
 }
 
-function resetData(){
-  if(confirm('确定要重置所有打卡数据吗？此操作不可恢复！')){
-    state = defaultState();
-    saveState(state);
+function resetDay(){
+  if(confirm('重置 Day '+(currentDay+1)+' 的学习进度？')){
+    const ds = state['d'+currentDay];
+    Object.keys(ds).forEach(k=>{ ds[k]=0; });
+    currentIdx=0;
+    save();
     render();
-    toast('🔄 数据已重置');
   }
 }
 
-function toast(msg){
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'), 1500);
-}
+// Swipe support
+let touchStartX = 0;
+document.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e=>{
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 60){
+    if(dx < -30) markUnknown();
+    else if(dx > 30) markKnown();
+  }
+});
 
-// ===================== INIT =====================
-// Register service worker for PWA installability
+// Keyboard support
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowLeft') markUnknown();
+  if(e.key==='ArrowRight') markKnown();
+  if(e.key==='ArrowUp'||e.key==='ArrowDown'){ e.preventDefault(); nextCard(); }
+});
+
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
 
 render();
-
-// Show install prompt on first visit
-window.addEventListener('beforeinstallprompt', function(e){
-  setTimeout(function(){
-    if(confirm('📱 将此学习APP安装到手机桌面？\n\n安装后可在桌面直接打开，无需浏览器。')){
-      e.prompt();
-    }
-  }, 3000);
-});
 </script>
 </body>
 </html>
