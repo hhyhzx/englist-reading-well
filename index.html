@@ -349,7 +349,7 @@ function render(){
   document.getElementById('headerInfo').textContent = 'Day '+(currentDay+1)+' · '+modeLabel;
 
   let html = '<div class="mode-tabs">';
-  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇</div>';
+  html += '<div class="mode-tab'+(currentMode==='vocab'?' active':'')+'" onclick="switchMode(\'vocab\')">📝 词汇 ('+(day.core.length+day.advanced.length+day.recognition.length)+')</div>';
   html += '<div class="mode-tab'+(currentMode==='phrase'?' active':'')+'" onclick="switchMode(\'phrase\')">🔗 短语 ('+day.phrases.length+')</div>';
   html += '<div class="mode-tab'+(currentMode==='pattern'?' active':'')+'" onclick="switchMode(\'pattern\')">🧩 句型 ('+day.patterns.length+')</div>';
   html += '</div>';
