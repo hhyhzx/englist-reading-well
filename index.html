@@ -306,7 +306,7 @@ function getCategory(idx){
 
 function render(){
   const day = DAYS[currentDay];
-  const modeLabel = currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句型');
+  const modeLabel = currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句子');
   document.getElementById('headerInfo').textContent = 'Day '+(currentDay+1)+' · '+modeLabel;
 
   let html = '<div class="mode-tabs">';
@@ -355,6 +355,8 @@ function render(){
         html += '<div class="speaker" onclick="speak(\''+v[1].replace(/'/g,"\\'").replace(/"/g,'')+'\')">🔊 朗读句子</div>';
         html += '</div>';
 
+        html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
+      }
   html += '<div class="nav-row">';
   html += '<button onclick="prevItem()">◀</button>';
   html += '<button onclick="flipCard()">👆 翻转</button>';
