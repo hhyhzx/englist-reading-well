@@ -20,6 +20,8 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .tabs{display:flex;position:sticky;top:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
 .tab{flex:1;text-align:center;padding:9px 0;font-size:13px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .badge{font-size:10px;font-weight:400;color:var(--sub);display:block;margin-top:1px}
+.tab.active .badge{color:var(--accent)}
 .main{padding:10px 12px 30px}
 
 .mode-tabs{display:flex;gap:6px;margin:4px 0 8px}
@@ -73,9 +75,9 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 </div>
 
 <div class="tabs" id="tabs">
-  <div class="tab active" onclick="switchDay(0)">Day 1</div>
-  <div class="tab" onclick="switchDay(1)">Day 2</div>
-  <div class="tab" onclick="switchDay(2)">Day 3</div>
+  <div class="tab active" onclick="switchDay(0)">Day 1<div class="badge">万筷崖咖啡</div></div>
+  <div class="tab" onclick="switchDay(1)">Day 2<div class="badge">冰川漂浮小屋</div></div>
+  <div class="tab" onclick="switchDay(2)">Day 3<div class="badge">火车着陆</div></div>
 </div>
 
 <div class="main" id="main"></div>
