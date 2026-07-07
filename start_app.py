@@ -4,6 +4,11 @@ import socket
 import sys
 import webbrowser
 import os
+import io
+
+# Fix encoding for Windows console
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 PORT = 8080
 os.chdir(os.path.dirname(os.path.abspath(__file__)))

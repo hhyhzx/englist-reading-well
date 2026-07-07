@@ -82,6 +82,11 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
   <div class="tab" onclick="switchDay(4)">Day 5<div class="badge">徐福记酥糖</div></div>
   <div class="tab" onclick="switchDay(5)">Day 6<div class="badge">广东拖鞋比赛</div></div>
   <div class="tab" onclick="switchDay(6)">Day 7<div class="badge">学生春假</div></div>
+  <div class="tab" onclick="switchDay(7)">Day 8<div class="badge">快递员学院</div></div>
+  <div class="tab" onclick="switchDay(8)">Day 9<div class="badge">健康学校指南</div></div>
+  <div class="tab" onclick="switchDay(9)">Day 10<div class="badge">AI职业选择</div></div>
+  <div class="tab" onclick="switchDay(10)">Day 11<div class="badge">校园午餐比赛</div></div>
+  <div class="tab" onclick="switchDay(11)">Day 12<div class="badge">女生更快乐</div></div>
 </div>
 
 <div class="main" id="main"></div>
@@ -580,7 +585,285 @@ const DAYS = [{
     ['三个并列 which 非限制性定语从句','Popular domestic places include Sanya, which is famous for its tropical scenery; Kunming, which has a mild climate; and Guangzhou, which is well-known for its delicious food.','├─ 主句: Popular domestic places include Sanya, Kunming, and Guangzhou\n├─ which从句①: which is famous for its tropical scenery (修饰Sanya)\n├─ which从句②: which has a mild climate (修饰Kunming)\n└─ which从句③: which is well-known for its delicious food (修饰Guangzhou)','⚠️ 三个并列which定语从句修饰三个城市。be famous for = be well-known for。写作高级句型！'],
     ['which 指代整件事 + at the same time + allow sb. to do','It can encourage people to spend more money, which is good for the economy. At the same time, it allows students to relax from schoolwork and gives parents a chance to take family trips.','├─ 主句①: It can encourage people to spend more money\n├─ which从句: which is good for the economy (which指代前面整件事)\n├─ 时间连接: At the same time\n└─ 主句②: it allows students to relax and gives parents a chance...','⚠️ encourage sb. to do. allow sb. to do. give sb. a chance to do. which 指代整件事。'],
   ]
-}];
+},
+  {
+    title:'快递员学院',
+    core:[
+      ['academy','/əˈkædəmi/','n.','学院;专科院校'],
+      ['officially','/əˈfɪʃəli/','adv.','正式地'],
+      ['education','/ˌedʒuˈkeɪʃn/','n.','教育'],
+      ['full-time','/ˌfʊl ˈtaɪm/','adj./adv.','全职的'],
+      ['delivery','/dɪˈlɪvəri/','n.','配送;递送'],
+      ['worker','/ˈwɜːkə/','n.','工人;工作者'],
+      ['senior','/ˈsiːniə/','adj.','高级的;资深的'],
+      ['manager','/ˈmænɪdʒə/','n.','经理'],
+      ['resource','/rɪˈsɔːs/','n.','资源'],
+      ['training','/ˈtreɪnɪŋ/','n.','培训;训练'],
+      ['centre','/ˈsentə/','n.','中心'],
+      ['several','/ˈsevrəl/','adj.','几个的'],
+      ['college','/ˈkɒlɪdʒ/','n.','学院;大学'],
+      ['package','/ˈpækɪdʒ/','n.','包裹'],
+      ['province','/ˈprɒvɪns/','n.','省份'],
+      ['practical','/ˈpræktɪkl/','adj.','实用的'],
+      ['industry','/ˈɪndəstri/','n.','行业;工业'],
+      ['mental','/ˈmentl/','adj.','心理的;精神的'],
+      ['technology','/tekˈnɒlədʒi/','n.','技术'],
+      ['pilot','/ˈpaɪlət/','n.','飞行员;驾驶员'],
+      ['position','/pəˈzɪʃn/','n.','职位;位置'],
+      ['standard','/ˈstændəd/','n.','标准'],
+      ['chance','/tʃɑːns/','n.','机会'],
+      ['data','/ˈdeɪtə/','n.','数据'],
+      ['research','/rɪˈsɜːtʃ/','n.','研究'],
+      ['million','/ˈmɪljən/','num.','百万'],
+      ['although','/ɔːlˈðəʊ/','conj.','虽然;尽管'],
+      ['robot','/ˈrəʊbɒt/','n.','机器人'],
+      ['reduce','/rɪˈdjuːs/','v.','减少;降低'],
+      ['labour','/ˈleɪbə/','n.','劳动;人工'],
+      ['completely','/kəmˈpliːtli/','adv.','完全地'],
+      ['remove','/rɪˈmuːv/','v.','消除;移除'],
+      ['intelligent','/ɪnˈtelɪdʒənt/','adj.','智能的'],
+      ['expert','/ˈekspɜːt/','n.','专家'],
+      ['positive','/ˈpɒzətɪv/','adj.','积极的'],
+    ],
+    advanced:[
+      ['dedicated','/ˈdedɪkeɪtɪd/','adj.','专用的;专门的'],
+      ['vocational','/vəʊˈkeɪʃənl/','adj.','职业的'],
+      ['courier','/ˈkʊriə/','n.','快递员;信使'],
+      ['operator','/ˈɒpəreɪtə/','n.','操作员'],
+      ['qualified','/ˈkwɒlɪfaɪd/','adj.','合格的'],
+      ['operational','/ˌɒpəˈreɪʃənl/','adj.','操作的'],
+      ['certificate','/səˈtɪfɪkət/','n.','证书'],
+    ],
+    recognition:[
+      ['drone','/drəʊn/','n.','无人机'],
+    ],
+    phrases:[
+      ['serve as','充当;作为'],
+      ['be set up','被建立;成立'],
+      ['get ready for','为……做准备'],
+      ['not only...but also...','不仅……而且……'],
+      ['more and more','越来越多的'],
+    ],
+    patterns:[
+      ['并列宾语从句 + 原因状语从句','Feng Lei said that the academy will use resources, training centres and teachers across Guangdong, and several other colleges will run training.','├─ 主句: Feng Lei said\n├─ 宾语从句①: that the academy will use resources, training centres and teachers\n├─ 并列连接: and\n└─ 宾语从句②: (that) several other colleges will run training','⚠️ 并列that宾语从句。will use/run=一般将来时。中考宾语从句连词省略考点!'],
+      ['Although让步状语从句 + 宾语从句','Although drones and robots may reduce labour costs, Feng Lei said they will not completely remove the need for riders.','├─ 让步状语从句: Although drones and robots may reduce labour costs\n├─ 主句: Feng Lei said\n└─ 宾语从句: (that) they will not completely remove the need for riders','⚠️ Although不与but连用!may reduce=可能减少。remove the need for=消除对……的需求。'],
+      ['make+n.+do(省略to的不定式作宾补)+并列句','New technologies make the job need more skills, and workers now need to use order systems and intelligent robots to finish deliveries.','├─ 并列句①: New technologies make the job need more skills (make+n.+do)\n├─ 并列句②: workers now need to use order systems and intelligent robots\n└─ 目的状语: to finish deliveries (不定式)','⚠️ make sb./sth. do(省略to)中考高频!need to do=需要做。to finish作目的状语。'],
+      ['If条件状语从句(主将从现)','\"If we finish the certificates, we will have more chances and get to better jobs,\" he said.','├─ 条件状语从句: If we finish the certificates (一般现在时)\n└─ 主句: we will have more chances and get to better jobs (一般将来时)','⚠️ If条件句主将从现(中考语法填空高频)。certificate=证书。get to=获得。'],
+    ]
+  },
+  {
+    title:'健康学校指南',
+    core:[
+      ['quality','/ˈkwɒləti/','n.','质量;品质'],
+      ['traditional','/trəˈdɪʃənl/','adj.','传统的'],
+      ['culture','/ˈkʌltʃə/','n.','文化'],
+      ['physical','/ˈfɪzɪkl/','adj.','身体的;物理的'],
+      ['announce','/əˈnaʊns/','v.','宣布'],
+      ['focus','/ˈfəʊkəs/','n./v.','重点;关注'],
+      ['activity','/ækˈtɪvəti/','n.','活动'],
+      ['mental','/ˈmentl/','adj.','心理的;精神的'],
+      ['document','/ˈdɒkjumənt/','n.','文件;公文'],
+      ['release','/rɪˈliːs/','v./n.','发布;释放'],
+      ['aim','/eɪm/','v./n.','旨在;目标'],
+      ['system','/ˈsɪstəm/','n.','体系;系统'],
+      ['stage','/steɪdʒ/','n.','阶段'],
+      ['widely','/ˈwaɪdli/','adv.','广泛地'],
+      ['accept','/əkˈsept/','v.','接受'],
+      ['primary','/ˈpraɪməri/','adj.','小学的;主要的'],
+      ['secondary','/ˈsekəndri/','adj.','中学的;次要的'],
+      ['introduce','/ˌɪntrəˈdjuːs/','v.','引入;介绍'],
+      ['national','/ˈnæʃnəl/','adj.','全国的;国家的'],
+      ['warning','/ˈwɔːnɪŋ/','n.','警告;预警'],
+      ['strengthen','/ˈstreŋθən/','v.','加强'],
+      ['kindergarten','/ˈkɪndəɡɑːtn/','n.','幼儿园'],
+      ['weight','/weɪt/','n.','体重;重量'],
+      ['action','/ˈækʃn/','n.','行动'],
+      ['balanced','/ˈbælənst/','adj.','均衡的'],
+      ['strict','/strɪkt/','adj.','严格的'],
+      ['professor','/prəˈfesə/','n.','教授'],
+      ['score','/skɔː/','n.','分数;成绩'],
+      ['growth','/ɡrəʊθ/','n.','成长;增长'],
+      ['break','/breɪk/','n.','休息;间歇'],
+      ['part','/pɑːt/','n.','部分;角色'],
+      ['state','/steɪt/','v.','陈述;规定'],
+    ],
+    advanced:[
+      ['ministry','/ˈmɪnɪstri/','n.','(政府的)部'],
+      ['guideline','/ˈɡaɪdlaɪn/','n.','指南;方针'],
+      ['well-being','/ˌwel ˈbiːɪŋ/','n.','健康;幸福;福祉'],
+      ['well-run','/ˌwel ˈrʌn/','adj.','运行良好的'],
+      ['prevention','/prɪˈvenʃn/','n.','预防'],
+      ['obesity','/əʊˈbiːsəti/','n.','肥胖'],
+      ['pilot','/ˈpaɪlət/','adj.','试点的'],
+    ],
+    recognition:[
+      ['nearsightedness','/ˌnɪəˈsaɪtɪdnəs/','n.','近视'],
+    ],
+    phrases:[
+      ['at least','至少'],
+      ['carry out','实施;推行'],
+      ['make sure','确保'],
+      ['along with','连同;伴随'],
+      ['not only...but also...','不仅……而且……'],
+      ['care about','关心;关注'],
+      ['stop...from doing','阻止……做某事'],
+    ],
+    patterns:[
+      ['which非限制性定语从句','To fight the fast-growing number of students with nearsightedness, prevention efforts will be strengthened, which is especially needed in kindergartens and primary schools.','├─ 目的状语: To fight the fast-growing number of students with nearsightedness\n├─ 主句: prevention efforts will be strengthened (一般将来时被动)\n└─ which定语从句: which is especially needed in kindergartens and primary schools','⚠️ 逗号+which指代前面整件事。不定式To fight...作目的状语。will be strengthened=被动语态。'],
+      ['动名词作主语 + not only...but also...','He added that building healthy schools is not only key to each student's full growth but also very important for the country's future.','├─ 主句: He added\n└─ 宾语从句: that building healthy schools is not only key to... but also...\n    ├─ 主语: building healthy schools (动名词短语)\n    └─ 谓语: is (单数!动名词主语=单数)','⚠️ 动名词主语→谓语用单数is。not only...but also...连接并列成分。key to=对……至关重要。'],
+      ['stop...from doing + 不定式复合结构','The focus is on stopping children from becoming nearsighted too early. Schools must make sure children have enough time to play outside.','├─ 主语: The focus | 谓语: is | 表语: on stopping children from... (介词+动名词)\n├─ make sure + (that) 宾语从句: children have enough time to play outside','⚠️ stop sb. from doing=阻止某人做(中考固定搭配)。make sure+宾语从句。enough time to do=足够时间做。'],
+      ['并列动名词短语作include的宾语','This plan will include offering balanced school meals, getting families and schools to work together, and giving children \"exercise plans\" along with advice on healthy eating.','├─ 主语: This plan | 谓语: will include\n└─ 宾语: offering..., getting..., and giving... (三个并列动名词短语)','⚠️ include+doing(动名词作宾语)。get sb. to do=让某人做。三个并列动名词构成排比。'],
+    ]
+  },
+  {
+    title:'AI与职业选择',
+    core:[
+      ['graduation','/ˌɡrædʒuˈeɪʃn/','n.','毕业'],
+      ['influence','/ˈɪnfluəns/','v./n.','影响'],
+      ['career','/kəˈrɪə/','n.','职业;事业'],
+      ['view','/vjuː/','n.','看法;观点;景色'],
+      ['affect','/əˈfekt/','v.','影响'],
+      ['teenage','/ˈtiːneɪdʒ/','adj.','青少年的'],
+      ['replace','/rɪˈpleɪs/','v.','取代;替换'],
+      ['adviser','/ədˈvaɪzə/','n.','导师;顾问'],
+      ['double','/ˈdʌbl/','v.','翻倍'],
+      ['major','/ˈmeɪdʒə/','n.','专业(大学)'],
+      ['drop','/drɒp/','v.','下降;掉落'],
+      ['role','/rəʊl/','n.','角色;作用'],
+      ['tool','/tuːl/','n.','工具'],
+      ['support','/səˈpɔːt/','v./n.','支持'],
+      ['politics','/ˈpɒlətɪks/','n.','政治'],
+      ['personally','/ˈpɜːsənəli/','adv.','个人而言'],
+      ['engineering','/ˌendʒɪˈnɪərɪŋ/','n.','工程学'],
+      ['critical','/ˈkrɪtɪkl/','adj.','批判的;关键的'],
+      ['shape','/ʃeɪp/','v.','塑造'],
+      ['generation','/ˌdʒenəˈreɪʃn/','n.','一代人'],
+    ],
+    advanced:[
+      ['healthcare','/ˈhelθkeə/','n.','医疗保健'],
+      ['cashier','/kæˈʃɪə/','n.','收银员'],
+      ['competitive','/kəmˈpetətɪv/','adj.','有竞争力的'],
+      ['efficient','/ɪˈfɪʃnt/','adj.','高效的'],
+      ['peer','/pɪə/','n.','同龄人;同伴'],
+      ['creativity','/ˌkriːeɪˈtɪvəti/','n.','创造力'],
+    ],
+    recognition:[
+      ['AI-proof','','adj.','防AI的;不易被AI取代的'],
+    ],
+    phrases:[
+      ['because of','因为;由于'],
+      ['feel like','觉得;感觉像是'],
+      ['drop by','下降了……'],
+      ['be on top of','掌握;精通'],
+      ['think of...as','把……看作'],
+      ['come of','来自;产生于'],
+      ['not only...but also...','不仅……而且……'],
+    ],
+    patterns:[
+      ['what名词性从句 + which非限制性定语从句','What I've found is that in the top 10 teenage jobs, AI will replace 27% of them, which is more than 700,000 jobs by 2030.','├─ 主语: What I've found (what从句 = the thing that I've found)\n├─ 谓语: is\n├─ 表语从句: that AI will replace 27% of them\n└─ which定语从句: which is more than 700,000 jobs (指代前面整件事)','⚠️ what从句=名词作主语。which指代整件事。中考高级句型组合!'],
+      ['动名词主语 + who定语从句 + how宾语从句','For someone who is going into a different major, such as art, computer science, or engineering, learning how AI works in your field is a smart move.','├─ 状语: For someone who is going into a different major (who定语从句)\n├─ 主语: learning how AI works in your field (动名词短语,内含how宾语从句)\n├─ 谓语: is (单数!动名词主语=单数)\n└─ 表语: a smart move','⚠️ 动名词作主语→谓语单数。who定语从句修饰someone。how宾语从句作learning的宾语。'],
+      ['If条件状语从句 + not only...but also...','If we let it do things for us too much, it's not only dangerous for our creativity, but also our critical thinking skills.','├─ 条件状语从句: If we let it do things for us too much (let sb. do 省略to)\n├─ 主句: it's not only dangerous for..., but also (dangerous for)...','⚠️ let sb. do(省略to)。not only...but also...连接并列成分。too much修饰动词。'],
+      ['现在完成进行时 + how宾语从句','Karissa has been studying how AI is affecting teenage jobs.','├─ 主语: Karissa\n├─ 谓语: has been studying (现在完成进行时)\n└─ 宾语: how AI is affecting teenage jobs (how宾语从句)','⚠️ have/has been doing=现在完成进行时。affect=影响(v.)≠effect(n.)。'],
+    ]
+  },
+  {
+    title:'校园午餐比赛',
+    core:[
+      ['lunchtime','/ˈlʌntʃtaɪm/','n.','午餐时间'],
+      ['improve','/ɪmˈpruːv/','v.','改善;提高'],
+      ['competition','/ˌkɒmpəˈtɪʃn/','n.','比赛;竞赛'],
+      ['menu','/ˈmenjuː/','n.','菜单'],
+      ['district','/ˈdɪstrɪkt/','n.','学区;区域'],
+      ['skill','/skɪl/','n.','技能'],
+      ['develop','/dɪˈveləp/','v.','开发;发展'],
+      ['standard','/ˈstændəd/','n.','标准'],
+      ['winning','/ˈwɪnɪŋ/','adj.','获胜的'],
+      ['honey','/ˈhʌni/','n.','蜂蜜'],
+      ['salad','/ˈsæləd/','n.','沙拉'],
+      ['serve','/sɜːv/','v.','供应(食物)'],
+      ['design','/dɪˈzaɪn/','v.','设计'],
+      ['dish','/dɪʃ/','n.','菜肴;盘子'],
+      ['present','/prɪˈzent/','v.','展示;呈现'],
+      ['staff','/stɑːf/','n.','工作人员'],
+      ['cultural','/ˈkʌltʃərəl/','adj.','文化的'],
+      ['background','/ˈbækɡraʊnd/','n.','背景'],
+      ['knowledge','/ˈnɒlɪdʒ/','n.','知识'],
+      ['prepare','/prɪˈpeə/','v.','准备'],
+      ['teamwork','/ˈtiːmwɜːk/','n.','团队合作'],
+      ['professional','/prəˈfeʃənl/','adj.','专业的'],
+      ['freedom','/ˈfriːdəm/','n.','自由'],
+      ['allow','/əˈlaʊ/','v.','允许'],
+      ['run','/rʌn/','v.','经营;运营'],
+    ],
+    advanced:[
+      ['cafeteria','/ˌkæfəˈtɪəriə/','n.','自助餐厅;食堂'],
+      ['nutrition','/njuˈtrɪʃn/','n.','营养'],
+      ['adjust','/əˈdʒʌst/','v.','调整'],
+      ['creativity','/ˌkriːeɪˈtɪvəti/','n.','创造力'],
+      ['leadership','/ˈliːdəʃɪp/','n.','领导力'],
+      ['hands-on','/ˌhændz ˈɒn/','adj.','动手实践的'],
+    ],
+    recognition:[
+      ['broccoli','/ˈbrɒkəli/','n.','西兰花'],
+      ['cucumber','/ˈkjuːkʌmbə/','n.','黄瓜'],
+      ['melting pot','','n.','大熔炉(多元文化融合地)'],
+    ],
+    phrases:[
+      ['life skills','生活技能'],
+      ['keep off','远离;不接近'],
+      ['be oneself','做自己'],
+      ['a new take on','对……的新诠释'],
+    ],
+    patterns:[
+      ['现在进行时被动语态','The important school lunchtime is being improved by a new competition in New York City.','├─ 主语: The important school lunchtime\n├─ 谓语: is being improved (现在进行时被动语态)\n└─ 状语: by a new competition in New York City','⚠️ is being+过去分词=现在进行时被动(正在被……)。中考较难时态!'],
+      ['spend time doing + that定语从句','Students spent months developing dishes that met the city's strict nutrition standards.','├─ 主语: Students | 谓语: spent | 宾语: months\n├─ 状语: developing dishes (spend time doing 固定搭配)\n└─ that定语从句: that met the city's strict nutrition standards','⚠️ spend time (in) doing=花时间做(中考固定搭配必考)。that定语从句修饰dishes。'],
+      ['without虚拟语气 + where表语从句','These kids wouldn't be where they are now without this competition.','├─ 主句: These kids wouldn't be where they are now (虚拟语气)\n└─ 隐含条件: without this competition = if it weren't for this competition','⚠️ without+n.=if it weren't for...(虚拟语气隐含条件)。where从句作表语。'],
+      ['not only...but also... + make+宾补','The competition not only makes school lunch healthier and more interesting, but also prepares students for life outside school.','├─ not only makes school lunch healthier and more interesting\n└─ but also prepares students for life outside school','⚠️ not only...but also...连接并列谓语。make+n.+adj.(宾补)。prepare sb. for=为……做准备。'],
+    ]
+  },
+  {
+    title:'女生更快乐',
+    core:[
+      ['elementary','/ˌelɪˈmentəri/','adj.','小学的;基础的'],
+      ['research','/rɪˈsɜːtʃ/','n.','研究'],
+      ['survey','/ˈsɜːveɪ/','n.','调查'],
+      ['subject','/ˈsʌbdʒɪkt/','n.','科目;主题'],
+      ['publish','/ˈpʌblɪʃ/','v.','发表;出版'],
+      ['safe','/seɪf/','adj.','安全的'],
+      ['however','/haʊˈevə/','adv.','然而'],
+      ['report','/rɪˈpɔːt/','v.','报告;汇报'],
+      ['level','/ˈlevl/','n.','水平;程度'],
+      ['researcher','/rɪˈsɜːtʃə/','n.','研究人员'],
+      ['activity','/ækˈtɪvəti/','n.','活动'],
+      ['while','/waɪl/','conj.','而(表对比);当……时'],
+      ['positive','/ˈpɒzətɪv/','adj.','积极的'],
+      ['equally','/ˈiːkwəli/','adv.','平等地;同样地'],
+      ['difference','/ˈdɪfrəns/','n.','差异;不同'],
+    ],
+    advanced:[
+      ['well-being','/ˌwel ˈbiːɪŋ/','n.','幸福感;健康;福祉'],
+      ['journal','/ˈdʒɜːnl/','n.','期刊;杂志'],
+      ['predictor','/prɪˈdɪktə/','n.','预测因素'],
+    ],
+    recognition:[
+      ['Norway','/ˈnɔːweɪ/','n.','挪威'],
+    ],
+    phrases:[
+      ['physical education','体育'],
+      ['in general','总体上;一般来说'],
+      ['tend to','倾向于;往往'],
+      ['be good at','擅长'],
+      ['be asked','被询问'],
+      ['work with','与……合作'],
+    ],
+    patterns:[
+      ['while表对比 + because原因状语从句','Researcher Hermunder Sigmundsson said girls may like school more because they enjoy classroom activities, while boys may need more physical activity.','├─ 主句: Researcher Hermunder Sigmundsson said\n└─ 宾语从句: girls may like school more...\n    ├─ 原因状语从句: because they enjoy classroom activities\n    └─ 对比从句: while boys may need more physical activity','⚠️ while此处=而(表对比,非当……时)。中考while词义辨析重点!said后that省略。'],
+      ['动名词主语 + 系表结构','Liking a subject was a strong predictor of being good at it.','├─ 主语: Liking a subject (动名词短语作主语)\n├─ 谓语: was (单数!动名词主语=单数)\n├─ 表语: a strong predictor\n└─ 定语: of being good at it (介词+动名词)','⚠️ 动名词主语→谓语用单数was。be good at=擅长。predictor of...=……的预测因素。'],
+      ['过去分词作后置定语 + that宾语从句','The results, published in the European Journal of Early Childhood Education, showed that in general, all children felt safe at school and had friends.','├─ 主语: The results\n├─ 定语: published in... (过去分词短语 = which were published in...)\n├─ 谓语: showed\n└─ 宾语从句: that all children felt safe and had friends','⚠️ 过去分词published作后置定语。showed后that引导宾语从句。in general=总体上。'],
+      ['if=whether宾语从句 + how宾语从句','They were asked how they felt about their well-being and if they had friends at school.','├─ 主语: They | 谓语: were asked (被动语态)\n├─ 宾语从句①: how they felt about their well-being\n└─ 宾语从句②: if they had friends at school (if = whether = 是否)','⚠️ if此处=whether(是否),非条件状语如果!中考词义辨析必考。were asked=被动语态。'],
+    ]
+  }
+];
 
 // ==================== STATE ====================
 let currentDay = 0;
@@ -595,7 +878,7 @@ function listenedCount(){
   let c=0;
   const day=DAYS[currentDay];
   const all=[...day.core,...day.advanced,...day.recognition,...day.phrases];
-  if(day.complex) all.push(...day.complex);
+  if(day.patterns) all.push(...day.patterns);
   for(let k in listened){
     const parts=k.split('_');
     if(parseInt(parts[0])===currentDay && listened[k]) c++;
@@ -604,10 +887,12 @@ function listenedCount(){
 }
 function totalCount(){
   const d=DAYS[currentDay];
-  return d.core.length+d.advanced.length+d.recognition.length+d.phrases.length+(d.complex?d.complex.length:0);
+  return d.core.length+d.advanced.length+d.recognition.length+d.phrases.length+(d.patterns?d.patterns.length:0);
 }
 function updateHeader(){
-      updateHeader();
+  const day=DAYS[currentDay];
+  const modeLabel=currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句子');
+  document.getElementById('headerInfo').textContent='Day '+(currentDay+1)+' · '+modeLabel+' ('+listenedCount()+'/'+totalCount()+')';
 }
 let currentMode = 'vocab';
 let currentIdx = 0;
