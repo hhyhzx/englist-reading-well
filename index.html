@@ -17,11 +17,15 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .header{background:var(--accent);color:#fff;padding:10px 14px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center}
 .header h1{font-size:17px}
 .header span{font-size:11px;opacity:.8}
+.sort-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;cursor:pointer;white-space:nowrap}
+.sort-btn:active{background:rgba(255,255,255,.25)}
 .tabs{display:flex;position:sticky;top:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
-.tab{flex:1;text-align:center;padding:9px 0;font-size:13px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent}
+.tab{flex:1;text-align:center;padding:9px 0;font-size:13px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;position:relative}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab.locked{color:#ccc;cursor:not-allowed;pointer-events:none}
+.tab.locked .badge{color:#ccc}
+.tab.checked .badge::after{content:' ✅';font-size:8px}
 .tab .badge{font-size:10px;font-weight:400;color:var(--sub);display:block;margin-top:1px}
-.tab.active .badge{color:var(--accent)}
 .main{padding:10px 12px 30px}
 
 .mode-tabs{display:flex;gap:6px;margin:4px 0 8px}
@@ -63,6 +67,11 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .nav-row{display:flex;gap:8px;margin:10px 0}
 .nav-row button{flex:1;padding:14px 0;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:20px;cursor:pointer;font-weight:600;box-shadow:var(--shadow)}
 .nav-row button:active{background:#eee;transform:scale(.96)}
+.checkin-bar{text-align:center;margin:10px 0}
+.checkin-btn{background:var(--green);color:#fff;border:none;padding:12px 40px;border-radius:25px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(46,125,50,.3);letter-spacing:1px}
+.checkin-btn:active{transform:scale(.95);opacity:.9}
+.checkin-done{display:inline-block;background:#e8f5e9;color:var(--green);padding:10px 30px;border-radius:25px;font-size:16px;font-weight:700}
+.progress-info{text-align:center;font-size:12px;color:var(--sub);margin:6px 0}
 
 @keyframes speak{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
 .speaking{animation:speak .4s ease 2}
@@ -72,28 +81,10 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 
 <div class="header">
   <div><h1>📖 精读词汇记忆</h1><span id="headerInfo">Day 1 · 词汇</span></div>
+  <button class="sort-btn" onclick="toggleSort()" id="sortBtn">🔢 1→18</button>
 </div>
 
-<div class="tabs" id="tabs">
-  <div class="tab active" onclick="switchDay(0)">Day 1<div class="badge">万筷崖咖啡</div></div>
-  <div class="tab" onclick="switchDay(1)">Day 2<div class="badge">冰川漂浮小屋</div></div>
-  <div class="tab" onclick="switchDay(2)">Day 3<div class="badge">火车着陆</div></div>
-  <div class="tab" onclick="switchDay(3)">Day 4<div class="badge">飞行员火车着陆</div></div>
-  <div class="tab" onclick="switchDay(4)">Day 5<div class="badge">徐福记酥糖</div></div>
-  <div class="tab" onclick="switchDay(5)">Day 6<div class="badge">广东拖鞋比赛</div></div>
-  <div class="tab" onclick="switchDay(6)">Day 7<div class="badge">学生春假</div></div>
-  <div class="tab" onclick="switchDay(7)">Day 8<div class="badge">快递员学院</div></div>
-  <div class="tab" onclick="switchDay(8)">Day 9<div class="badge">健康学校指南</div></div>
-  <div class="tab" onclick="switchDay(9)">Day 10<div class="badge">AI职业选择</div></div>
-  <div class="tab" onclick="switchDay(10)">Day 11<div class="badge">校园午餐比赛</div></div>
-  <div class="tab" onclick="switchDay(11)">Day 12<div class="badge">女生更快乐</div></div>
-  <div class="tab" onclick="switchDay(12)">Day 13<div class="badge">辣椒健康</div></div>
-  <div class="tab" onclick="switchDay(13)">Day 14<div class="badge">猪瘟防控</div></div>
-  <div class="tab" onclick="switchDay(14)">Day 15<div class="badge">房子幸福</div></div>
-  <div class="tab" onclick="switchDay(15)">Day 16<div class="badge">膳食脂肪</div></div>
-  <div class="tab" onclick="switchDay(16)">Day 17<div class="badge">年轻人孤独</div></div>
-  <div class="tab" onclick="switchDay(17)">Day 18<div class="badge">睡前拖延</div></div>
-</div>
+<div class="tabs" id="tabs"></div>
 
 <div class="main" id="main"></div>
 
@@ -1183,6 +1174,63 @@ const DAYS = [{
 
 // ==================== STATE ====================
 let currentDay = 0;
+let sortOrder = 'asc';
+// Daily check-in state: checked[i]=1 means Day i is completed
+const CKEY = 'checkin_v1';
+let checked = {};
+try{ checked = JSON.parse(localStorage.getItem(CKEY)) || {}; }catch(e){}
+function saveChecked(){ localStorage.setItem(CKEY, JSON.stringify(checked)); }
+function isDayUnlocked(ai){
+  // Day 0 always unlocked; other days require previous day checked in
+  if(ai === 0) return true;
+  return checked[ai-1] === 1;
+}
+function checkIn(){
+  if(!isDayUnlocked(currentDay) || checked[currentDay]) return;
+  // Mark current day complete and unlock next
+  checked[currentDay] = 1;
+  saveChecked();
+  // Auto-advance to next day if unlocked
+  if(currentDay + 1 < DAYS.length){
+    currentDay++;
+    currentIdx = 0;
+  }
+  renderTabs();
+  render();
+}
+function getDayIndex(displayIdx){
+  const count = DAYS.length;
+  return sortOrder === 'asc' ? displayIdx : count - 1 - displayIdx;
+}
+function getDisplayIndex(actualIdx){
+  const count = DAYS.length;
+  return sortOrder === 'asc' ? actualIdx : count - 1 - actualIdx;
+}
+function renderTabs(){
+  const tabsEl = document.getElementById('tabs');
+  let html = '';
+  for(let di = 0; di < DAYS.length; di++){
+    const ai = getDayIndex(di);
+    const day = DAYS[ai];
+    const badge = day.title.length > 4 ? day.title.slice(0,4) : day.title;
+    let cls = '';
+    if(ai === currentDay) cls = ' active';
+    else if(!isDayUnlocked(ai)) cls = ' locked';
+    else if(checked[ai]) cls = ' checked';
+    html += '<div class="tab'+cls+'" onclick="switchDay('+di+')">Day '+(di+1)+'<div class="badge">'+badge+'</div></div>';
+  }
+  tabsEl.innerHTML = html;
+}
+function toggleSort(){
+  sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+  document.getElementById('sortBtn').textContent = sortOrder === 'asc' ? '🔢 1→18' : '🔢 18→1';
+  currentIdx = 0;
+  renderTabs();
+  render();
+}
+function checkedCount(){
+  return Object.values(checked).filter(v=>v===1).length;
+}
 const LKEY = 'listen_v1';
 let listened = {};
 try{ listened = JSON.parse(localStorage.getItem(LKEY)) || {}; }catch(e){}
@@ -1208,7 +1256,8 @@ function totalCount(){
 function updateHeader(){
   const day=DAYS[currentDay];
   const modeLabel=currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句子');
-  document.getElementById('headerInfo').textContent='Day '+(currentDay+1)+' · '+modeLabel+' ('+listenedCount()+'/'+totalCount()+')';
+  const doneCount = Object.values(checked).filter(v=>v===1).length;
+  document.getElementById('headerInfo').textContent='Day '+(getDisplayIndex(currentDay)+1)+' · '+modeLabel+' | 已打卡'+doneCount+'/'+DAYS.length;
 }
 let currentMode = 'vocab';
 let currentIdx = 0;
@@ -1277,6 +1326,15 @@ function render(){
 
   html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
 
+  // Check-in bar
+  html += '<div class="checkin-bar">';
+  if(checked[currentDay]){
+    html += '<span class="checkin-done">✅ 已打卡</span>';
+  } else if(isDayUnlocked(currentDay)){
+    html += '<button class="checkin-btn" onclick="checkIn()">✅ 完成打卡，解锁下一天</button>';
+  }
+  html += '</div>';
+
   html += '<div class="nav-row">';
   html += '<button onclick="prevItem()">◀</button>';
   html += '<button onclick="flipCard()">👆 翻转</button>';
@@ -1284,7 +1342,7 @@ function render(){
   html += '</div>';
 
   document.getElementById('main').innerHTML = html;
-  document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===currentDay));
+  document.querySelectorAll('.tab').forEach((t,i)=> t.classList.toggle('active', i===getDisplayIndex(currentDay)));
   window._flipped = false;
 }
 
@@ -1303,7 +1361,13 @@ function getItems(){
   return day.patterns;
 }
 
-function switchDay(d){ currentDay=d; currentIdx=0; render(); }
+function switchDay(d){
+  const ai = getDayIndex(d);
+  if(!isDayUnlocked(ai)) return; // Block locked days
+  currentDay = ai;
+  currentIdx = 0;
+  render();
+}
 function switchMode(m){ currentMode=m; currentIdx=0; render(); }
 function nextItem(){ currentIdx++; if(currentIdx>=getItems().length) currentIdx=0; render(); }
 function prevItem(){ currentIdx--; if(currentIdx<0) currentIdx=getItems().length-1; render(); }
@@ -1325,6 +1389,7 @@ if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js?v=5').catch(()=>{});
 }
 
+renderTabs();
 render();
 </script>
 </body>
