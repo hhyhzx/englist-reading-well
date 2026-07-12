@@ -9,7 +9,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <link rel="manifest" href="manifest.json?v=5">
-<title>精读词汇 · Day1-7</title>
+<title>精读词汇 · Day1-18</title>
 <style>
 :root{--bg:#faf9f6;--card:#fff;--text:#1a1a1a;--sub:#888;--accent:#003366;--red:#c62828;--blue:#1565c0;--green:#2e7d32;--orange:#e65100;--border:#e0dcd5;--shadow:0 2px 6px rgba(0,0,0,.1)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -87,6 +87,12 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
   <div class="tab" onclick="switchDay(9)">Day 10<div class="badge">AI职业选择</div></div>
   <div class="tab" onclick="switchDay(10)">Day 11<div class="badge">校园午餐比赛</div></div>
   <div class="tab" onclick="switchDay(11)">Day 12<div class="badge">女生更快乐</div></div>
+  <div class="tab" onclick="switchDay(12)">Day 13<div class="badge">辣椒健康</div></div>
+  <div class="tab" onclick="switchDay(13)">Day 14<div class="badge">猪瘟防控</div></div>
+  <div class="tab" onclick="switchDay(14)">Day 15<div class="badge">房子幸福</div></div>
+  <div class="tab" onclick="switchDay(15)">Day 16<div class="badge">膳食脂肪</div></div>
+  <div class="tab" onclick="switchDay(16)">Day 17<div class="badge">年轻人孤独</div></div>
+  <div class="tab" onclick="switchDay(17)">Day 18<div class="badge">睡前拖延</div></div>
 </div>
 
 <div class="main" id="main"></div>
@@ -861,6 +867,316 @@ const DAYS = [{
       ['动名词主语 + 系表结构','Liking a subject was a strong predictor of being good at it.','├─ 主语: Liking a subject (动名词短语作主语)\n├─ 谓语: was (单数!动名词主语=单数)\n├─ 表语: a strong predictor\n└─ 定语: of being good at it (介词+动名词)','⚠️ 动名词主语→谓语用单数was。be good at=擅长。predictor of...=……的预测因素。'],
       ['过去分词作后置定语 + that宾语从句','The results, published in the European Journal of Early Childhood Education, showed that in general, all children felt safe at school and had friends.','├─ 主语: The results\n├─ 定语: published in... (过去分词短语 = which were published in...)\n├─ 谓语: showed\n└─ 宾语从句: that all children felt safe and had friends','⚠️ 过去分词published作后置定语。showed后that引导宾语从句。in general=总体上。'],
       ['if=whether宾语从句 + how宾语从句','They were asked how they felt about their well-being and if they had friends at school.','├─ 主语: They | 谓语: were asked (被动语态)\n├─ 宾语从句①: how they felt about their well-being\n└─ 宾语从句②: if they had friends at school (if = whether = 是否)','⚠️ if此处=whether(是否),非条件状语如果!中考词义辨析必考。were asked=被动语态。'],
+    ]
+  }
+,
+  {
+    title:'辣椒健康益处', core:[
+      ['pain','/peɪn/','n./v.','疼痛；痛苦'],
+      ['gain','/ɡeɪn/','v./n.','获得；收获'],
+      ['case','/keɪs/','n.','情况；案例'],
+      ['hurt','/hɜːt/','v.','伤害；疼痛'],
+      ['useful','/ˈjuːsfl/','adj.','有用的'],
+      ['number','/ˈnʌmbə/','n.','数量；数字'],
+      ['condition','/kənˈdɪʃn/','n.','条件；状况'],
+      ['power','/ˈpaʊə/','n.','力量；能力'],
+      ['frighten','/ˈfraɪtn/','v.','吓唬；使害怕'],
+      ['brave','/breɪv/','adj.','勇敢的'],
+      ['serious','/ˈsɪəriəs/','adj.','严重的'],
+      ['damage','/ˈdæmɪdʒ/','n./v.','损害；伤害'],
+      ['death','/deθ/','n.','死亡'],
+      ['chemical','/ˈkemɪkl/','n./adj.','化学物质；化学的'],
+      ['widely','/ˈwaɪdli/','adv.','广泛地'],
+      ['treat','/triːt/','v.','治疗；对待'],
+      ['muscle','/ˈmʌsl/','n.','肌肉'],
+      ['joint','/dʒɔɪnt/','n.','关节'],
+      ['nerve','/nɜːv/','n.','神经'],
+      ['possible','/ˈpɒsəbl/','adj.','可能的'],
+      ['spread','/spred/','v./n.','传播；扩散'],
+      ['cancer','/ˈkænsə/','n.','癌症'],
+      ['previous','/ˈpriːviəs/','adj.','之前的'],
+      ['similar','/ˈsɪmələ/','adj.','相似的'],
+      ['result','/rɪˈzʌlt/','n.','结果'],
+      ['data','/ˈdeɪtə/','n.','数据'],
+      ['suggest','/səˈdʒest/','v.','表明；建议'],
+      ['rarely','/ˈreəli/','adv.','很少'],
+      ['risk','/rɪsk/','n.','风险'],
+      ['meal','/miːl/','n.','一餐'],
+      ['full','/fʊl/','adj.','满的；饱的'],
+      ['disease','/dɪˈziːz/','n.','疾病'],
+      ['killer','/ˈkɪlə/','n.','杀手'],
+      ['cause','/kɔːz/','n./v.','原因；导致'],
+      ['block','/blɒk/','v.','堵塞'],
+      ['blood','/blʌd/','n.','血液'],
+      ['flow','/fləʊ/','n./v.','流动'],
+      ['publish','/ˈpʌblɪʃ/','v.','发表；出版'],
+      ['reduce','/rɪˈdjuːs/','v.','减少'],
+      ['solve','/sɒlv/','v.','解决'],
+      ['effect','/ɪˈfekt/','n.','影响；效果'],
+      ['continue','/kənˈtɪnjuː/','v.','继续'],
+      ['pleasure','/ˈpleʒə/','n.','快乐；享受'],
+    ], advanced:[
+      ['hospitalisation','/ˌhɒspɪtəlaɪˈzeɪʃn/','n.','住院'],
+      ['capsaicin','/kæpˈseɪɪsɪn/','n.','辣椒素'],
+      ['calcium','/ˈkælsiəm/','n.','钙'],
+      ['deposit','/dɪˈpɒzɪt/','n.','沉积物'],
+      ['artery','/ˈɑːtəri/','n.','动脉'],
+      ['digestive','/daɪˈdʒestɪv/','adj.','消化的'],
+      ['obesity','/əʊˈbiːsəti/','n.','肥胖'],
+      ['participant','/pɑːˈtɪsɪpənt/','n.','参与者'],
+      ['association','/əˌsəʊsiˈeɪʃn/','n.','协会'],
+    ], recognition:[
+      ['fiery','/ˈfaɪəri/','adj.','燃烧的；火热的'],
+      ['chilli','/ˈtʃɪli/','n.','辣椒'],
+    ], phrases:[
+      ['a number of','许多'],
+      ['deal with','处理；应对'],
+      ['lead to','导致'],
+      ['with good reason','理由充分'],
+      ['compared with','与……相比'],
+      ['be linked to','与……有关'],
+      ['tend to do','倾向于做'],
+      ['keep on doing','继续做'],
+      ['feel full','感到饱'],
+      ['blood flow','血流'],
+    ], patterns:[
+      ['强调句型 It is...that...','It is a chemical called capsaicin, found inside the peppers, that gives them most of that fiery heat.','├─ 强调结构: It is + 被强调主语 + that...\n├─ 主语: a chemical (called capsaicin 过去分词作定语)\n└─ that从句: gives them most of that fiery heat','⚠️ It is...that... 强调句型。called和found都是过去分词作后置定语。中考语法填空高频考点!'],
+      ['现在分词作结果状语 + that宾语从句','Studies have shown that capsaicin may be able to slow the spread of cancers, making them easier to treat.','├─ 主句: Studies have shown\n├─ 宾语从句: that capsaicin may be able to slow the spread of cancers\n└─ 结果状语: making them easier to treat (现在分词短语)','⚠️ 逗号+doing 作结果状语 = and this makes them...。中考写作高级表达!'],
+      ['长难句(插入语 + 动名词主语 + 被动语态)','Data collected from a number of studies has even suggested that eating chillies — compared with rarely or never eating them — is linked to a 23% lower risk of death from cancer.','├─ 主语: Data (collected...过去分词作定语)\n├─ 谓语: has suggested (单数!data=不可数)\n├─ 宾从: that eating chillies is linked to...\n│   └─ 插入语: —compared with rarely or never eating them—\n└─ 表语: a 23% lower risk of death from cancer','⚠️ data作主语→谓语单数。插入语用破折号隔开可跳过。eating动名词作从句主语。'],
+      ['which非限制性定语从句 + 被动语态','One of the causes of heart attacks is blocked arteries that are caused by calcium deposits, which can affect blood flow to the heart.','├─ 主句: One of the causes is blocked arteries\n├─ that定语从句: that are caused by calcium deposits\n└─ which定语从句: which can affect blood flow to the heart','⚠️ one of + 复数→谓语单数is。that定从+which定从→三层嵌套!中考长难句典型模式。'],
+    ]
+  },
+  {
+    title:'西班牙猪瘟防控', core:[
+      ['fever','/ˈfiːvə/','n.','发烧；热病'],
+      ['return','/rɪˈtɜːn/','v.','返回；归来'],
+      ['surprised','/səˈpraɪzd/','adj.','惊讶的'],
+      ['worried','/ˈwʌrid/','adj.','担忧的'],
+      ['deadly','/ˈdedli/','adj.','致命的'],
+      ['virus','/ˈvaɪrəs/','n.','病毒'],
+      ['dangerous','/ˈdeɪndʒərəs/','adj.','危险的'],
+      ['tiny','/ˈtaɪni/','adj.','极小的'],
+      ['garbage','/ˈɡɑːbɪdʒ/','n.','垃圾'],
+      ['outbreak','/ˈaʊtbreɪk/','n.','爆发'],
+      ['cure','/kjʊə/','n./v.','治疗；治愈'],
+      ['kill','/kɪl/','v.','杀死'],
+      ['government','/ˈɡʌvənmənt/','n.','政府'],
+      ['movement','/ˈmuːvmənt/','n.','移动；活动'],
+      ['sick','/sɪk/','adj.','生病的'],
+      ['remove','/rɪˈmuːv/','v.','移除；清除'],
+      ['protect','/prəˈtekt/','v.','保护'],
+      ['spread','/spred/','v./n.','传播'],
+      ['strict','/strɪkt/','adj.','严格的'],
+      ['equipment','/ɪˈkwɪpmənt/','n.','设备'],
+      ['feed','/fiːd/','v.','喂；喂养'],
+      ['properly','/ˈprɒpəli/','adv.','妥善地；适当地'],
+      ['waste','/weɪst/','n.','垃圾；废物'],
+      ['disease','/dɪˈziːz/','n.','疾病'],
+    ], advanced:[
+      ['infected','/ɪnˈfektɪd/','adj.','被感染的'],
+      ['restricted','/rɪˈstrɪktɪd/','adj.','受限制的'],
+      ['drone','/drəʊn/','n.','无人机'],
+      ['sniffer','/ˈsnɪfə/','n.','嗅探器；嗅探犬'],
+      ['military','/ˈmɪlɪtəri/','adj.','军人的；军队的'],
+      ['disinfect','/ˌdɪsɪnˈfekt/','v.','消毒'],
+      ['authority','/ɔːˈθɒrəti/','n.','当局；权威'],
+    ], recognition:[
+      ['swine','/swaɪn/','n.','猪'],
+      ['boar','/bɔː/','n.','野猪'],
+    ], phrases:[
+      ['so...that...','如此……以至于'],
+      ['a tiny bit of','极少量的'],
+      ['stop...from doing','阻止……做'],
+      ['keep...away from','使……远离'],
+      ['look for','寻找'],
+    ], patterns:[
+      ['so...that... 结果状语从句','The virus is so strong that even a tiny bit of infected garbage can start a big outbreak.','├─ 主句: The virus is so strong\n├─ 引导词: that\n└─ 结果状语从句: even a tiny bit of infected garbage can start a big outbreak','⚠️ so + adj. + that... = 如此……以至于。中考高频句型!infected过去分词作定语。'],
+      ['because原因状语从句 + 被动语态','Because ASF has no cure and can kill animals very quickly, Spain acted fast.','├─ 原因状语从句: Because ASF has no cure and can kill animals very quickly\n│   └─ 并列谓语: has no cure and can kill\n└─ 主句: Spain acted fast','⚠️ Because+从句=因为。从句中有两个并列谓语。act fast=迅速行动。辨析:because of+名词。'],
+      ['不定式复合结构(定语+表语+目的状语)','The only way to protect pigs is to stop the virus from spreading.','├─ 主语: The only way\n├─ 定语: to protect pigs (不定式作后置定语修饰way)\n├─ 谓语: is\n└─ 表语: to stop the virus from spreading (不定式 + stop...from doing)','⚠️ to protect不定式作定语。stop...from doing=阻止……做。中考固定搭配!'],
+      ['动名词主语 + help (to) do','Even throwing food waste in the right place can help stop the disease.','├─ 主语: Even throwing food waste in the right place (动名词短语)\n├─ 谓语: can help\n└─ 宾语: stop the disease (省略to的不定式)','⚠️ 动名词短语作主语→谓语用单数can help。help后可接带to或不带to的不定式。'],
+    ]
+  },
+  {
+    title:'大房子与幸福', core:[
+      ['size','/saɪz/','n.','大小；尺寸'],
+      ['dream','/driːm/','v./n.','梦想'],
+      ['perhaps','/pəˈhæps/','adv.','也许；可能'],
+      ['hometown','/ˈhəʊmtaʊn/','n.','家乡'],
+      ['average','/ˈævərɪdʒ/','adj.','平均的'],
+      ['increase','/ɪnˈkriːs/','v.','增加'],
+      ['square','/skweə/','adj./n.','平方的；正方形'],
+      ['expert','/ˈekspɜːt/','n.','专家'],
+      ['satisfying','/ˈsætɪsfaɪɪŋ/','adj.','令人满意的'],
+      ['separate','/ˈsepərət/','adj.','另外的；独立的'],
+      ['adult','/ˈædʌlt/','n.','成年人'],
+      ['space','/speɪs/','n.','空间'],
+      ['loneliness','/ˈləʊnlinəs/','n.','孤独'],
+      ['social','/ˈsəʊʃl/','adj.','社会的；社交的'],
+      ['connection','/kəˈnekʃn/','n.','联系；连接'],
+      ['regardless','/rɪˈɡɑːdləs/','adv.','无论；不管'],
+      ['encourage','/ɪnˈkʌrɪdʒ/','v.','鼓励；促进'],
+      ['depend','/dɪˈpend/','v.','依靠；取决于'],
+      ['relationship','/rɪˈleɪʃnʃɪp/','n.','关系'],
+      ['choice','/tʃɔɪs/','n.','选择'],
+      ['clean','/kliːn/','v./adj.','清洁；干净的'],
+      ['stress','/stres/','n.','压力'],
+      ['mental','/ˈmentl/','adj.','心理的；精神的'],
+      ['sacrifice','/ˈsækrɪfaɪs/','v.','牺牲'],
+      ['afford','/əˈfɔːd/','v.','负担得起'],
+    ], advanced:[
+      ['census','/ˈsensəs/','n.','人口普查'],
+      ['bureau','/ˈbjʊərəʊ/','n.','局；处'],
+      ['correlation','/ˌkɒrəˈleɪʃn/','n.','关联；相关性'],
+      ['overall','/ˌəʊvərˈɔːl/','adj.','总体的；全面的'],
+      ['household','/ˈhaʊshəʊld/','n.','家庭；户'],
+      ['necessity','/nəˈsesəti/','n.','必需品；必要'],
+      ['mortgage','/ˈmɔːɡɪdʒ/','n.','抵押贷款'],
+    ], recognition:[
+      ['well-being','/ˌwel ˈbiːɪŋ/','n.','健康；幸福'],
+    ], phrases:[
+      ['dream of doing','梦想做……'],
+      ['according to','根据'],
+      ['in the short term','在短期内'],
+      ['be linked to','与……相关'],
+      ['regardless of','无论；不管'],
+      ['be likely to do','可能做'],
+      ['depend on','取决于'],
+      ['look after','照料；照看'],
+      ['take out (a mortgage)','办理(贷款)'],
+    ], patterns:[
+      ['while让步状语从句 + that宾语从句','But experts say that while moving into a larger home might feel satisfying in the short term, there is not a correlation between this and overall, long-term happiness.','├─ 主句: experts say\n├─ 宾语从句: that...there is not a correlation...\n│   └─ 让步状从: while moving into a larger home might feel satisfying\n└─ 时间状语: in the short term','⚠️ while=although(虽然)。that宾从内嵌while状从→双层嵌套。'],
+      ['while表对比 + 动名词主语','In fact, while American homes might be getting bigger, fewer people are actually living in them.','├─ 过渡: In fact\n├─ 对比从句: while American homes might be getting bigger\n└─ 主句: fewer people are actually living in them','⚠️ while此处=而/然而(表对比)。与上句while表让步不同!中考while词义辨析重点!'],
+      ['动名词主语 + which非限制性定语从句','Having a smaller space can also encourage people to buy and keep fewer things, which has been linked to lower stress levels and better mental well-being.','├─ 主语: Having a smaller space (动名词短语)\n├─ 谓语: can encourage (单数概念)\n├─ 宾补: to buy and keep fewer things\n└─ which定语从句: which has been linked to... (指代前面整件事)','⚠️ 动名词主语→谓语单数。which指代整件事非单个名词。has been linked=现在完成时被动。'],
+      ['不定式目的状语 + that定语从句','To buy a larger home, some people might also sacrifice things in their lives that bring them happiness.','├─ 目的状语: To buy a larger home (不定式)\n├─ 主句: some people might also sacrifice things\n└─ that定语从句: that bring them happiness (修饰things)','⚠️ to buy...不定式作目的状语。sacrifice things that bring happiness→牺牲带来幸福的东西。'],
+    ]
+  },
+  {
+    title:'膳食脂肪真相', core:[
+      ['popular','/ˈpɒpjələ/','adj.','受欢迎的'],
+      ['balanced','/ˈbælənst/','adj.','均衡的'],
+      ['diet','/ˈdaɪət/','n.','饮食'],
+      ['calorie','/ˈkæləri/','n.','卡路里；热量'],
+      ['vitamin','/ˈvɪtəmɪn/','n.','维生素'],
+      ['illness','/ˈɪlnəs/','n.','疾病'],
+      ['protect','/prəˈtekt/','v.','保护'],
+      ['skin','/skɪn/','n.','皮肤'],
+      ['bone','/bəʊn/','n.','骨头'],
+      ['muscle','/ˈmʌsl/','n.','肌肉'],
+      ['immune','/ɪˈmjuːn/','adj.','免疫的'],
+      ['system','/ˈsɪstəm/','n.','系统'],
+      ['wound','/wuːnd/','n.','伤口'],
+      ['heal','/hiːl/','v.','愈合'],
+      ['type','/taɪp/','n.','类型'],
+      ['brain','/breɪn/','n.','大脑'],
+      ['heart','/hɑːt/','n.','心脏'],
+      ['level','/ˈlevl/','n.','水平'],
+      ['vessel','/ˈvesl/','n.','血管；容器'],
+      ['liver','/ˈlɪvə/','n.','肝脏'],
+      ['risk','/rɪsk/','n.','风险'],
+      ['source','/sɔːs/','n.','来源'],
+      ['enemy','/ˈenəmi/','n.','敌人'],
+    ], advanced:[
+      ['saturated','/ˈsætʃəreɪtɪd/','adj.','饱和的'],
+      ['unsaturated','/ʌnˈsætʃəreɪtɪd/','adj.','不饱和的'],
+      ['cholesterol','/kəˈlestərɒl/','n.','胆固醇'],
+      ['fatty acid','/ˈfæti ˈæsɪd/','n.','脂肪酸'],
+    ], recognition:[
+      ['clot','/klɒt/','v./n.','凝结；凝块'],
+    ], phrases:[
+      ['take in','吸收'],
+      ['high in','富含'],
+      ['too much','太多'],
+      ['be rich in','富含'],
+      ['break down','分解'],
+    ], patterns:[
+      ['并列句(but表转折 + so表因果)','Fat has not always been popular, but it is actually an important part of a balanced diet. All kinds of fats are high in calories, so we should not eat too much of them.','├─ 分句①: Fat has not always been popular (现在完成时)\n├─ 转折: but\n├─ 分句②: it is actually an important part of a balanced diet\n├─ 分句③: All kinds of fats are high in calories\n├─ 因果: so\n└─ 分句④: we should not eat too much of them','⚠️ but表转折,so表因果。has not been=现在完成时否定。high in=富含。too much+不可数名词。'],
+      ['which非限制性定语从句 + 复合定语结构','Unsaturated fats are usually called healthy fats. They are rich in fatty acids, which are important for your brain and heart.','├─ 主句: Unsaturated fats are usually called healthy fats (被动语态)\n├─ 分句: They are rich in fatty acids\n└─ which定语从句: which are important for your brain and heart (which指代fatty acids)','⚠️ 逗号+which指代fatty acids。be rich in=富含。be called=被动语态被称为。'],
+      ['where定语从句 + 被动语态','Good cholesterol carries bad cholesterol (LDL) away from your blood vessels to the liver, where it gets broken down.','├─ 主句: Good cholesterol carries bad cholesterol away from your blood vessels to the liver\n└─ where定语从句: where it gets broken down (where=in the liver)','⚠️ where引导定语从句修饰地点名词liver。gets broken down=被动语态被分解。'],
+      ['祈使句 + 分号连接对比','Remember: fats are not enemies; just choose the right ones!','├─ 祈使句: Remember (动词原形开头)\n├─ 分句①: fats are not enemies (系表结构)\n├─ 分号: ; (连接两个独立分句)\n└─ 分句②: just choose the right ones (祈使句)','⚠️ 分号可连接两个独立分句,相当于and。enemy=敌人。choose the right ones→选择正确的。'],
+    ]
+  },
+  {
+    title:'年轻人孤独感', core:[
+      ['loneliness','/ˈləʊnlinəs/','n.','孤独'],
+      ['worst','/wɜːst/','adj.','最坏的'],
+      ['quote','/kwəʊt/','n./v.','引用；名言'],
+      ['match','/mætʃ/','v.','匹配；符合'],
+      ['especially','/ɪˈspeʃəli/','adv.','尤其；特别'],
+      ['explanation','/ˌekspləˈneɪʃn/','n.','解释'],
+      ['simple','/ˈsɪmpl/','adj.','简单的'],
+      ['active','/ˈæktɪv/','adj.','活跃的'],
+      ['regular','/ˈreɡjələ/','adj.','定期的；规律的'],
+      ['contact','/ˈkɒntækt/','n.','联系；接触'],
+      ['appear','/əˈpɪə/','v.','看起来；出现'],
+      ['connected','/kəˈnektɪd/','adj.','有联系的'],
+      ['decrease','/dɪˈkriːs/','v.','减少'],
+      ['lack','/læk/','n./v.','缺乏'],
+      ['major','/ˈmeɪdʒə/','adj.','重大的；主要的'],
+      ['limited','/ˈlɪmɪtɪd/','adj.','有限的'],
+      ['maintain','/meɪnˈteɪn/','v.','维持；保持'],
+      ['lower','/ˈləʊə/','adj.','较低的'],
+      ['protect','/prəˈtekt/','v.','保护'],
+      ['supportive','/səˈpɔːtɪv/','adj.','支持的'],
+      ['meaningful','/ˈmiːnɪŋfl/','adj.','有意义的'],
+    ], advanced:[
+      ['stability','/stəˈbɪləti/','n.','稳定性'],
+      ['unpredictable','/ˌʌnprɪˈdɪktəbl/','adj.','不可预测的'],
+      ['frequently','/ˈfriːkwəntli/','adv.','频繁地'],
+      ['routine','/ruːˈtiːn/','n.','常规；日常'],
+      ['unstable','/ʌnˈsteɪbl/','adj.','不稳定的'],
+    ], recognition:[
+    ], phrases:[
+      ['end up','最终处于'],
+      ['all alone','孤独一人'],
+      ['be thought of as','被认为是'],
+      ['even so','即便如此'],
+      ['lack of','缺乏'],
+      ['on the other hand','另一方面'],
+      ['protect against','防止；抵御'],
+    ], patterns:[
+      ['强调结构 + 比较级句型','I used to think the worst thing in life was to end up all alone. It is not. The worst thing in life is ending up with people who make you feel all alone.','├─ 分句①: I used to think the worst thing...was to end up all alone (used to=过去常常)\n├─ 否定短句: It is not.\n└─ 分句②: The worst thing...is ending up with people who make you feel all alone','⚠️ used to do=过去常常。worst=最高级(bad-worse-worst)。end up doing=最终处于。who定语从句修饰people。'],
+      ['while让步状语 + 现在进行时','And while it is from a movie, the idea matches what scientists are finding about loneliness, especially among young adults.','├─ 让步状语从句: while it is from a movie (while=although)\n├─ 主句: the idea matches...\n└─ 宾语从句: what scientists are finding about loneliness (what=the thing that)','⚠️ while=although(虽然)。what引导的名词性从句作matches的宾语。are finding=现在进行时。'],
+      ['并列when状语从句 + 双重否定表意','When relationships lack stability, and when life feels unpredictable, even frequent social contact may not feel supportive or meaningful.','├─ 时间状从①: When relationships lack stability\n├─ 并列连接: and\n├─ 时间状从②: when life feels unpredictable\n└─ 主句: even frequent social contact may not feel supportive or meaningful','⚠️ 两个并列when状从修饰主句。lack=缺乏(v.)。not feel supportive or meaningful=否定表意。'],
+      ['suggest + that宾语从句 + protect against','The study suggests that having many social connections does not always protect against loneliness.','├─ 主句: The study suggests\n└─ 宾语从句: that having many social connections does not always protect against loneliness\n    ├─ 主语: having many social connections (动名词短语)\n    └─ 谓语: does not always protect (does not + 动词原形)','⚠️ suggest+that宾从(that可省略)。动名词作主语→谓语单数。protect against=防止。'],
+    ]
+  },
+  {
+    title:'报复性睡前拖延', core:[
+      ['imagine','/ɪˈmædʒɪn/','v.','想象'],
+      ['hardly','/ˈhɑːdli/','adv.','几乎不'],
+      ['bedtime','/ˈbedtaɪm/','n.','睡觉时间'],
+      ['option','/ˈɒpʃn/','n.','选项'],
+      ['tired','/ˈtaɪəd/','adj.','累的'],
+      ['delay','/dɪˈleɪ/','v.','推迟'],
+      ['revenge','/rɪˈvendʒ/','n./v.','报复'],
+      ['survey','/ˈsɜːveɪ/','n.','调查'],
+      ['average','/ˈævərɪdʒ/','n./adj.','平均'],
+      ['lose','/luːz/','v.','失去；损失'],
+      ['regret','/rɪˈɡret/','v.','后悔'],
+      ['affect','/əˈfekt/','v.','影响'],
+      ['mental','/ˈmentl/','adj.','心理的'],
+      ['encourage','/ɪnˈkʌrɪdʒ/','v.','鼓励；促使'],
+      ['choice','/tʃɔɪs/','n.','选择'],
+      ['exercise','/ˈeksəsaɪz/','v./n.','锻炼'],
+      ['message','/ˈmesɪdʒ/','n.','信息'],
+      ['rest','/rest/','n./v.','休息'],
+      ['unhealthy','/ʌnˈhelθi/','adj.','不健康的'],
+    ], advanced:[
+      ['procrastination','/prəˌkræstɪˈneɪʃn/','n.','拖延'],
+    ], recognition:[
+    ], phrases:[
+      ['stay up late','熬夜'],
+      ['a bit of','一点'],
+      ['make sure','确保'],
+      ['even though','即使；尽管'],
+      ['be known as','被称为'],
+      ['on average','平均'],
+      ['be likely to do','可能做'],
+    ], patterns:[
+      ['Imagine引导的祈使句 + 并列谓语句','Imagine you have had a really busy day. Perhaps you had a long day at work and did not get home until late. You hardly had time to eat, and soon it was your bedtime.','├─ 祈使句: Imagine... (动词原形开头)\n│   └─ 宾语从句: (that) you have had a really busy day (现在完成时)\n├─ 并列句: you had a long day...and did not get home until late\n└─ 并列句: You hardly had time to eat, and soon it was your bedtime','⚠️ imagine后省略that。hardly=几乎不(否定副词)。until=直到。not...until=直到……才。'],
+      ['even though让步状语从句','A lot of people like to take the second option and stay up late, even though they know they will be tired the next morning.','├─ 主句: A lot of people like to take the second option and stay up late\n│   └─ 并列宾语: to take... and (to) stay up late (第二个to省略)\n└─ 让步状语从句: even though they know (that) they will be tired the next morning','⚠️ even though=even if=即使/尽管。与although/though同义。中考让步状语从句连词辨析!'],
+      ['so...that... 结果状语从句','It was so busy that you could not find time for yourself until bedtime!','├─ 主句: It was so busy\n├─ 引导词: that\n└─ 结果状语从句: you could not find time for yourself until bedtime','⚠️ so + adj. + that...=如此……以至于。find time for yourself=为自己找时间。'],
+      ['并列比较结构(less likely / more likely)','Many people said that after sleeping badly they were less likely to exercise and more likely to eat unhealthy food.','├─ 主句: Many people said\n└─ 宾语从句: that...they were less likely to exercise and more likely to eat unhealthy food\n    ├─ 时间状语: after sleeping badly (介词+动名词)\n    ├─ 并列谓语①: were less likely to exercise\n    └─ 并列谓语②: (were) more likely to eat unhealthy food','⚠️ less likely vs more likely→比较级对比例。be likely to do=可能做。after doing=介词+动名词。'],
     ]
   }
 ];
