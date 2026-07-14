@@ -19,13 +19,15 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .header span{font-size:11px;opacity:.8}
 .sort-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;cursor:pointer;white-space:nowrap}
 .sort-btn:active{background:rgba(255,255,255,.25)}
-.tabs{display:flex;position:sticky;top:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
-.tab{flex:1;text-align:center;padding:9px 0;font-size:13px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;position:relative}
+.tabs-wrap{display:flex;align-items:stretch;position:sticky;top:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border)}
+.tabs{display:flex;flex:1;overflow:hidden}
+.tab{flex:1;text-align:center;padding:9px 0;font-size:12px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;position:relative}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.tab.locked{color:#ccc;cursor:not-allowed;pointer-events:none}
-.tab.locked .badge{color:#ccc}
-.tab.checked .badge::after{content:' ✅';font-size:8px}
 .tab .badge{font-size:10px;font-weight:400;color:var(--sub);display:block;margin-top:1px}
+.page-nav{flex:0 0 28px;border:none;background:var(--bg);color:var(--accent);font-size:16px;cursor:pointer;padding:0;font-weight:700}
+.page-nav:active{background:#e8e4dd}
+.page-nav:disabled{color:#ccc;cursor:default}
+.page-info-tabs{flex:0 0 auto;text-align:center;font-size:10px;color:var(--sub);padding:4px 6px;align-self:center}
 .main{padding:10px 12px 30px}
 
 .mode-tabs{display:flex;gap:6px;margin:4px 0 8px}
@@ -67,12 +69,6 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .nav-row{display:flex;gap:8px;margin:10px 0}
 .nav-row button{flex:1;padding:14px 0;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:20px;cursor:pointer;font-weight:600;box-shadow:var(--shadow)}
 .nav-row button:active{background:#eee;transform:scale(.96)}
-.checkin-bar{text-align:center;margin:10px 0}
-.checkin-btn{background:var(--green);color:#fff;border:none;padding:12px 40px;border-radius:25px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(46,125,50,.3);letter-spacing:1px}
-.checkin-btn:active{transform:scale(.95);opacity:.9}
-.checkin-done{display:inline-block;background:#e8f5e9;color:var(--green);padding:10px 30px;border-radius:25px;font-size:16px;font-weight:700}
-.progress-info{text-align:center;font-size:12px;color:var(--sub);margin:6px 0}
-
 @keyframes speak{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
 .speaking{animation:speak .4s ease 2}
 </style>
@@ -84,7 +80,11 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
   <button class="sort-btn" onclick="toggleSort()" id="sortBtn">🔢 1→18</button>
 </div>
 
-<div class="tabs" id="tabs"></div>
+<div class="tabs-wrap">
+  <button class="page-nav" id="prevPageBtn" onclick="changePage(-1)" disabled>◀</button>
+  <div class="tabs" id="tabs"></div>
+  <button class="page-nav" id="nextPageBtn" onclick="changePage(1)">▶</button>
+</div>
 
 <div class="main" id="main"></div>
 
@@ -1175,29 +1175,9 @@ const DAYS = [{
 // ==================== STATE ====================
 let currentDay = 0;
 let sortOrder = 'asc';
-// Daily check-in state: checked[i]=1 means Day i is completed
-const CKEY = 'checkin_v1';
-let checked = {};
-try{ checked = JSON.parse(localStorage.getItem(CKEY)) || {}; }catch(e){}
-function saveChecked(){ localStorage.setItem(CKEY, JSON.stringify(checked)); }
-function isDayUnlocked(ai){
-  // Day 0 always unlocked; other days require previous day checked in
-  if(ai === 0) return true;
-  return checked[ai-1] === 1;
-}
-function checkIn(){
-  if(!isDayUnlocked(currentDay) || checked[currentDay]) return;
-  // Mark current day complete and unlock next
-  checked[currentDay] = 1;
-  saveChecked();
-  // Auto-advance to next day if unlocked
-  if(currentDay + 1 < DAYS.length){
-    currentDay++;
-    currentIdx = 0;
-  }
-  renderTabs();
-  render();
-}
+let currentPage = 0;
+const PER_PAGE = 7;
+const totalPages = Math.ceil(DAYS.length / PER_PAGE);
 function getDayIndex(displayIdx){
   const count = DAYS.length;
   return sortOrder === 'asc' ? displayIdx : count - 1 - displayIdx;
@@ -1206,30 +1186,42 @@ function getDisplayIndex(actualIdx){
   const count = DAYS.length;
   return sortOrder === 'asc' ? actualIdx : count - 1 - actualIdx;
 }
+function goToPageForDay(ai){
+  const di = getDisplayIndex(ai);
+  currentPage = Math.floor(di / PER_PAGE);
+  updatePageButtons();
+}
+function changePage(delta){
+  currentPage = Math.max(0, Math.min(totalPages - 1, currentPage + delta));
+  updatePageButtons();
+  renderTabs();
+}
+function updatePageButtons(){
+  document.getElementById('prevPageBtn').disabled = currentPage === 0;
+  document.getElementById('nextPageBtn').disabled = currentPage >= totalPages - 1;
+}
 function renderTabs(){
   const tabsEl = document.getElementById('tabs');
+  const start = currentPage * PER_PAGE;
+  const end = Math.min(start + PER_PAGE, DAYS.length);
   let html = '';
-  for(let di = 0; di < DAYS.length; di++){
+  for(let di = start; di < end; di++){
     const ai = getDayIndex(di);
     const day = DAYS[ai];
     const badge = day.title.length > 4 ? day.title.slice(0,4) : day.title;
-    let cls = '';
-    if(ai === currentDay) cls = ' active';
-    else if(!isDayUnlocked(ai)) cls = ' locked';
-    else if(checked[ai]) cls = ' checked';
+    const cls = ai === currentDay ? ' active' : '';
     html += '<div class="tab'+cls+'" onclick="switchDay('+di+')">Day '+(di+1)+'<div class="badge">'+badge+'</div></div>';
   }
   tabsEl.innerHTML = html;
+  updatePageButtons();
 }
 function toggleSort(){
   sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
   document.getElementById('sortBtn').textContent = sortOrder === 'asc' ? '🔢 1→18' : '🔢 18→1';
   currentIdx = 0;
+  goToPageForDay(currentDay);
   renderTabs();
   render();
-}
-function checkedCount(){
-  return Object.values(checked).filter(v=>v===1).length;
 }
 const LKEY = 'listen_v1';
 let listened = {};
@@ -1256,8 +1248,7 @@ function totalCount(){
 function updateHeader(){
   const day=DAYS[currentDay];
   const modeLabel=currentMode==='vocab'?'词汇':(currentMode==='phrase'?'短语':'句子');
-  const doneCount = Object.values(checked).filter(v=>v===1).length;
-  document.getElementById('headerInfo').textContent='Day '+(getDisplayIndex(currentDay)+1)+' · '+modeLabel+' | 已打卡'+doneCount+'/'+DAYS.length;
+  document.getElementById('headerInfo').textContent='Day '+(getDisplayIndex(currentDay)+1)+' · '+modeLabel+' ('+listenedCount()+'/'+totalCount()+')';
 }
 let currentMode = 'vocab';
 let currentIdx = 0;
@@ -1326,15 +1317,6 @@ function render(){
 
   html += '<div class="page-info">'+(currentIdx+1)+' / '+items.length+'</div>';
 
-  // Check-in bar
-  html += '<div class="checkin-bar">';
-  if(checked[currentDay]){
-    html += '<span class="checkin-done">✅ 已打卡</span>';
-  } else if(isDayUnlocked(currentDay)){
-    html += '<button class="checkin-btn" onclick="checkIn()">✅ 完成打卡，解锁下一天</button>';
-  }
-  html += '</div>';
-
   html += '<div class="nav-row">';
   html += '<button onclick="prevItem()">◀</button>';
   html += '<button onclick="flipCard()">👆 翻转</button>';
@@ -1362,10 +1344,10 @@ function getItems(){
 }
 
 function switchDay(d){
-  const ai = getDayIndex(d);
-  if(!isDayUnlocked(ai)) return; // Block locked days
-  currentDay = ai;
+  currentDay = getDayIndex(d);
   currentIdx = 0;
+  goToPageForDay(currentDay);
+  renderTabs();
   render();
 }
 function switchMode(m){ currentMode=m; currentIdx=0; render(); }
@@ -1389,6 +1371,7 @@ if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js?v=5').catch(()=>{});
 }
 
+goToPageForDay(currentDay);
 renderTabs();
 render();
 </script>
